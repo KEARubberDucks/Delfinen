@@ -5,9 +5,11 @@ public class Controller {
     Scanner sc;
     UserInterface ui;
     public Controller(){
-        shouldRun = true;
         sc = new Scanner(System.in);
         ui = new UserInterface();
+    }
+    public void startProgram() {
+        shouldRun = true;
         mainLoop();
     }
 
@@ -21,10 +23,13 @@ public class Controller {
                 switch (choice){
                     case 1 -> coachMenu();
                     case 2 -> cashierMenu();
+                    case 9 -> shouldRun = false;
                 }
             }
-            else ui.signalMessage(Signals.NOT_A_NUMBER);
-
+            else {
+                ui.signalMessage(Signals.NOT_A_NUMBER);
+                sc.nextLine();
+            }
         }
     }
     private void coachMenu() {
@@ -33,4 +38,5 @@ public class Controller {
     private void cashierMenu() {
         ui.signalMessage(Signals.NOT_IMPLEMENTED);
     }
+
 }
