@@ -5,6 +5,7 @@ public class UserInterface {
 
     public void welcome() {
         System.out.println("Velkommen til administrative system!");
+        System.out.println("TEST");
     }
 
     public void mainMenu() {
