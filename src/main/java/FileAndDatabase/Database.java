@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import MainClasses.Swimmer;
 
 public class Database {
-    private ArrayList<Swimmer> svømmere;
+    private ArrayList<Swimmer> swimmers;
 
     public Database() {
-        svømmere = new ArrayList<>();
+        swimmers = new ArrayList<>();
+    }
+
+    public ArrayList<Swimmer> getSwimmers() {
+        return swimmers;
     }
 }
