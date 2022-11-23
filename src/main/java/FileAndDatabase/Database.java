@@ -7,10 +7,13 @@ public class Database {
     private ArrayList<Swimmer> swimmers;
 
     public Database() {
-        swimmers = new ArrayList<>();
     }
 
     public ArrayList<Swimmer> getSwimmers() {
         return swimmers;
+    }
+
+    public void initSwimmers(ArrayList<Swimmer> swimmers) {
+        this.swimmers = swimmers;
     }
 }

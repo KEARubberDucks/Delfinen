@@ -1,7 +1,9 @@
 package MainClasses;
 import Enums.Signals;
+import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
 
+import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -12,13 +14,19 @@ public class Controller {
     Scanner sc;
     UserInterface ui;
     FileHandler fileHandler;
+    Database database;
     public Controller(){
         sc = new Scanner(System.in);
         ui = new UserInterface();
         fileHandler = new FileHandler();
+        database = new Database();
     }
     public void startProgram() throws FileNotFoundException {
         shouldRun = true;
+        ArrayList<Swimmer> swimmers = new ArrayList<>();
+        swimmers.add(new Swimmer("Test",21,false,true));
+        swimmers.add(new Swimmer("tore",100,false,true));
+        database.initSwimmers(swimmers);
         mainLoop();
     }
 
@@ -32,12 +40,10 @@ public class Controller {
                 switch (choice){
                     case 1 -> coachMenu();
                     case 2 -> cashierMenu();
+                    //Todo: Dette skal fjernes og gøres automatisk, hvis der har været ændringer i filen (se Superhero projekt Controller.java l. 131)
                     case 3 ->{
 
-                        ArrayList<Swimmer> svømmere = new ArrayList<>();
-                        svømmere.add(new Swimmer("tore",100,false,true));
-                        svømmere.add(new Swimmer("adam",21,false,true));
-                        fileHandler.saveSvømmer(svømmere);
+                        fileHandler.saveSvømmer(database.getSwimmers());
                     }
                     case 9 -> shouldRun = false;
                 }
