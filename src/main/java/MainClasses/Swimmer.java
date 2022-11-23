@@ -1,6 +1,8 @@
+package MainClasses;
+
 import java.util.ArrayList;
 
-public class Svømmer {
+public class Swimmer {
 
     String name;
     int age;
@@ -9,9 +11,9 @@ public class Svømmer {
     boolean isSeniors = false;
     boolean competetiv;
 
-    ArrayList<Svømmer> Svømmere;
+    ArrayList<Swimmer> Svømmere;
 
-    Svømmer(String name, int age, boolean isActive, boolean competetiv) {
+    public Swimmer(String name, int age, boolean isActive, boolean competetiv) {
         this.name = name;
         this.age = age;
         this.isActive = isActive;
@@ -30,9 +32,9 @@ public class Svømmer {
 
 
     public void createTestData() {
-        Svømmere.add(new Svømmer("Bob", 34, false, false));
-        Svømmere.add(new Svømmer("Jacob", 17, true, false));
-        Svømmere.add(new Svømmer("Emil", 68, true, false));
-        Svømmere.add(new Svømmer("Morten", 16, false, false));
+        Svømmere.add(new Swimmer("Bob", 34, false, false));
+        Svømmere.add(new Swimmer("Jacob", 17, true, false));
+        Svømmere.add(new Swimmer("Emil", 68, true, false));
+        Svømmere.add(new Swimmer("Morten", 16, false, false));
     }
 }

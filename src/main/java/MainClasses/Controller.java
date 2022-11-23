@@ -1,5 +1,7 @@
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+package MainClasses;
+
 import java.util.Scanner;
 
 public class Controller {
@@ -14,7 +16,6 @@ public class Controller {
     }
     public void startProgram() throws FileNotFoundException {
         shouldRun = true;
-
         mainLoop();
     }
 
