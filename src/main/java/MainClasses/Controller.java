@@ -1,6 +1,9 @@
+package MainClasses;
+import Enums.Signals;
+import FileAndDatabase.FileHandler;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-package MainClasses;
 
 import java.util.Scanner;
 
@@ -31,9 +34,9 @@ public class Controller {
                     case 2 -> cashierMenu();
                     case 3 ->{
 
-                        ArrayList<Svømmer> svømmere = new ArrayList<>();
-                        svømmere.add(new Svømmer("bob",19,true,true));
-                        svømmere.add(new Svømmer("mads",20,true,false));
+                        ArrayList<Swimmer> svømmere = new ArrayList<>();
+                        svømmere.add(new Swimmer("tore",100,false,true));
+                        svømmere.add(new Swimmer("adam",21,false,true));
                         fileHandler.saveSvømmer(svømmere);
                     }
                     case 9 -> shouldRun = false;

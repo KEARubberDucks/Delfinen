@@ -1,2 +1,2 @@
-bob; 19; true; true
-mads; 20; true; false
+tore; 100; false; true
+adam; 21; false; true

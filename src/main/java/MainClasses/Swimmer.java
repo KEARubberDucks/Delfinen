@@ -3,15 +3,16 @@ package MainClasses;
 import java.util.ArrayList;
 
 public class Swimmer {
-
-    String name;
-    int age;
-    boolean isActive;
-    boolean isjunior = false;
-    boolean isSeniors = false;
-    boolean competetiv;
+    // TODO: Make private and add getters
+    public String name;
+    public int age;
+    public boolean isActive;
+    public boolean isjunior = false;
+    public boolean isSeniors = false;
+    public boolean competetiv;
 
     ArrayList<Swimmer> Svømmere;
+
 
     public Swimmer(String name, int age, boolean isActive, boolean competetiv) {
         this.name = name;
