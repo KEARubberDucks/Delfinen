@@ -1,3 +1,7 @@
+package MainClasses;
+
+import Enums.Signals;
+
 public class UserInterface {
 
     public UserInterface(){

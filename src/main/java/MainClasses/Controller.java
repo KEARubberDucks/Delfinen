@@ -1,3 +1,5 @@
+package MainClasses;
+
 import java.util.Scanner;
 
 public class Controller {
