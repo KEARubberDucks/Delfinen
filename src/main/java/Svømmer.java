@@ -23,6 +23,11 @@ public class Svømmer {
         this.isSeniors = isSeniors;
         this.competetiv = competetiv;
     }
+    public String getName(){
+        return name;
+    }
+
+
 
     public void createTestData() {
         Svømmere.add(new Svømmer("Bob", 34, false, false));

@@ -1,0 +1,2 @@
+bob; 19; true; true
+mads; 20; true; false
