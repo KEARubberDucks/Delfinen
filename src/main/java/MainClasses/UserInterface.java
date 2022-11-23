@@ -25,13 +25,14 @@ public class UserInterface {
 
     public void printSwimmer(Swimmer swimmer, int index){
         System.out.printf("--------------- \n" +
-                "Svømmer id: %s \n" +
+                "Svømmer id: %d \n" +
                 "Navn: %s\n" +
-                "Alder: %s\n" +
+                "Alder: %d\n" +
                 "competetiv: %s\n" +/*+
                 "seniorstatus: %s\n"*/
                 "--------------- \n",
                 (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.isCompetetiv());
+        //fatter ikke seniorstatus xD så det er hermed blevet udkommenteret til jeg forstår hvordan det hænger sammen
     }
 
     public void signalMessage(Signals signal) {
@@ -45,6 +46,7 @@ public class UserInterface {
     }
 
     public void printSwimmers(ArrayList<Swimmer> swimmers) {
+        // for each loop der printer alle svømmerne i arrayet
         for (Swimmer swimmer : swimmers){
             printSwimmer(swimmer, swimmers.indexOf(swimmer));
         }
