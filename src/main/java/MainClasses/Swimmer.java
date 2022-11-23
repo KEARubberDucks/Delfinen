@@ -29,6 +29,13 @@ public class Swimmer {
     public String getName(){
         return name;
     }
+    public int getAge(){
+        return age;
+    }
+    public boolean isCompetetiv(){
+        return competetiv;
+    }
+
 
 
 

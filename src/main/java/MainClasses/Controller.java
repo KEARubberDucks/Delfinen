@@ -7,6 +7,7 @@ import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Controller {
@@ -45,6 +46,7 @@ public class Controller {
 
                         fileHandler.saveSvømmer(database.getSwimmers());
                     }
+                    case 4 -> deleteSwimmer();
                     case 9 -> shouldRun = false;
                 }
             }
@@ -53,6 +55,28 @@ public class Controller {
                 sc.nextLine();
             }
         }
+    }
+    private void deleteSwimmer(){
+        boolean loopEndValue = false;
+        int indexDelete = 0;
+        Swimmer swimmerDelete = null;
+        while(!loopEndValue){
+            ui.signalMessage(Signals.CHOOSE_SWIMMER);
+            ui.printSwimmers(database.getSwimmers());
+            try{
+                indexDelete = sc.nextInt();
+            } catch (InputMismatchException mismatchException){
+                ui.signalMessage(Signals.INVALID_INPUT);
+            }
+            try {
+                swimmerDelete = database.getSwimmers().get(indexDelete - 1);
+                loopEndValue = true;
+            } catch (IndexOutOfBoundsException outOfBoundsException){
+
+                loopEndValue = false;
+            }
+        }
+        database.deleteSwimmer(swimmerDelete);
     }
     private void coachMenu() {
         ui.signalMessage(Signals.NOT_IMPLEMENTED);
