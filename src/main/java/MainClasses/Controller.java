@@ -3,10 +3,10 @@ import Enums.Signals;
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
 
-import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Controller {
@@ -15,19 +15,19 @@ public class Controller {
     UserInterface ui;
     FileHandler fileHandler;
     Database database;
-
-    public Controller() {
+    public Controller(){
         sc = new Scanner(System.in);
         ui = new UserInterface();
         fileHandler = new FileHandler();
         database = new Database();
     }
-
     public void startProgram() throws FileNotFoundException {
         shouldRun = true;
         ArrayList<Swimmer> swimmers = new ArrayList<>();
-        swimmers.add(new Swimmer("Test", 21, false, true));
-        swimmers.add(new Swimmer("tore", 100, false, true));
+        swimmers.add(new Swimmer("juniortest",18,false,true));
+        swimmers.add(new Swimmer("Test",21,false,true));
+        swimmers.add(new Swimmer("seniortest",60,false,true));
+        swimmers.add(new Swimmer("tore",100,false,true));
         database.initSwimmers(swimmers);
         mainLoop();
     }
@@ -39,32 +39,30 @@ public class Controller {
             ui.mainMenu();
             if (sc.hasNextInt()) {
                 choice = sc.nextInt();
-                switch (choice) {
-                    case 1 -> opretSvømmer();
+                switch (choice){
+                    case 1 -> createSwimmer();
                     case 2 -> cashierMenu();
                     //Todo: Dette skal fjernes og gøres automatisk, hvis der har været ændringer i filen (se Superhero projekt Controller.java l. 131)
-                    case 3 -> {
+                    case 3 ->{
 
                         fileHandler.saveSvømmer(database.getSwimmers());
                     }
                     case 9 -> shouldRun = false;
                 }
-            } else {
+            }
+            else {
                 ui.signalMessage(Signals.NOT_A_NUMBER);
                 sc.nextLine();
             }
         }
     }
-
     private void coachMenu() {
-        ui.signalMessage(Signals.NOT_IMPLEMENTED);
+        ui.printSwimmers(database.getSwimmers());
     }
-
     private void cashierMenu() {
         ui.signalMessage(Signals.NOT_IMPLEMENTED);
     }
-
-    public void opretSvømmer() {
+    public void createSwimmer() {
         Scanner scanner = new Scanner(System.in);
         boolean answered = false;
         String name = "";
