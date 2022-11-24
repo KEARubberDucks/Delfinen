@@ -9,7 +9,7 @@ public class Svømmer {
     boolean isSeniors = false;
     boolean competetiv;
 
-    ArrayList<Svømmer> Svømmere;
+    static ArrayList<Svømmer> Svømmere;
 
     Svømmer(String name, int age, boolean isActive, boolean competetiv) {
         this.name = name;
@@ -29,5 +29,10 @@ public class Svømmer {
         Svømmere.add(new Svømmer("Jacob", 17, true, false));
         Svømmere.add(new Svømmer("Emil", 68, true, false));
         Svømmere.add(new Svømmer("Morten", 16, false, false));
+    }
+
+    public static void createSvømmer(String name, int age, boolean isActive, boolean competetiv) {
+        Svømmer svømmer = new Svømmer(name, age, isActive, competetiv);
+        Svømmere.add(svømmer);
     }
 }
