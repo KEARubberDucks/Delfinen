@@ -2,6 +2,8 @@ package MainClasses;
 
 import Enums.Signals;
 
+import java.util.ArrayList;
+
 public class UserInterface {
 
     public UserInterface(){
@@ -24,6 +26,20 @@ public class UserInterface {
             case NOT_A_NUMBER -> System.out.println("Indtast venligst et nummer");
             case NOT_IMPLEMENTED -> System.out.println("Denne funktionalitet er ikke implementeret endnu");
             default -> System.out.println("HurrDurr, dette skal ikke kunne findes blah, ret dine enums");
+        }
+    }
+    public void printsvimmer(Swimmer swimmer, int index){
+        System.out.printf("Svimmer nr %d: \n" +
+                "Navn: %s \n" +
+                "Age: %s \n" +
+                "Active: %s \n" +
+                "Competetive: %s \n\n",
+                (index + 1), swimmer.getName(), swimmer.
+
+    }
+    public void printSvimmers(ArrayList<Swimmer> svimmers){
+        for (Swimmer swim : svimmers){
+
         }
     }
 }

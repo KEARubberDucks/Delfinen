@@ -54,6 +54,12 @@ public class Controller {
             }
         }
     }
+    public void printSvimmers(){
+        boolean inMenu = true;
+        while (inMenu){
+            ArrayList<>
+        }
+    }
     private void coachMenu() {
         ui.signalMessage(Signals.NOT_IMPLEMENTED);
     }
