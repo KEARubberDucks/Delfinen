@@ -72,14 +72,15 @@ public class Controller {
         name = scanner.next();
         System.out.println("indtast svømmernes alder");
         age = scanner.nextInt();
+        scanner.nextLine();
         while (!answered) {
             System.out.println("Er svømmeren aktiv ja eller nej");
-            switch (scanner.nextLine()) {
-                case "ja, j, Ja":
+            switch (scanner.nextLine().toLowerCase()) {
+                case "ja","j":
                     isActive = true;
                     answered = true;
                     break;
-                case "nej, n , Nej":
+                case "nej","n":
                     isActive = false;
                     answered = true;
                     break;
@@ -90,12 +91,12 @@ public class Controller {
         answered = false;
         while (!answered) {
             System.out.println("er svømmeren competitiv? ja eller nej");
-            switch (scanner.nextLine()) {
-                case "ja, j, Ja":
+            switch (scanner.nextLine().toLowerCase()) {
+                case "ja","j":
                     competetiv = true;
                     answered = true;
                     break;
-                case "nej, n , Nej":
+                case "nej","n":
                     competetiv = false;
                     answered = true;
                     break;
