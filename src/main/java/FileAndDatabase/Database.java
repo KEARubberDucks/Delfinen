@@ -16,7 +16,8 @@ public class Database {
     public void initSwimmers(ArrayList<Swimmer> swimmers) {
         this.swimmers = swimmers;
     }
-    public void deleteSwimmer(Swimmer swimmerDelete){
-        swimmers.remove(swimmerDelete);
+
+    public void createSvømmer(String name, int age, boolean isActive, boolean competetiv) {
+        swimmers.add(new Swimmer(name, age, isActive, competetiv));
     }
 }
