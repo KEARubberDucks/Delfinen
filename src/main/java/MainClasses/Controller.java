@@ -201,6 +201,13 @@ public class Controller {
                     } catch (InputMismatchException IME) {
                         ui.signalMessage(Signals.INCORRECT_VARIABLE_TYPE);
                         intSet = false;
+                        System.out.println("");
+                        change = sc.nextLine();
+                    } catch (NumberFormatException e){
+                        ui.signalMessage(Signals.INCORRECT_VARIABLE_TYPE);
+                        intSet = false;
+                        System.out.println("");
+                        change = sc.nextLine();
                     }
                 }
                 break;
