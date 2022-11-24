@@ -20,7 +20,7 @@ public class FileHandler {
         output = new PrintStream(file);
         if (!Svømmere.isEmpty()){
             for (Swimmer svømmer : Svømmere){
-                output.println(svømmer.getName()+ "; "+svømmer.age+ "; " + svømmer.isActive+ "; " +svømmer.competetiv);
+                output.println(svømmer.getName()+ "; "+svømmer.getAge()+ "; " + svømmer.getisActive()+ "; " +svømmer.getIsCompetetiv());
 
             }
         }

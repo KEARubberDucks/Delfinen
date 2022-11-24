@@ -3,39 +3,58 @@ package MainClasses;
 import java.util.ArrayList;
 
 public class Swimmer {
-    // TODO: Make private and add getters
-    public String name;
-    public int age;
-    public boolean isActive;
-    public boolean isjunior = false;
-    public boolean isSeniors = false;
-    public boolean competetiv;
 
-    ArrayList<Swimmer> Svømmere;
+    private String name;
+    private int age;
+    private boolean isActive;
+    private boolean isjunior = false;
+    private boolean isSeniors = false;
+    private boolean competetiv;
 
+    ArrayList<Swimmer> swimmers;
 
     public Swimmer(String name, int age, boolean isActive, boolean competetiv) {
         this.name = name;
         this.age = age;
         this.isActive = isActive;
-        if (age < 18)
-            isjunior = true;
-        this.isjunior = isjunior;
-        if (age > 60)
-            isSeniors = true;
-        this.isSeniors = isSeniors;
+        this.isjunior = age < 18;
+        this.isSeniors = age > 60;
         this.competetiv = competetiv;
     }
+
+    public void createSvømmer(String name, int age, boolean isActive, boolean competetiv){
+        swimmers.add(new Swimmer(name, age, isActive, competetiv));
+    }
+
     public String getName(){
         return name;
     }
 
+    public int getAge() {
+        return age;
+    }
 
+    public boolean getisActive() {
+        return isActive;
+    }
 
-    public void createTestData() {
-        Svømmere.add(new Swimmer("Bob", 34, false, false));
-        Svømmere.add(new Swimmer("Jacob", 17, true, false));
-        Svømmere.add(new Swimmer("Emil", 68, true, false));
-        Svømmere.add(new Swimmer("Morten", 16, false, false));
+    public boolean getIsCompetetiv() {
+        return competetiv;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public void setCompetetiv(boolean competetiv) {
+        this.competetiv = competetiv;
     }
 }
