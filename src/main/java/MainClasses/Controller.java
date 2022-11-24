@@ -120,7 +120,7 @@ public class Controller {
         Swimmer swimmerToDelete = null;
         while (!swimmerChosen) {
             ui.signalMessage(Signals.CHOOSE_SWIMMMER);
-            //ui.printHeroes(database.getSwimmers());
+            database.printHero();
             try {
                 indexHeroToEdit = sc.nextInt();
             } catch (InputMismatchException IME) {

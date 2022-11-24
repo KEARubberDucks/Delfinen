@@ -41,4 +41,30 @@ public class Database {
         }
         return searchResult;
     }
+
+    public void printHero() {
+
+        System.out.println("liste af svømmere");
+        int nr = 0;
+
+        for (Swimmer swimmer : swimmers) {
+            nr++;
+            System.out.println(" ");
+            System.out.println(nr + "----------");
+            System.out.println("svømmers navn: " + swimmer.getName());
+            System.out.println("svømmers age: " + swimmer.getAge());
+            System.out.println("er aktiv: " + swimmer.getisActive());
+            System.out.println("er kompetetiv: " + swimmer.getIsCompetetiv());
+            System.out.println("----------");
+
+        }
+
+    }
+
+
+    public void printListWithNumbers() {
+        for (int i = 0; i < swimmers.size(); i++) {
+            System.out.println(i + 1 + ":" + swimmers.get(i));
+        }
+    }
 }
