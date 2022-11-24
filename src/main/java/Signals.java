@@ -1,4 +1,6 @@
 public enum Signals {
     NOT_A_NUMBER,
-    NOT_IMPLEMENTED
+    NOT_IMPLEMENTED,
+    INCORRECT_INPUT,
+    CHOOSE_SWIMMMER
 }
