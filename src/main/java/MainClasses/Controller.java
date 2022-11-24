@@ -42,7 +42,7 @@ public class Controller {
                 switch (choice){
                     case 1 -> createSwimmer();
                     case 2 -> cashierMenu();
-                    //Todo: Dette skal fjernes og gøres automatisk, hvis der har været ændringer i filen (se Superhero projekt Controller.java l. 131)
+                    //Todo: Dette skal fjernes og gøres automatisk, hvis der har været ændringer i filen (se Superhero projekt Controller.java l. 132)
                     case 3 ->{
 
                         fileHandler.saveSvømmer(database.getSwimmers());
