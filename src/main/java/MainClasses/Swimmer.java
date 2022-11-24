@@ -29,8 +29,29 @@ public class Swimmer {
     public String getName(){
         return name;
     }
-
-
+    public int getAge(){
+        return age;
+    }
+    public boolean isCompetetiv(){
+        return competetiv;
+    }
+    public boolean isSenior(){
+        boolean seniorStatus = false;
+        if (age < 18)
+            seniorStatus = false;
+        if (age > 60)
+            seniorStatus = true;
+        return seniorStatus;
+    }
+    public String isActive(){
+        String activeStatus = "";
+        if (age <= 18) {
+            activeStatus = "junior";
+        } else if (age >= 60) {
+            activeStatus = "senior";
+        } else activeStatus = "normal";
+        return activeStatus;
+    }
 
     public void createTestData() {
         Svømmere.add(new Swimmer("Bob", 34, false, false));
