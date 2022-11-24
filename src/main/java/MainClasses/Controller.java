@@ -1,19 +1,36 @@
+package MainClasses;
+import Enums.Signals;
+import FileAndDatabase.Database;
+import FileAndDatabase.FileHandler;
+
+import javax.xml.crypto.Data;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class Controller {
     boolean shouldRun;
     Scanner sc;
     UserInterface ui;
+    FileHandler fileHandler;
+    Database database;
     public Controller(){
         sc = new Scanner(System.in);
         ui = new UserInterface();
+        fileHandler = new FileHandler();
+        database = new Database();
     }
-    public void startProgram() {
+    public void startProgram() throws FileNotFoundException {
         shouldRun = true;
+        ArrayList<Swimmer> swimmers = new ArrayList<>();
+        swimmers.add(new Swimmer("Test",21,false,true));
+        swimmers.add(new Swimmer("tore",100,false,true));
+        database.initSwimmers(swimmers);
         mainLoop();
     }
 
-    private void mainLoop() {
+    private void mainLoop() throws FileNotFoundException {
         int choice = 0;
         ui.welcome();
         while(shouldRun){
@@ -23,6 +40,11 @@ public class Controller {
                 switch (choice){
                     case 1 -> opretSvømmer();
                     case 2 -> cashierMenu();
+                    //Todo: Dette skal fjernes og gøres automatisk, hvis der har været ændringer i filen (se Superhero projekt Controller.java l. 131)
+                    case 3 ->{
+
+                        fileHandler.saveSvømmer(database.getSwimmers());
+                    }
                     case 9 -> shouldRun = false;
                 }
             }
@@ -47,7 +69,7 @@ public class Controller {
         boolean competetiv = false;
         System.out.println("opret svømmer!");
         System.out.println("indtast svømmerens navn");
-        name = scanner.nextLine();
+        name = scanner.next();
         System.out.println("indtast svømmernes alder");
         age = scanner.nextInt();
         while (!answered) {
@@ -69,7 +91,7 @@ public class Controller {
         while (!answered) {
             System.out.println("er svømmeren competitiv? ja eller nej");
             switch (scanner.nextLine()) {
-                case "ja","j":
+                case "ja, j, Ja":
                     competetiv = true;
                     answered = true;
                     break;
