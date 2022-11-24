@@ -16,4 +16,7 @@ public class Database {
     public void initSwimmers(ArrayList<Swimmer> swimmers) {
         this.swimmers = swimmers;
     }
+    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv){
+        swimmers.add(new Swimmer(name, age, isActive, competetiv));
+    }
 }

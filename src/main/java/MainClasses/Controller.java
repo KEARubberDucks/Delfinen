@@ -104,7 +104,7 @@ public class Controller {
 
             }
         }
-        Svømmer.createSvømmer(name, age, isActive, competetiv);
+        database.createSwimmer(name, age, isActive, competetiv);
     }
 
 }
