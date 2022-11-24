@@ -25,7 +25,9 @@ public class Controller {
     public void startProgram() throws FileNotFoundException {
         shouldRun = true;
         ArrayList<Swimmer> swimmers = new ArrayList<>();
+        swimmers.add(new Swimmer("juniortest",18,false,true));
         swimmers.add(new Swimmer("Test",21,false,true));
+        swimmers.add(new Swimmer("seniortest",60,false,true));
         swimmers.add(new Swimmer("tore",100,false,true));
         database.initSwimmers(swimmers);
         mainLoop();
@@ -87,7 +89,7 @@ public class Controller {
         database.deleteSwimmer(swimmerDelete);
     }
     private void coachMenu() {
-        ui.signalMessage(Signals.NOT_IMPLEMENTED);
+        ui.printSwimmers(database.getSwimmers());
     }
     private void cashierMenu() {
         ui.signalMessage(Signals.NOT_IMPLEMENTED);

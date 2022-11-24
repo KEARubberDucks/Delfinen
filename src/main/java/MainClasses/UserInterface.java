@@ -15,7 +15,7 @@ public class UserInterface {
 
     public void mainMenu() {
         System.out.print("Vælg en mulighed: \n" +
-                "1: Se oplysninger om klubbens svømmmere (ikke implementeret)\n" +
+                "1: Se oplysninger om klubbens svømmmere\n" +
                 "2: Se oplysninger om kontigentbetalinger (ikke implementeret)\n" +
 
                 "4: Slette en svømmer fra databasen\n" +
@@ -24,21 +24,21 @@ public class UserInterface {
     }
 
     public void printSwimmer(Swimmer swimmer, int index){
-        System.out.printf("--------------- \n" +
+        System.out.printf(
                 "Svømmer id: %d \n" +
                 "Navn: %s\n" +
                 "Alder: %d\n" +
                 "competetiv: %s\n" +
-                "seniorstatus: %b\n" +
+                "seniorstatus: %s\n" +
                 "--------------- \n",
-                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.isCompetetiv(), swimmer.isSenior());
+                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.isCompetetiv(), swimmer.isActive());
     }
 
     public void signalMessage(Signals signal) {
         switch (signal){
             case NOT_A_NUMBER -> System.out.println("Indtast venligst et nummer");
             case NOT_IMPLEMENTED -> System.out.println("Denne funktionalitet er ikke implementeret endnu");
-            case CHOOSE_SWIMMER -> System.out.println("Vælg hvilken svømmer du gerne vil slette");
+            case CHOOSE_SWIMMER -> System.out.println("Indtast svømmer id på den svømmer du gerne vil slette");
             case INVALID_INPUT -> System.out.println("ugyldigt input");
             default -> System.out.println("HurrDurr, dette skal ikke kunne findes blah, ret dine enums");
         }
