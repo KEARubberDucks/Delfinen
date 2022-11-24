@@ -49,6 +49,7 @@ public class Controller {
                         fileHandler.saveSvømmer(database.getSwimmers());
                     }
                     case 4 -> deleteSwimmer();
+                    case 5 -> coachMenu();
                     case 9 -> shouldRun = false;
                 }
             }

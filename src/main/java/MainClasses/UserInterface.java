@@ -19,6 +19,7 @@ public class UserInterface {
                 "2: Se oplysninger om kontigentbetalinger (ikke implementeret)\n" +
 
                 "4: Slette en svømmer fra databasen\n" +
+                "5: Se oplysninger om klubbens svømmmere\n" +
                 "9: Afslut\n"
         );
     }
