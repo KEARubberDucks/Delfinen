@@ -98,9 +98,8 @@ public class Controller {
         //database metode sletter den svømmer der blev hentet tidligere
         database.deleteSwimmer(swimmerDelete);
     }
-    public void createSwimmer() {
 
-    public void opretSvømmer() {
+    public void createSwimmer() {
         Scanner scanner = new Scanner(System.in);
         boolean answered = false;
         String name = "";
@@ -210,16 +209,17 @@ public class Controller {
                 boolean changeSet = false;
                 while (!changeSet) {
                     switch (change) {
-                        case ("j"):
+                        case ("ja"):
                             SwimmerToEdit.setActive(true);
                             changeSet = true;
                             break;
-                        case ("n"):
+                        case ("nej"):
                             SwimmerToEdit.setActive(false);
                             changeSet = true;
                             break;
                         default:
                             ui.signalMessage(Signals.INCORRECT_INPUT_BOOLEAN);
+                            change = sc.nextLine();
                             break;
                     }
                 }
@@ -229,16 +229,18 @@ public class Controller {
                 boolean changeSet2 = false;
                 while (!changeSet2) {
                     switch (change) {
-                        case ("j"):
+                        case ("ja"):
                             SwimmerToEdit.setCompetetiv(true);
                             changeSet2 = true;
                             break;
-                        case ("n"):
+                        case ("nej"):
                             SwimmerToEdit.setCompetetiv(false);
                             changeSet2 = true;
                             break;
                         default:
                             ui.signalMessage(Signals.INCORRECT_INPUT_BOOLEAN);
+                            change = sc.nextLine();
+                            break;
                     }
                 }
                 break;

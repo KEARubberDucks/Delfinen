@@ -15,10 +15,11 @@ public class UserInterface {
 
     public void mainMenu() {
         System.out.print("Vælg en mulighed: \n" +
-                "1: Se oplysninger om klubbens svømmmere\n" +
+                "1: Opret ny Svømmer\n" +
                 "2: Se oplysninger om kontigentbetalinger (ikke implementeret)\n" +
                 "4: Slette en svømmer\n" +
                 "5: Se oplysninger om klubbens svømmer\n" +
+                "6: Redigere i svømmere\n" +
                 "9: Afslut\n"
         );
     }
