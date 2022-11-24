@@ -56,15 +56,7 @@ public class Database {
             System.out.println("er aktiv: " + swimmer.getisActive());
             System.out.println("er kompetetiv: " + swimmer.getIsCompetetiv());
             System.out.println("----------");
-
         }
 
-    }
-
-
-    public void printListWithNumbers() {
-        for (int i = 0; i < swimmers.size(); i++) {
-            System.out.println(i + 1 + ":" + swimmers.get(i));
-        }
     }
 }

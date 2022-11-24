@@ -26,15 +26,11 @@ public class UserInterface {
             case INCORRECT_INPUT -> System.out.println("Kunne ikke genkende input");
             case CHOOSE_SWIMMMER -> System.out.println("vælg en svømmer");
             case CHOOSE_EDIT_OPTION -> System.out.println("vælg en mulighed til redigere");
-            case ASK_FOR_EDIT -> System.out.println("Hvad vil du ændre");
+            case ASK_FOR_EDIT -> System.out.println("Hvad vil du ændre det til");
             case INCORRECT_INPUT_BOOLEAN -> System.out.println("vælg mellem ja eller nej");
             case INCORRECT_VARIABLE_TYPE -> System.out.printf("Ikke korrekt input, skriv venligst et tal");
             default -> System.out.println("HurrDurr, dette skal ikke kunne findes blah, ret dine enums");
         }
-    }
-
-    public void printSwimmer(){
-
     }
 
     public void swimmerinfomation(){
