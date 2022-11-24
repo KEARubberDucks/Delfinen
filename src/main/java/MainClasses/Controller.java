@@ -47,6 +47,8 @@ public class Controller {
 
                         fileHandler.saveSvømmer(database.getSwimmers());
                     }
+                    case 4 -> deleteSwimmer();
+                    case 5 -> coachMenu();
                     case 9 -> shouldRun = false;
                 }
             }
@@ -61,6 +63,36 @@ public class Controller {
     }
     private void cashierMenu() {
         ui.signalMessage(Signals.NOT_IMPLEMENTED);
+    }
+    private void deleteSwimmer(){
+        //boolean loop end value loop slutter ikke indtil det bliver sat til true
+        //initialize de forskellige variabler jeg benytter
+        boolean loopEndValue = false;
+        int indexDelete = 0;
+        Swimmer swimmerDelete = null;
+        while(!loopEndValue){
+            //signal enum vælg svømmer
+            ui.signalMessage(Signals.CHOOSE_SWIMMER);
+            //udskriv alle svømmerne i ui
+            ui.printSwimmers(database.getSwimmers());
+            try{
+                //scanner nextInt i try/catch signal enum for ugyldigt input
+                indexDelete = sc.nextInt();
+            } catch (InputMismatchException mismatchException){
+                ui.signalMessage(Signals.INVALID_INPUT);
+            }
+            try {
+                //fetch svømmeren i database -> bruger valgte index -1 da array starter på 0 ikke 1
+                swimmerDelete = database.getSwimmers().get(indexDelete - 1);
+                //slutter loop
+                loopEndValue = true;
+            } catch (IndexOutOfBoundsException outOfBoundsException){
+
+                loopEndValue = false;
+            }
+        }
+        //database metode sletter den svømmer der blev hentet tidligere
+        database.deleteSwimmer(swimmerDelete);
     }
     public void createSwimmer() {
         Scanner scanner = new Scanner(System.in);
