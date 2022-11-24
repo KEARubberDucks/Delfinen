@@ -47,7 +47,7 @@ public class Controller {
         boolean competetiv = false;
         System.out.println("opret svømmer!");
         System.out.println("indtast svømmerens navn");
-        name = scanner.next();
+        name = scanner.nextLine();
         System.out.println("indtast svømmernes alder");
         age = scanner.nextInt();
         while (!answered) {
