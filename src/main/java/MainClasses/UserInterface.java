@@ -1,3 +1,7 @@
+package MainClasses;
+
+import Enums.Signals;
+
 public class UserInterface {
 
     public UserInterface(){
@@ -5,8 +9,6 @@ public class UserInterface {
 
     public void welcome() {
         System.out.println("Velkommen til administrative system!");
-        //todo: slet dette
-        System.out.println("DETTE ER FRA TESTBRANCH, HVIS DETTE ENDER I MASTER BRANCH VIRKER DET AGGGHHHHHH SLET NÅR FÆRDIGT");
     }
 
     public void mainMenu() {
