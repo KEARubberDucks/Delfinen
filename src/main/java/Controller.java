@@ -69,7 +69,7 @@ public class Controller {
         while (!answered) {
             System.out.println("er svømmeren competitiv? ja eller nej");
             switch (scanner.nextLine()) {
-                case "ja, j, Ja":
+                case "ja","j":
                     competetiv = true;
                     answered = true;
                     break;
