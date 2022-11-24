@@ -3,7 +3,6 @@ import Enums.Signals;
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
 
-import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -38,7 +37,7 @@ public class Controller {
             if (sc.hasNextInt()){
                 choice = sc.nextInt();
                 switch (choice){
-                    case 1 -> opretSvømmer();
+                    case 1 -> createSwimmer();
                     case 2 -> cashierMenu();
                     //Todo: Dette skal fjernes og gøres automatisk, hvis der har været ændringer i filen (se Superhero projekt Controller.java l. 131)
                     case 3 ->{
@@ -60,7 +59,7 @@ public class Controller {
     private void cashierMenu() {
         ui.signalMessage(Signals.NOT_IMPLEMENTED);
     }
-    public void opretSvømmer() {
+    public void createSwimmer() {
         Scanner scanner = new Scanner(System.in);
         boolean answered = false;
         String name = "";
