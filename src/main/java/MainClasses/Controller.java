@@ -1,4 +1,5 @@
 package MainClasses;
+import Comparators.AgeComparator;
 import Enums.Signals;
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
