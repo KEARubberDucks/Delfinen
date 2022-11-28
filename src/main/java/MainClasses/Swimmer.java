@@ -10,7 +10,7 @@ public class Swimmer {
     private boolean isjunior = false;
     private boolean isSeniors = false;
     private boolean competetiv;
-
+// skal fjerndes
     ArrayList<Swimmer> swimmers;
 
     public Swimmer(String name, int age, boolean isActive, boolean competetiv) {
