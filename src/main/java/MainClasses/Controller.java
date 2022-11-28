@@ -1,4 +1,5 @@
 package MainClasses;
+import Comparators.AgeComparator;
 import Enums.Signals;
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
@@ -15,8 +16,9 @@ public class Controller {
     UserInterface ui;
     FileHandler fileHandler;
     Database database;
-
+    AgeComparator ageComparator;
     public Controller() {
+
         sc = new Scanner(System.in);
         ui = new UserInterface();
         fileHandler = new FileHandler();
@@ -32,6 +34,7 @@ public class Controller {
         swimmers.add(new Swimmer("tore",100,false,true));
         database.initSwimmers(swimmers);
         mainLoop();
+        ageComparator = new AgeComparator();
     }
 
     private void mainLoop() throws FileNotFoundException {
