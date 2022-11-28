@@ -16,12 +16,11 @@ public class FileHandler {
         file = new File("Resources/Svømmer.txt");
     }
     //Svømmere skal med lille s
-    public void saveSvømmer(ArrayList<Swimmer> Svømmere)throws FileNotFoundException{
+    public void saveSwimmers(ArrayList<Swimmer> Svømmere)throws FileNotFoundException{
         output = new PrintStream(file);
         if (!Svømmere.isEmpty()){
             for (Swimmer svømmer : Svømmere){
                 output.println(svømmer.getName()+ "; "+svømmer.getAge()+ "; " + svømmer.getisActive()+ "; " +svømmer.getIsCompetetiv());
-
             }
         }
     }
