@@ -6,8 +6,10 @@ import MainClasses.Swimmer;
 public class Database {
     private ArrayList<Swimmer> swimmers;
     private ArrayList<Swimmer> searchResult;
+    private boolean unsavedChanges;
 
     public Database() {
+        unsavedChanges = false;
     }
 
     public ArrayList<Swimmer> getSwimmers() {
@@ -20,9 +22,11 @@ public class Database {
 
     public void createSvømmer(String name, int age, boolean isActive, boolean competetiv) {
         swimmers.add(new Swimmer(name, age, isActive, competetiv));
+        unsavedChanges = true;
     }
     public void deleteSwimmer(Swimmer swimmerDelete){
         swimmers.remove(swimmerDelete);
+        unsavedChanges = true;
     }
 
 
@@ -65,5 +69,9 @@ public class Database {
             System.out.println("----------");
         }
 
+    }
+
+    public boolean hasUnsavedChanges(){ 
+        return unsavedChanges;
     }
 }
