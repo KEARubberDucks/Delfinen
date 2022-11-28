@@ -25,11 +25,7 @@ public class Controller {
 
     public void startProgram() throws FileNotFoundException {
         shouldRun = true;
-        ArrayList<Swimmer> swimmers = new ArrayList<>();
-        swimmers.add(new Swimmer("juniortest",18,false,true));
-        swimmers.add(new Swimmer("Test",21,false,true));
-        swimmers.add(new Swimmer("seniortest",60,false,true));
-        swimmers.add(new Swimmer("tore",100,false,true));
+        ArrayList<Swimmer> swimmers = fileHandler.loadSvømmer();
         database.initSwimmers(swimmers);
         mainLoop();
     }
@@ -44,15 +40,15 @@ public class Controller {
                 switch (choice){
                     case 1 -> createSwimmer();
                     case 2 -> cashierMenu();
-                    //Todo: Dette skal fjernes og gøres automatisk, hvis der har været ændringer i filen (se Superhero projekt Controller.java l. 132)
-                    case 3 ->{
-
-                        fileHandler.saveSvømmer(database.getSwimmers());
+                    case 3 -> deleteSwimmer();
+                    case 4 -> coachMenu();
+                    case 5 -> editSwimmer();
+                    case 9 ->{
+                        if (database.hasUnsavedChanges()){
+                            fileHandler.saveSwimmers(database.getSwimmers());
+                        }
+                        shouldRun = false;
                     }
-                    case 4 -> deleteSwimmer();
-                    case 5 -> coachMenu();
-                    case 6 -> editSwimmer();
-                    case 9 -> shouldRun = false;
                 }
             } else {
                 ui.signalMessage(Signals.NOT_A_NUMBER);
