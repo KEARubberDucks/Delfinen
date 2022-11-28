@@ -50,8 +50,12 @@ public class Swimmer {
         this.age = age;
     }
 
-    public boolean isCompetetiv(){
-        return competetiv;
+    public String isCompetetiv(){
+        if(this.competetiv){
+            return "ja";
+        } else{
+            return "nej";
+        }
     }
     public boolean isSenior(){
         boolean seniorStatus = false;
