@@ -1,4 +1,5 @@
 package MainClasses;
+
 import Enums.Signals;
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
@@ -25,11 +26,7 @@ public class Controller {
 
     public void startProgram() throws FileNotFoundException {
         shouldRun = true;
-        ArrayList<Swimmer> swimmers = new ArrayList<>();
-        swimmers.add(new Swimmer("juniortest",18,false,true));
-        swimmers.add(new Swimmer("Test",21,false,true));
-        swimmers.add(new Swimmer("seniortest",60,false,true));
-        swimmers.add(new Swimmer("tore",100,false,true));
+        ArrayList<Swimmer> swimmers = fileHandler.loadSvømmer();
         database.initSwimmers(swimmers);
         mainLoop();
     }
@@ -41,18 +38,18 @@ public class Controller {
             ui.mainMenu();
             if (sc.hasNextInt()) {
                 choice = sc.nextInt();
-                switch (choice){
+                switch (choice) {
                     case 1 -> createSwimmer();
                     case 2 -> cashierMenu();
-                    //Todo: Dette skal fjernes og gøres automatisk, hvis der har været ændringer i filen (se Superhero projekt Controller.java l. 132)
-                    case 3 ->{
-
-                        fileHandler.saveSvømmer(database.getSwimmers());
+                    case 3 -> deleteSwimmer();
+                    case 4 -> coachMenu();
+                    case 5 -> editSwimmer();
+                    case 9 ->{
+                        if (database.hasUnsavedChanges()){
+                            fileHandler.saveSwimmers(database.getSwimmers());
+                        }
+                        shouldRun = false;
                     }
-                    case 4 -> deleteSwimmer();
-                    case 5 -> coachMenu();
-                    case 6 -> editSwimmer();
-                    case 9 -> shouldRun = false;
                 }
             } else {
                 ui.signalMessage(Signals.NOT_A_NUMBER);
@@ -68,21 +65,22 @@ public class Controller {
     private void cashierMenu() {
         ui.signalMessage(Signals.NOT_IMPLEMENTED);
     }
-    private void deleteSwimmer(){
+
+    private void deleteSwimmer() {
         //boolean loop end value loop slutter ikke indtil det bliver sat til true
         //initialize de forskellige variabler jeg benytter
         boolean loopEndValue = false;
         int indexDelete = 0;
         Swimmer swimmerDelete = null;
-        while(!loopEndValue){
+        while (!loopEndValue) {
             //signal enum vælg svømmer
             ui.signalMessage(Signals.CHOOSE_SWIMMER);
             //udskriv alle svømmerne i ui
             ui.printSwimmers(database.getSwimmers());
-            try{
+            try {
                 //scanner nextInt i try/catch signal enum for ugyldigt input
                 indexDelete = sc.nextInt();
-            } catch (InputMismatchException mismatchException){
+            } catch (InputMismatchException mismatchException) {
                 ui.signalMessage(Signals.INVALID_INPUT);
             }
             try {
@@ -90,7 +88,7 @@ public class Controller {
                 swimmerDelete = database.getSwimmers().get(indexDelete - 1);
                 //slutter loop
                 loopEndValue = true;
-            } catch (IndexOutOfBoundsException outOfBoundsException){
+            } catch (IndexOutOfBoundsException outOfBoundsException) {
 
                 loopEndValue = false;
             }
@@ -108,17 +106,28 @@ public class Controller {
         boolean competetiv = false;
         System.out.println("opret svømmer!");
         System.out.println("indtast svømmerens navn");
-        name = scanner.next();
+        name = scanner.nextLine();
         System.out.println("indtast svømmernes alder");
-        age = scanner.nextInt();
+        while (!answered) {
+            if (scanner.hasNextInt()) {
+                age = scanner.nextInt();
+                answered = true;
+            } else {
+                System.out.println("dette er ikke et tal");
+                answered = false;
+                scanner.nextLine();
+            }
+        }
+        scanner.nextLine();
+        answered = false;
         while (!answered) {
             System.out.println("Er svømmeren aktiv ja eller nej");
-            switch (scanner.nextLine()) {
-                case "ja, j, Ja":
+            switch (scanner.nextLine().toLowerCase()) {
+                case "ja", "j":
                     isActive = true;
                     answered = true;
                     break;
-                case "nej, n , Nej":
+                case "nej", "n":
                     isActive = false;
                     answered = true;
                     break;
@@ -129,12 +138,12 @@ public class Controller {
         answered = false;
         while (!answered) {
             System.out.println("er svømmeren competitiv? ja eller nej");
-            switch (scanner.nextLine()) {
-                case "ja, j, Ja":
+            switch (scanner.nextLine().toLowerCase()) {
+                case "ja", "j":
                     competetiv = true;
                     answered = true;
                     break;
-                case "nej, n , Nej":
+                case "nej", "n":
                     competetiv = false;
                     answered = true;
                     break;
