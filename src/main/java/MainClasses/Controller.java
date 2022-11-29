@@ -133,36 +133,35 @@ public class Controller {
                     answered = true;
                     break;
                 default:
-                    System.out.println("indtast ja eller nej. inputtet er ikke korrekt");
+                    System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
             }
         }
         answered = false;
         while (!answered) {
-            System.out.println("er svømmeren competitiv? ja eller nej");
+            System.out.println("Er svømmeren competitiv? ja eller nej");
             switch (scanner.nextLine().toLowerCase()) {
-                case "ja", "j":
+                case "ja", "j"->{
                     competetiv = true;
                     answered = true;
-                    break;
-                case "nej", "n":
+                }
+                case "nej", "n"->{
                     competetiv = false;
                     answered = true;
-                    break;
-                default:
-                    System.out.println("indtast ja eller nej. inputtet er ikke korrekt");
+                }
+                default -> System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
 
             }
         }
-        database.createSvømmer(name, age, isActive, competetiv);
+        database.createSwimmer(name, age, isActive, competetiv);
     }
 
-    private Swimmer swimmerChosen() {
+    private Swimmer chooseSwimmer() {
         boolean swimmerChosen = false;
         int indexHeroToEdit = 0;
         Swimmer swimmerToDelete = null;
         while (!swimmerChosen) {
             ui.signalMessage(Signals.CHOOSE_SWIMMMER);
-            database.printHero();
+            database.printHeroes();
             try {
                 indexHeroToEdit = sc.nextInt();
             } catch (InputMismatchException IME) {
@@ -181,12 +180,12 @@ public class Controller {
     }
 
     private void editSwimmer() {
-        Swimmer SwimmerToEdit = swimmerChosen();
+        Swimmer SwimmerToEdit = chooseSwimmer();
         ui.signalMessage(Signals.CHOOSE_EDIT_OPTION);
         boolean attributeChosen = false;
         int menuItem = 0;
         while (!attributeChosen) {
-            ui.swimmerinfomation();
+            ui.swimmerInformation();
             try {
                 menuItem = sc.nextInt();
                 attributeChosen = true;
@@ -208,12 +207,7 @@ public class Controller {
                     try {
                         SwimmerToEdit.setAge(Integer.parseInt(change));
                         intSet = true;
-                    } catch (InputMismatchException IME) {
-                        ui.signalMessage(Signals.INCORRECT_VARIABLE_TYPE);
-                        intSet = false;
-                        System.out.println("");
-                        change = sc.nextLine();
-                    } catch (NumberFormatException e){
+                    } catch (InputMismatchException | NumberFormatException IME) {
                         ui.signalMessage(Signals.INCORRECT_VARIABLE_TYPE);
                         intSet = false;
                         System.out.println("");
@@ -226,18 +220,18 @@ public class Controller {
                 boolean changeSet = false;
                 while (!changeSet) {
                     switch (change) {
-                        case ("ja"):
+                        case ("ja") -> {
                             SwimmerToEdit.setActive(true);
                             changeSet = true;
-                            break;
-                        case ("nej"):
+                        }
+                        case ("nej") -> {
                             SwimmerToEdit.setActive(false);
                             changeSet = true;
-                            break;
-                        default:
+                        }
+                        default -> {
                             ui.signalMessage(Signals.INCORRECT_INPUT_BOOLEAN);
                             change = sc.nextLine();
-                            break;
+                        }
                     }
                 }
                 break;
@@ -246,18 +240,18 @@ public class Controller {
                 boolean changeSet2 = false;
                 while (!changeSet2) {
                     switch (change) {
-                        case ("ja"):
-                            SwimmerToEdit.setCompetetiv(true);
+                        case ("ja") -> {
+                            SwimmerToEdit.setCompetitive(true);
                             changeSet2 = true;
-                            break;
-                        case ("nej"):
-                            SwimmerToEdit.setCompetetiv(false);
+                        }
+                        case ("nej") -> {
+                            SwimmerToEdit.setCompetitive(false);
                             changeSet2 = true;
-                            break;
-                        default:
+                        }
+                        default -> {
                             ui.signalMessage(Signals.INCORRECT_INPUT_BOOLEAN);
                             change = sc.nextLine();
-                            break;
+                        }
                     }
                 }
                 break;

@@ -30,9 +30,9 @@ public class UserInterface {
                 "Navn: %s\n" +
                 "Alder: %d\n" +
                 "competetiv: %s\n" +
-                "seniorstatus: %s\n" +
+                "Aldersgruppe: %s\n" +
                 "--------------- \n",
-                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.isCompetetiv(), swimmer.isActive());
+                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.isCompetitive(), swimmer.getAgeGroup());
     }
 
     public void signalMessage(Signals signal) {
@@ -44,7 +44,7 @@ public class UserInterface {
             case CHOOSE_EDIT_OPTION -> System.out.println("vælg en mulighed til redigere");
             case ASK_FOR_EDIT -> System.out.println("Hvad vil du ændre det til");
             case INCORRECT_INPUT_BOOLEAN -> System.out.println("vælg mellem ja eller nej");
-            case INCORRECT_VARIABLE_TYPE -> System.out.printf("Ikke korrekt input, skriv venligst et tal");
+            case INCORRECT_VARIABLE_TYPE -> System.out.print("Ikke korrekt input, skriv venligst et tal");
             case CHOOSE_SWIMMER -> System.out.println("Indtast svømmer id på den svømmer du gerne vil slette");
             case INVALID_INPUT -> System.out.println("ugyldigt input");
             default -> System.out.println("HurrDurr, dette skal ikke kunne findes blah, ret dine enums");
@@ -58,8 +58,8 @@ public class UserInterface {
         }
     }
 
-    public void swimmerinfomation(){
-        System.out.printf("1: Navn \n" +
+    public void swimmerInformation(){
+        System.out.print("1: Navn \n" +
                 "2: alder \n" +
                 "3: er activ \n" +
                 "4: svømmer kompetetiv\n");
