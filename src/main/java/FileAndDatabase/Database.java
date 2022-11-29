@@ -20,7 +20,7 @@ public class Database {
         this.swimmers = swimmers;
     }
 
-    public void createSvømmer(String name, int age, boolean isActive, boolean competetiv) {
+    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv) {
         swimmers.add(new Swimmer(name, age, isActive, competetiv));
         unsavedChanges = true;
     }
@@ -53,19 +53,16 @@ public class Database {
         return searchResult;
     }
 
-    public void printHero() {
+    public void printHeroes() {
 
         System.out.println("liste af svømmere");
-        int nr = 0;
-
         for (Swimmer swimmer : swimmers) {
-            nr++;
             System.out.println(" ");
-            System.out.println(nr + "----------");
+            System.out.println((swimmers.indexOf(swimmer) + 1) + "----------");
             System.out.println("svømmers navn: " + swimmer.getName());
             System.out.println("svømmers age: " + swimmer.getAge());
-            System.out.println("er aktiv: " + swimmer.getisActive());
-            System.out.println("er kompetetiv: " + swimmer.getIsCompetetiv());
+            System.out.println("er aktiv: " + swimmer.getIsActive());
+            System.out.println("er kompetetiv: " + swimmer.getIsCompetitive());
             System.out.println("----------");
         }
 
