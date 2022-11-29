@@ -1,14 +1,19 @@
 package MainClasses;
 
+import Comparators.TypeComparator;
 import Enums.Signals;
+import Enums.SortOptions;
+
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static Enums.SortOptions.TYPE;
+
 
 public class Controller {
     boolean shouldRun;
@@ -16,6 +21,7 @@ public class Controller {
     UserInterface ui;
     FileHandler fileHandler;
     Database database;
+    TypeComparator typeComparator;
 
     public Controller() {
         sc = new Scanner(System.in);
@@ -28,6 +34,7 @@ public class Controller {
         shouldRun = true;
         ArrayList<Swimmer> swimmers = fileHandler.loadSvømmer();
         database.initSwimmers(swimmers);
+        typeComparator = new TypeComparator();
         mainLoop();
     }
 
@@ -44,8 +51,8 @@ public class Controller {
                     case 3 -> deleteSwimmer();
                     case 4 -> coachMenu();
                     case 5 -> editSwimmer();
-                    case 9 ->{
-                        if (database.hasUnsavedChanges()){
+                    case 9 -> {
+                        if (database.hasUnsavedChanges()) {
                             fileHandler.saveSwimmers(database.getSwimmers());
                         }
                         shouldRun = false;
@@ -59,7 +66,7 @@ public class Controller {
     }
 
     private void coachMenu() {
-        ui.printSwimmers(database.getSwimmers());
+        ui.printSwimmers(database.getSwimmers(), TYPE);
     }
 
     private void cashierMenu() {
@@ -212,7 +219,7 @@ public class Controller {
                         intSet = false;
                         System.out.println("");
                         change = sc.nextLine();
-                    } catch (NumberFormatException e){
+                    } catch (NumberFormatException e) {
                         ui.signalMessage(Signals.INCORRECT_VARIABLE_TYPE);
                         intSet = false;
                         System.out.println("");
@@ -265,6 +272,17 @@ public class Controller {
                 ui.signalMessage(Signals.INCORRECT_INPUT);
         }
 
+    }
+
+    public ArrayList<Swimmer> swimmerSortedBy(SortOptions sortingBy) {
+        ArrayList<Swimmer> returnList = database.getSwimmers();
+        switch (sortingBy) {
+            case TYPE:
+                returnList.sort(typeComparator);
+                System.out.println(returnList);
+                break;
+        }
+        return returnList;
     }
 }
 

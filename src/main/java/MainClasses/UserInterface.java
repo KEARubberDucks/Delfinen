@@ -1,6 +1,7 @@
 package MainClasses;
 
 import Enums.Signals;
+import Enums.SortOptions;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,13 @@ public class UserInterface {
             case CHOOSE_SWIMMER -> System.out.println("Indtast svømmer id på den svømmer du gerne vil slette");
             case INVALID_INPUT -> System.out.println("ugyldigt input");
             default -> System.out.println("HurrDurr, dette skal ikke kunne findes blah, ret dine enums");
+        }
+    }
+
+    public void printSwimmers(ArrayList<Swimmer> swimmers, SortOptions sortOptions) {
+        // for each loop der printer alle svømmerne i arrayet
+        for (Swimmer swimmer : swimmers){
+            printSwimmer(swimmer, swimmers.indexOf(swimmer));
         }
     }
 
