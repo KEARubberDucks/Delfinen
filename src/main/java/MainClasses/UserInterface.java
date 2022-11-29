@@ -1,8 +1,10 @@
 package MainClasses;
 
 import Enums.Signals;
+import Enums.SortOption;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class UserInterface {
 
@@ -51,11 +53,14 @@ public class UserInterface {
         }
     }
 
-    public void printSwimmers(ArrayList<Swimmer> swimmers) {
+    public void printSwimmers(ArrayList<Swimmer> swimmers, SortOption sortOption, Comparator comparator) {
         // for each loop der printer alle svømmerne i arrayet
+        System.out.println("Svømmere sorteret efter " + parseSortOption(sortOption));
+        swimmers.sort(comparator);
         for (Swimmer swimmer : swimmers){
             printSwimmer(swimmer, swimmers.indexOf(swimmer));
         }
+        System.out.println("Skriv \"Sorter\" for at sortere efter en anden parameter, eller \"Tilbage\" for at gå tilbage.");
     }
 
     public void swimmerInformation(){
@@ -63,5 +68,23 @@ public class UserInterface {
                 "2: alder \n" +
                 "3: er activ \n" +
                 "4: svømmer kompetetiv\n");
+    }
+
+    public String parseSortOption(SortOption option){
+        return switch (option){
+            case NAME -> "navn";
+            case AGE -> "alder";
+            case IS_ACTIVE -> "om de er aktive";
+            case IS_COMPETITIVE -> "om de er competitive";
+        };
+    }
+
+    public void chooseSortOption() {
+        System.out.println("Vælg en af følgende sorterings parametre");
+        int i = 0;
+        for (SortOption option : SortOption.values()) {
+            i++;
+            System.out.printf("%d: %s\n", i, parseSortOption(option));
+        }
     }
 }
