@@ -21,7 +21,7 @@ class TypeComparatorTest {
     @Test
     void compareGreater() {
         //Arrange
-        TypeComparator typeComparator = new TypeComparator();
+        CompetetiveComparator typeComparator = new CompetetiveComparator();
         Swimmer superheroA = new Swimmer("A",18,false,false);
         Swimmer superheroB = new Swimmer("B",21,false,true);
         Swimmer superheroC = new Swimmer("C",100,false,true);
@@ -35,7 +35,7 @@ class TypeComparatorTest {
     @Test
     void compareEqual() {
         //Arrange
-        TypeComparator typeComparator = new TypeComparator();
+        CompetetiveComparator typeComparator = new CompetetiveComparator();
         Swimmer superheroA = new Swimmer("A",18,false,false);
         Swimmer superheroB = new Swimmer("B",21,false,true);
         Swimmer superheroC = new Swimmer("C",100,false,true);
@@ -48,7 +48,7 @@ class TypeComparatorTest {
     @Test
     void compareLower() {
         //Arrange
-        TypeComparator typeComparator = new TypeComparator();
+        CompetetiveComparator typeComparator = new CompetetiveComparator();
         Swimmer superheroA = new Swimmer("A",18,false,false);
         Swimmer superheroB = new Swimmer("B",21,false,true);
         Swimmer superheroC = new Swimmer("C",100,false,true);

@@ -1,7 +1,7 @@
 package MainClasses;
 
 import Enums.Signals;
-import Enums.SortOptions;
+import Enums.SortOption;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -31,10 +31,11 @@ public class UserInterface {
                 "Svømmer id: %d \n" +
                 "Navn: %s\n" +
                 "Alder: %d\n" +
-                "competetiv: %s\n" +
+                "Aktiv: %s\n" +
+                "Competetiv: %s\n" +
                 "Aldersgruppe: %s\n" +
                 "--------------- \n",
-                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.isCompetitive(), swimmer.getAgeGroup());
+                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup());
     }
 
     public void signalMessage(Signals signal) {
@@ -53,7 +54,7 @@ public class UserInterface {
         }
     }
 
-    public void printSwimmers(ArrayList<Swimmer> swimmers, SortOption sortOption, Comparator comparator) {
+    public void printSwimmers(ArrayList<Swimmer> swimmers, SortOption sortOption, Comparator<Swimmer> comparator) {
         // for each loop der printer alle svømmerne i arrayet
         System.out.println("Svømmere sorteret efter " + parseSortOption(sortOption));
         swimmers.sort(comparator);

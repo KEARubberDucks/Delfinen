@@ -4,9 +4,8 @@ import Comparators.CompetetiveComparator;
 import Comparators.IsActiveComparator;
 import Comparators.NameComparator;
 
-import Comparators.TypeComparator;
 import Enums.Signals;
-import Enums.SortOptions;
+import Enums.SortOption;
 
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
@@ -18,8 +17,6 @@ import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static Enums.SortOptions.TYPE;
-
 
 public class Controller {
     boolean shouldRun;
@@ -27,7 +24,6 @@ public class Controller {
     UserInterface ui;
     FileHandler fileHandler;
     Database database;
-    TypeComparator typeComparator;
 
     AgeComparator ageComparator;
     CompetetiveComparator competetiveComparator;
@@ -50,7 +46,6 @@ public class Controller {
         shouldRun = true;
         ArrayList<Swimmer> swimmers = fileHandler.loadSvømmer();
         database.initSwimmers(swimmers);
-        typeComparator = new TypeComparator();
         mainLoop();
     }
 
@@ -61,6 +56,7 @@ public class Controller {
             ui.mainMenu();
             if (sc.hasNextInt()) {
                 choice = sc.nextInt();
+                sc.nextLine();
                 switch (choice) {
                     case 1 -> createSwimmer();
                     case 2 -> cashierMenu();
@@ -106,8 +102,10 @@ public class Controller {
     private void sorterListeMenu() {
         ui.chooseSortOption();
         int userChoice = 0;
-        if (sc.hasNextInt())
+        if (sc.hasNextInt()) {
             userChoice = sc.nextInt();
+            sc.nextLine();
+        }
         else {
             ui.signalMessage(Signals.NOT_A_NUMBER);
             return;
@@ -222,6 +220,7 @@ public class Controller {
             database.printHeroes();
             try {
                 indexHeroToEdit = sc.nextInt();
+                sc.nextLine();
             } catch (InputMismatchException IME) {
                 ui.signalMessage(Signals.INCORRECT_INPUT);
             }
@@ -317,18 +316,6 @@ public class Controller {
             default:
                 ui.signalMessage(Signals.INCORRECT_INPUT);
         }
-
-    }
-
-    public ArrayList<Swimmer> swimmerSortedBy(SortOptions sortingBy) {
-        ArrayList<Swimmer> returnList = database.getSwimmers();
-        switch (sortingBy) {
-            case TYPE:
-                returnList.sort(typeComparator);
-                System.out.println(returnList);
-                break;
-        }
-        return returnList;
     }
 }
 

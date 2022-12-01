@@ -48,9 +48,6 @@ public class Swimmer {
         this.age = age;
     }
 
-    public boolean isCompetitive(){
-        return competitive;
-    }
     public String getAgeGroup(){
         String activeStatus = "";
         switch (type){
