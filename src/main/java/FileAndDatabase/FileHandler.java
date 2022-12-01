@@ -33,8 +33,8 @@ public class FileHandler {
             svømmerToAdd = new Swimmer(
                     attributeList[0],
                     Integer.parseInt(attributeList[1]),
-                    attributeList[2].equals("true"),
-                    attributeList[3].equals("true")
+                    attributeList[2].equals("ja"),
+                    attributeList[3].equals("ja")
 
             );
             returnList.add(svømmerToAdd);

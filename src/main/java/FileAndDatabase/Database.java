@@ -29,39 +29,13 @@ public class Database {
         unsavedChanges = true;
     }
 
-
-    public ArrayList<Swimmer> searchAndEdit(String searchTerm) {
-
-        for (Swimmer swimmer : swimmers) {
-            String name = swimmer.getName().toLowerCase();
-            //nu skal den finde dem der passer og add dem til searchResult
-            if (name.contains(searchTerm)) {
-
-                //sådan stopper jeg den i at lave flere af den samme element
-                if (!searchResult.contains(swimmer)) {
-                    //add element : men add 2 gange?
-                    searchResult.add(swimmer);
-                }
-
-                //printer hvert element på sin index plads
-                for (int i = 0; i < searchResult.size(); i++)
-                    System.out.println(i + 1 + ":" + searchResult.get(i));
-
-            }
-
-        }
-        return searchResult;
-    }
-
     public void printHeroes() {
-
         System.out.println("liste af svømmere");
         for (Swimmer swimmer : swimmers) {
             System.out.println(" ");
             System.out.println((swimmers.indexOf(swimmer) + 1) + "----------");
             System.out.println("svømmers navn: " + swimmer.getName());
             System.out.println("svømmers age: " + swimmer.getAge());
-            System.out.println("er aktiv: " + swimmer.getIsActive());
             System.out.println("er kompetetiv: " + swimmer.getIsCompetitive());
             System.out.println("----------");
         }

@@ -3,8 +3,10 @@ import Comparators.AgeComparator;
 import Comparators.CompetetiveComparator;
 import Comparators.IsActiveComparator;
 import Comparators.NameComparator;
+
 import Enums.Signals;
 import Enums.SortOption;
+
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
 
@@ -15,12 +17,14 @@ import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
 public class Controller {
     boolean shouldRun;
     Scanner sc;
     UserInterface ui;
     FileHandler fileHandler;
     Database database;
+
     AgeComparator ageComparator;
     CompetetiveComparator competetiveComparator;
     IsActiveComparator isActiveComparator;
@@ -52,6 +56,7 @@ public class Controller {
             ui.mainMenu();
             if (sc.hasNextInt()) {
                 choice = sc.nextInt();
+                sc.nextLine();
                 switch (choice) {
                     case 1 -> createSwimmer();
                     case 2 -> cashierMenu();
@@ -97,8 +102,10 @@ public class Controller {
     private void sorterListeMenu() {
         ui.chooseSortOption();
         int userChoice = 0;
-        if (sc.hasNextInt())
+        if (sc.hasNextInt()) {
             userChoice = sc.nextInt();
+            sc.nextLine();
+        }
         else {
             ui.signalMessage(Signals.NOT_A_NUMBER);
             return;
@@ -213,6 +220,7 @@ public class Controller {
             database.printHeroes();
             try {
                 indexHeroToEdit = sc.nextInt();
+                sc.nextLine();
             } catch (InputMismatchException IME) {
                 ui.signalMessage(Signals.INCORRECT_INPUT);
             }
@@ -308,7 +316,6 @@ public class Controller {
             default:
                 ui.signalMessage(Signals.INCORRECT_INPUT);
         }
-
     }
 }
 
