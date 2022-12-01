@@ -1,12 +1,17 @@
 package MainClasses;
-
+import Comparators.AgeComparator;
+import Comparators.CompetetiveComparator;
+import Comparators.IsActiveComparator;
+import Comparators.NameComparator;
 import Enums.Signals;
+import Enums.SortOption;
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -16,12 +21,21 @@ public class Controller {
     UserInterface ui;
     FileHandler fileHandler;
     Database database;
-
+    AgeComparator ageComparator;
+    CompetetiveComparator competetiveComparator;
+    IsActiveComparator isActiveComparator;
+    NameComparator nameComparator;
+    SortOption sortingBy;
     public Controller() {
         sc = new Scanner(System.in);
         ui = new UserInterface();
         fileHandler = new FileHandler();
         database = new Database();
+        ageComparator = new AgeComparator();
+        competetiveComparator = new CompetetiveComparator();
+        isActiveComparator = new IsActiveComparator();
+        nameComparator = new NameComparator();
+        sortingBy = SortOption.NAME;
     }
 
     public void startProgram() throws FileNotFoundException {
@@ -59,7 +73,43 @@ public class Controller {
     }
 
     private void coachMenu() {
-        ui.printSwimmers(database.getSwimmers());
+        boolean inMenu = true;
+        while(inMenu){
+            ui.printSwimmers(database.getSwimmers(), sortingBy, getComparator());
+            String userChoice = sc.nextLine();
+            switch (userChoice.trim().toLowerCase()){
+                case "sorter" -> sorterListeMenu();
+                case "tilbage" -> inMenu = false;
+                default -> ui.signalMessage(Signals.INCORRECT_INPUT);
+            }
+        }
+    }
+
+    private Comparator getComparator() {
+        return switch (sortingBy){
+            case AGE -> ageComparator;
+            case IS_COMPETITIVE -> competetiveComparator;
+            case IS_ACTIVE -> isActiveComparator;
+            case NAME -> nameComparator;
+        };
+    }
+
+    private void sorterListeMenu() {
+        ui.chooseSortOption();
+        int userChoice = 0;
+        if (sc.hasNextInt())
+            userChoice = sc.nextInt();
+        else {
+            ui.signalMessage(Signals.NOT_A_NUMBER);
+            return;
+        }
+        switch (userChoice){
+            case 1 -> sortingBy = SortOption.values()[0];
+            case 2 -> sortingBy = SortOption.values()[1];
+            case 3 -> sortingBy = SortOption.values()[2];
+            case 4 -> sortingBy = SortOption.values()[3];
+            default -> ui.signalMessage(Signals.INVALID_INPUT);
+        }
     }
 
     private void cashierMenu() {
@@ -76,7 +126,7 @@ public class Controller {
             //signal enum vælg svømmer
             ui.signalMessage(Signals.CHOOSE_SWIMMER);
             //udskriv alle svømmerne i ui
-            ui.printSwimmers(database.getSwimmers());
+            ui.printSwimmers(database.getSwimmers(), sortingBy, getComparator());
             try {
                 //scanner nextInt i try/catch signal enum for ugyldigt input
                 indexDelete = sc.nextInt();
