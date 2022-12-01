@@ -27,8 +27,8 @@ public class Database {
         unsavedChanges = true;
     }
 
-    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, String swimmingDisciplines, int bestResult,
-                              String dateOfResult, String competitionOfResults, String placeOfResult, String trainer){
+    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, String swimmingDisciplines, String bestResult,
+                              String dateOfResult, int competitionOfResults, String placeOfResult, String trainer){
 
         swimmers.add(new CompetitiveSwimmer(name, age, isActive, competetiv, swimmingDisciplines, bestResult, dateOfResult, competitionOfResults, placeOfResult, trainer));
         unsavedChanges = true;

@@ -88,4 +88,11 @@ public class UserInterface {
             System.out.printf("%d: %s\n", i, parseSortOption(option));
         }
     }
+
+    public void printSwimmingDisciplines() {
+        System.out.println("1 Butterfly \n" +
+                "2 Crawl \n" +
+                "3 Rygcrawl \n" +
+                "4 Brystsvømning");
+    }
 }

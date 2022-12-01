@@ -3,14 +3,14 @@ package MainClasses;
 public class CompetitiveSwimmer extends Swimmer {
 
     private String swimmingDisciplines;
-    private int bestResult;
+    private String bestResult;
     private String dateOfResult;
-    private String competitionOfResults;
+    private int competitionOfResults;
     private String placeOfResult;
     private String trainer;
 
-    public CompetitiveSwimmer(String name, int age, boolean isActive, boolean competetiv, String swimmingDisciplines, int bestResult,
-                               String dateOfResult, String competitionOfResults, String placeOfResult, String trainer) {
+    public CompetitiveSwimmer(String name, int age, boolean isActive, boolean competetiv, String swimmingDisciplines, String bestResult,
+                               String dateOfResult, int competitionOfResults, String placeOfResult, String trainer) {
 
         super(name, age, isActive, competetiv);
 
@@ -26,7 +26,7 @@ public class CompetitiveSwimmer extends Swimmer {
         return swimmingDisciplines;
     }
 
-    public int getBestResult() {
+    public String getBestResult() {
         return bestResult;
     }
 
@@ -34,7 +34,7 @@ public class CompetitiveSwimmer extends Swimmer {
         return dateOfResult;
     }
 
-    public String getCompetitionOfResults() {
+    public int getCompetitionOfResults() {
         return competitionOfResults;
     }
 
@@ -50,7 +50,7 @@ public class CompetitiveSwimmer extends Swimmer {
         this.swimmingDisciplines = swimmingDisciplines;
     }
 
-    public void setBestResult(int bestResult) {
+    public void setBestResult(String bestResult) {
         this.bestResult = bestResult;
     }
 
@@ -58,7 +58,7 @@ public class CompetitiveSwimmer extends Swimmer {
         this.dateOfResult = dateOfResult;
     }
 
-    public void setCompetitionOfResults(String competitionOfResults) {
+    public void setCompetitionOfResults(int competitionOfResults) {
         this.competitionOfResults = competitionOfResults;
     }
 

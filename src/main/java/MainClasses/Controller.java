@@ -1,4 +1,5 @@
 package MainClasses;
+
 import Comparators.AgeComparator;
 import Comparators.CompetetiveComparator;
 import Comparators.IsActiveComparator;
@@ -30,6 +31,7 @@ public class Controller {
     IsActiveComparator isActiveComparator;
     NameComparator nameComparator;
     SortOption sortingBy;
+
     public Controller() {
         sc = new Scanner(System.in);
         ui = new UserInterface();
@@ -63,8 +65,8 @@ public class Controller {
                     case 3 -> deleteSwimmer();
                     case 4 -> coachMenu();
                     case 5 -> editSwimmer();
-                    case 9 ->{
-                        if (database.hasUnsavedChanges()){
+                    case 9 -> {
+                        if (database.hasUnsavedChanges()) {
                             fileHandler.saveSwimmers(database.getSwimmers());
                         }
                         shouldRun = false;
@@ -79,10 +81,10 @@ public class Controller {
 
     private void coachMenu() {
         boolean inMenu = true;
-        while(inMenu){
+        while (inMenu) {
             ui.printSwimmers(database.getSwimmers(), sortingBy, getComparator());
             String userChoice = sc.nextLine();
-            switch (userChoice.trim().toLowerCase()){
+            switch (userChoice.trim().toLowerCase()) {
                 case "sorter" -> sorterListeMenu();
                 case "tilbage" -> inMenu = false;
                 default -> ui.signalMessage(Signals.INCORRECT_INPUT);
@@ -91,7 +93,7 @@ public class Controller {
     }
 
     private Comparator getComparator() {
-        return switch (sortingBy){
+        return switch (sortingBy) {
             case AGE -> ageComparator;
             case IS_COMPETITIVE -> competetiveComparator;
             case IS_ACTIVE -> isActiveComparator;
@@ -105,12 +107,11 @@ public class Controller {
         if (sc.hasNextInt()) {
             userChoice = sc.nextInt();
             sc.nextLine();
-        }
-        else {
+        } else {
             ui.signalMessage(Signals.NOT_A_NUMBER);
             return;
         }
-        switch (userChoice){
+        switch (userChoice) {
             case 1 -> sortingBy = SortOption.values()[0];
             case 2 -> sortingBy = SortOption.values()[1];
             case 3 -> sortingBy = SortOption.values()[2];
@@ -161,6 +162,14 @@ public class Controller {
         int age = 0;
         boolean isActive = false;
         boolean competetiv = false;
+
+        String swimmingDisciplines = "";
+        String bestResult = "";
+        String dateOfResult = "";
+        int competitionOfResults = 0;
+        String placeOfResult = "";
+        String trainer = "";
+
         System.out.println("opret svømmer!");
         System.out.println("indtast svømmerens navn");
         name = scanner.nextLine();
@@ -196,11 +205,11 @@ public class Controller {
         while (!answered) {
             System.out.println("Er svømmeren competitiv? ja eller nej");
             switch (scanner.nextLine().toLowerCase()) {
-                case "ja", "j"->{
+                case "ja", "j" -> {
                     competetiv = true;
                     answered = true;
                 }
-                case "nej", "n"->{
+                case "nej", "n" -> {
                     competetiv = false;
                     answered = true;
                 }
@@ -208,7 +217,54 @@ public class Controller {
 
             }
         }
-        database.createSwimmer(name, age, isActive, competetiv);
+        if (competetiv == true) {
+            answered = false;
+            while (!answered) {
+                System.out.println("hvad er deres svømmedisciplin?");
+                ui.printSwimmingDisciplines();
+                switch (scanner.nextLine().toLowerCase()) {
+                    case "1":
+                        swimmingDisciplines = "Butterfly";
+                        answered = true;
+                        break;
+                    case "2":
+                        swimmingDisciplines = "Crawl";
+                        answered = true;
+                        break;
+                    case "3":
+                        swimmingDisciplines = "Rygcrawl";
+                        answered = true;
+                        break;
+                    case "4":
+                        swimmingDisciplines = "Brystsvømning";
+                        answered = true;
+                        break;
+                }
+            }
+            System.out.println("indtast svømmernes beste rank inden for deres diciplin");
+            while (!answered) {
+                if (scanner.hasNextInt()) {
+                    competitionOfResults = scanner.nextInt();
+                    answered = true;
+                } else {
+                    System.out.println("dette er ikke et tal");
+                    answered = false;
+                    scanner.nextLine();
+                }
+            }
+            System.out.println("indtast datoen for deres beste resultat");
+            dateOfResult = scanner.nextLine();
+            System.out.println("indtast svømmerens beste tid inden for deres diciplin");
+            bestResult = scanner.nextLine();
+            System.out.println("hvor fik svømeren deres beste tid");
+            placeOfResult = scanner.nextLine();
+            System.out.println("hvem er deres træner");
+            trainer = scanner.nextLine();
+
+            database.createSwimmer(name, age, isActive, competetiv, swimmingDisciplines, bestResult, dateOfResult, competitionOfResults, placeOfResult, trainer);
+        } else {
+            database.createSwimmer(name, age, isActive, competetiv);
+        }
     }
 
     private Swimmer chooseSwimmer() {

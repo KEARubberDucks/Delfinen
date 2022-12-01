@@ -1,3 +1,4 @@
 Adam; 25; ja; nej
+Bobby; 32; ja; ja
 Tore; 100; nej; ja
 Zebra; 50; nej; nej
