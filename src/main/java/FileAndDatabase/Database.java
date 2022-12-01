@@ -1,6 +1,8 @@
 package FileAndDatabase;
 
 import java.util.ArrayList;
+
+import MainClasses.CompetitiveSwimmer;
 import MainClasses.Swimmer;
 
 public class Database {
@@ -24,6 +26,14 @@ public class Database {
         swimmers.add(new Swimmer(name, age, isActive, competetiv));
         unsavedChanges = true;
     }
+
+    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, String swimmingDisciplines, int bestResult,
+                              String dateOfResult, String competitionOfResults, String placeOfResult, String trainer){
+
+        swimmers.add(new CompetitiveSwimmer(name, age, isActive, competetiv, swimmingDisciplines, bestResult, dateOfResult, competitionOfResults, placeOfResult, trainer));
+        unsavedChanges = true;
+    }
+
     public void deleteSwimmer(Swimmer swimmerDelete){
         swimmers.remove(swimmerDelete);
         unsavedChanges = true;
