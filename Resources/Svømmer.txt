@@ -1,3 +1,2 @@
-Test; 21; true; true
 Tore; 100; false; true
 Adam; 25; true; false

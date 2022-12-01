@@ -4,6 +4,7 @@ import Enums.Signals;
 import Enums.SortOptions;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class UserInterface {
 
@@ -31,9 +32,9 @@ public class UserInterface {
                 "Navn: %s\n" +
                 "Alder: %d\n" +
                 "competetiv: %s\n" +
-                "seniorstatus: %s\n" +
+                "Aldersgruppe: %s\n" +
                 "--------------- \n",
-                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.isCompetetiv(), swimmer.isActive());
+                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.isCompetitive(), swimmer.getAgeGroup());
     }
 
     public void signalMessage(Signals signal) {
@@ -45,31 +46,45 @@ public class UserInterface {
             case CHOOSE_EDIT_OPTION -> System.out.println("vælg en mulighed til redigere");
             case ASK_FOR_EDIT -> System.out.println("Hvad vil du ændre det til");
             case INCORRECT_INPUT_BOOLEAN -> System.out.println("vælg mellem ja eller nej");
-            case INCORRECT_VARIABLE_TYPE -> System.out.printf("Ikke korrekt input, skriv venligst et tal");
+            case INCORRECT_VARIABLE_TYPE -> System.out.print("Ikke korrekt input, skriv venligst et tal");
             case CHOOSE_SWIMMER -> System.out.println("Indtast svømmer id på den svømmer du gerne vil slette");
             case INVALID_INPUT -> System.out.println("ugyldigt input");
             default -> System.out.println("HurrDurr, dette skal ikke kunne findes blah, ret dine enums");
         }
     }
 
-    public void printSwimmers(ArrayList<Swimmer> swimmers, SortOptions sortOptions) {
+    public void printSwimmers(ArrayList<Swimmer> swimmers, SortOption sortOption, Comparator comparator) {
         // for each loop der printer alle svømmerne i arrayet
+        System.out.println("Svømmere sorteret efter " + parseSortOption(sortOption));
+        swimmers.sort(comparator);
         for (Swimmer swimmer : swimmers){
             printSwimmer(swimmer, swimmers.indexOf(swimmer));
         }
+        System.out.println("Skriv \"Sorter\" for at sortere efter en anden parameter, eller \"Tilbage\" for at gå tilbage.");
     }
 
-    public void printSwimmers(ArrayList<Swimmer> swimmers) {
-        // for each loop der printer alle svømmerne i arrayet
-        for (Swimmer swimmer : swimmers){
-            printSwimmer(swimmer, swimmers.indexOf(swimmer));
-        }
-    }
-
-    public void swimmerinfomation(){
-        System.out.printf("1: Navn \n" +
+    public void swimmerInformation(){
+        System.out.print("1: Navn \n" +
                 "2: alder \n" +
                 "3: er activ \n" +
                 "4: svømmer kompetetiv\n");
+    }
+
+    public String parseSortOption(SortOption option){
+        return switch (option){
+            case NAME -> "navn";
+            case AGE -> "alder";
+            case IS_ACTIVE -> "om de er aktive";
+            case IS_COMPETITIVE -> "om de er competitive";
+        };
+    }
+
+    public void chooseSortOption() {
+        System.out.println("Vælg en af følgende sorterings parametre");
+        int i = 0;
+        for (SortOption option : SortOption.values()) {
+            i++;
+            System.out.printf("%d: %s\n", i, parseSortOption(option));
+        }
     }
 }

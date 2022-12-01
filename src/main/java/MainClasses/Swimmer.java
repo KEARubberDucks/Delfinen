@@ -1,31 +1,25 @@
 package MainClasses;
 
-import java.util.ArrayList;
-
 public class Swimmer {
 
     private String name;
     private int age;
     private boolean isActive;
-    private boolean isjunior = false;
-    private boolean isSeniors = false;
-    private boolean competetiv;
-// skal fjerndes
-    ArrayList<Swimmer> swimmers;
+    private enum Type {SENIOR, NORMAL, JUNIOR}
+    private Type type;
+    private boolean competitive;
 
     public Swimmer(String name, int age, boolean isActive, boolean competetiv) {
         this.name = name;
         this.age = age;
         this.isActive = isActive;
-        this.isjunior = age < 18;
-        this.isSeniors = age > 60;
-        this.competetiv = competetiv;
+        this.competitive = competetiv;
+        if (age < 18)
+            type = Type.JUNIOR;
+        else if (age > 60)
+            type = Type.SENIOR;
+        else type = Type.NORMAL;
     }
-
-    public void createSvømmer(String name, int age, boolean isActive, boolean competetiv){
-        swimmers.add(new Swimmer(name, age, isActive, competetiv));
-    }
-
     public String getName(){
         return name;
     }
@@ -34,12 +28,16 @@ public class Swimmer {
         return age;
     }
 
-    public boolean getisActive() {
-        return isActive;
+    private String parseBoolean(boolean bool){
+        return bool ? "ja" : "nej";
     }
 
-    public boolean getIsCompetetiv() {
-        return competetiv;
+    public String getIsActive() {
+        return parseBoolean(isActive);
+    }
+
+    public String getIsCompetitive() {
+        return parseBoolean(competitive);
     }
 
     public void setName(String name) {
@@ -50,28 +48,16 @@ public class Swimmer {
         this.age = age;
     }
 
-    public String isCompetetiv(){
-        if(this.competetiv){
-            return "ja";
-        } else{
-            return "nej";
-        }
+    public boolean isCompetitive(){
+        return competitive;
     }
-    public boolean isSenior(){
-        boolean seniorStatus = false;
-        if (age < 18)
-            seniorStatus = false;
-        if (age > 60)
-            seniorStatus = true;
-        return seniorStatus;
-    }
-    public String isActive(){
+    public String getAgeGroup(){
         String activeStatus = "";
-        if (age <= 18) {
-            activeStatus = "junior";
-        } else if (age >= 60) {
-            activeStatus = "senior";
-        } else activeStatus = "normal";
+        switch (type){
+            case JUNIOR -> activeStatus = "junior";
+            case NORMAL -> activeStatus = "normal";
+            case SENIOR -> activeStatus = "senior";
+        }
         return activeStatus;
     }
 
@@ -79,7 +65,7 @@ public class Swimmer {
         isActive = active;
     }
 
-    public void setCompetetiv(boolean competetiv) {
-        this.competetiv = competetiv;
+    public void setCompetitive(boolean competitive) {
+        this.competitive = competitive;
     }
 }
