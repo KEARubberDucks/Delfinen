@@ -11,11 +11,7 @@ import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-
-import java.util.Comparator;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Controller {
@@ -24,12 +20,13 @@ public class Controller {
     UserInterface ui;
     FileHandler fileHandler;
     Database database;
-
     AgeComparator ageComparator;
     CompetetiveComparator competetiveComparator;
     IsActiveComparator isActiveComparator;
     NameComparator nameComparator;
     SortOption sortingBy;
+    ArrayList<Discipline> disciplines;
+
     public Controller() {
         sc = new Scanner(System.in);
         ui = new UserInterface();
@@ -40,6 +37,14 @@ public class Controller {
         isActiveComparator = new IsActiveComparator();
         nameComparator = new NameComparator();
         sortingBy = SortOption.NAME;
+
+        disciplines = new ArrayList<>();
+        disciplines.addAll(List.of(
+                new Discipline("Butterfly"),
+                new Discipline("Crawl"),
+                new Discipline("Rygcrawl"),
+                new Discipline("Brystsvømning")
+        ));
     }
 
     public void startProgram() throws FileNotFoundException {

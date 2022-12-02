@@ -25,6 +25,7 @@ public class FileHandler {
         }
     }
     public ArrayList<Swimmer> loadSvømmer() throws FileNotFoundException{
+        //TODO: Hvis svømmerne er kompetitive skal de være af den nye subklasse CompetitiveSwimmer.java
         ArrayList<Swimmer> returnList = new ArrayList<>();
         Swimmer svømmerToAdd;
         input = new Scanner(file);
