@@ -122,61 +122,92 @@ public class Controller {
     private void cashierMenu() {
         ui.signalMessage(Signals.NOT_IMPLEMENTED);
     }
-    private void paid(ArrayList<Swimmer> swimmers){
+    private int swimmersPaid(ArrayList<Swimmer> swimmers){
         int usersPaid = 0;
-        double amountPaid = 0;
         for (Swimmer swimmer : swimmers){
             if(swimmer.getHasPaid().contains("ja")) {
                 if(swimmer.getIsActive().contains("ja")) {
                     if (swimmer.getAgeGroup().contains("junior")) {
                         usersPaid++;
-                        amountPaid = amountPaid+1000;
                     } else if (swimmer.getAgeGroup().contains("senior")) {
                         usersPaid++;
-                        amountPaid = amountPaid+(1600*0.75);
                     } else {
                         usersPaid++;
-                        amountPaid = amountPaid+1600;
                     }
                 } else {
                     usersPaid++;
-                    amountPaid = amountPaid+500;
                 }
             }
         }
-        System.out.println("antal betallinger: " + usersPaid);
-        System.out.println("mængde betalt: " + amountPaid + " kr.");
+        return usersPaid;
     }
-    private void notPaid(ArrayList<Swimmer> swimmers){
+    private int swimmersNotPaid(ArrayList<Swimmer> swimmers){
         int usersPaid = 0;
-        double amountPaid = 0;
         for (Swimmer swimmer : swimmers){
             if(swimmer.getHasPaid().contains("nej")) {
                 if(swimmer.getIsActive().contains("ja")) {
                     if (swimmer.getAgeGroup().contains("junior")) {
                         usersPaid++;
-                        amountPaid = amountPaid+1000;
                     } else if (swimmer.getAgeGroup().contains("senior")) {
                         usersPaid++;
-                        amountPaid = amountPaid+(1600*0.75);
                     } else {
                         usersPaid++;
-                        amountPaid = amountPaid+1600;
                     }
                 } else {
                     usersPaid++;
-                    amountPaid = amountPaid+500;
                 }
             }
         }
-        System.out.println("antal manglende betalinger: " + usersPaid);
-        System.out.println("mængde manglende betalinger: " + amountPaid + " kr.");
+        return usersPaid;
+    }
+    private double swimmerMembershipPrice(Swimmer swimmer){
+        double amountPaid = 0;
+        if(swimmer.getIsActive().contains("ja")) {
+            if (swimmer.getAgeGroup().contains("junior")) {
+                amountPaid = amountPaid+1000;
+            } else if (swimmer.getAgeGroup().contains("senior")) {
+                amountPaid = amountPaid+(1600*0.75);
+            } else {
+                amountPaid = amountPaid+1600;
+            }
+        } else {
+            amountPaid = amountPaid+500;
+        } return amountPaid;
+    }
+    private double swimmersMembershipIncome(ArrayList<Swimmer> swimmers){
+        double totalPaid = 0;
+        for (Swimmer swimmer : swimmers){
+            if(swimmer.getHasPaid().contains("ja")) {
+                double amountPaid = swimmerMembershipPrice(swimmer);
+                totalPaid = totalPaid+amountPaid;
+            }
+        } return totalPaid;
+    }
+    private double swimmersMembershipDebt(ArrayList<Swimmer> swimmers){
+        double totalPaid = 0;
+        for (Swimmer swimmer : swimmers){
+            if(swimmer.getHasPaid().contains("nej")) {
+                double amountPaid = swimmerMembershipPrice(swimmer);
+                totalPaid = totalPaid+amountPaid;
+            }
+        } return totalPaid;
     }
     private void expectedPayments(){
-        paid(database.getSwimmers());
-        notPaid(database.getSwimmers());
-        System.out.println("total");
+        //income
+        ui.signalMessage(Signals.USERS_PAID);
+        System.out.println(swimmersPaid(database.getSwimmers()));
+        ui.signalMessage(Signals.AMOUNT_PAID);
+        System.out.print(swimmersMembershipIncome(database.getSwimmers()));
+        ui.signalMessage(Signals.CURRENCY);
+
+        //debt
+        ui.signalMessage(Signals.USERS_MISSING_PAYMENT);
+        System.out.println(swimmersNotPaid(database.getSwimmers()));
+        ui.signalMessage(Signals.AMOUNT_PAY_MISSING);
+        System.out.print(swimmersMembershipDebt(database.getSwimmers()));
+        ui.signalMessage(Signals.CURRENCY);
     }
+    //TODO move system.out.print out from controller to ui
 
     private void deleteSwimmer() {
         //boolean loopEndValue loop slutter ikke indtil det bliver sat til true

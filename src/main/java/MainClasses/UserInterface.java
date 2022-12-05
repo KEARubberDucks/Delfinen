@@ -38,25 +38,6 @@ public class UserInterface {
                 "--------------- \n",
                 (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup(), swimmer.getHasPaid());
     }
-
-    public void printPayer(Swimmer swimmer){
-        System.out.printf("Navn: %s\n" +
-                        "Alder: %d\n" +
-                        "Aktiv: %s\n" +
-                        "Competetiv: %s\n" +
-                        "Aldersgruppe: %s\n" +
-                        "Betalt: %s\n" +
-                        "--------------- \n",
-                swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup(), swimmer.getHasPaid());
-    }
-
-    public void printPayers(ArrayList<Swimmer> swimmers) {
-        // for each loop der printer alle svømmerne i arrayet
-        for (Swimmer swimmer : swimmers){
-            printSwimmer(swimmer, swimmers.indexOf(swimmer));
-        }
-    }
-
     public void signalMessage(Signals signal) {
         switch (signal){
             case NOT_A_NUMBER -> System.out.println("Indtast venligst et nummer");
@@ -69,6 +50,11 @@ public class UserInterface {
             case INCORRECT_VARIABLE_TYPE -> System.out.print("Ikke korrekt input, skriv venligst et tal");
             case CHOOSE_SWIMMER -> System.out.println("Indtast svømmer id på den svømmer du gerne vil slette");
             case INVALID_INPUT -> System.out.println("ugyldigt input");
+            case USERS_PAID -> System.out.print("antal svømmere der har betalt: ");
+            case AMOUNT_PAID -> System.out.print("mængde betalt: ");
+            case USERS_MISSING_PAYMENT -> System.out.print("antal svømmere der mangler at betale: ");
+            case AMOUNT_PAY_MISSING -> System.out.print("mængde manglende betalinger: ");
+            case CURRENCY -> System.out.println(" kr. ");
             default -> System.out.println("HurrDurr, dette skal ikke kunne findes blah, ret dine enums");
         }
     }
