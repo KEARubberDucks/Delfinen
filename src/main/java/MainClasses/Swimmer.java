@@ -5,6 +5,31 @@ public class Swimmer {
     private String name;
     private int age;
     private boolean isActive;
+
+    public String getSwimmingDisciplines() {
+        return getSwimmingDisciplines();
+    }
+
+    public String getBestResult() {
+        return getBestResult();
+    }
+
+    public String getDateOfResult(){
+        return getDateOfResult();
+    }
+
+    public int getCompetitionOfResults() {
+        return getCompetitionOfResults();
+    }
+
+    public String getPlaceOfResult() {
+        return getPlaceOfResult();
+    }
+
+    public String getTrainer() {
+        return getTrainer();
+    }
+
     private enum Type {SENIOR, NORMAL, JUNIOR}
     private Type type;
     private boolean competitive;

@@ -242,18 +242,23 @@ public class Controller {
                 }
             }
             System.out.println("indtast svømmernes beste rank inden for deres diciplin");
-            while (!answered) {
+            answered = true;
+            while (answered) {
                 if (scanner.hasNextInt()) {
                     competitionOfResults = scanner.nextInt();
-                    answered = true;
+                    answered = false;
                 } else {
                     System.out.println("dette er ikke et tal");
-                    answered = false;
+                    answered = true;
                     scanner.nextLine();
                 }
             }
             System.out.println("indtast datoen for deres beste resultat");
             dateOfResult = scanner.nextLine();
+            if(dateOfResult == ""){
+                System.out.println("Indtast den dato hvor svømmeren fik deres beste resultat");
+                dateOfResult = scanner.nextLine();
+            }
             System.out.println("indtast svømmerens beste tid inden for deres diciplin");
             bestResult = scanner.nextLine();
             System.out.println("hvor fik svømeren deres beste tid");

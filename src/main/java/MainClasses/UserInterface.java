@@ -38,6 +38,26 @@ public class UserInterface {
                 (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup());
     }
 
+    public void printCompetitiveSwimmer(Swimmer swimmer, int index){
+        System.out.printf(
+                "Svømmer id: %d \n" +
+                        "Navn: %s\n" +
+                        "Alder: %d\n" +
+                        "Aktiv: %s\n" +
+                        "Competetiv: %s\n" +
+                        "Aldersgruppe: %s\n" +
+                        "Svømme disciplin: %s\n" +
+                        "Beste resultat: %s\n" +
+                        "Resultat Dato: %s\n" +
+                        "placering: %s\n" +
+                        "Beste resultat fra: %s\n" +
+                        "Træner: %s\n" +
+                        "--------------- \n",
+                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup(),
+                swimmer.getSwimmingDisciplines(), swimmer.getBestResult(), swimmer.getDateOfResult(),
+                swimmer.getCompetitionOfResults(), swimmer.getPlaceOfResult(), swimmer.getTrainer());
+    }
+
     public void signalMessage(Signals signal) {
         switch (signal){
             case NOT_A_NUMBER -> System.out.println("Indtast venligst et nummer");
@@ -59,7 +79,11 @@ public class UserInterface {
         System.out.println("Svømmere sorteret efter " + parseSortOption(sortOption));
         swimmers.sort(comparator);
         for (Swimmer swimmer : swimmers){
-            printSwimmer(swimmer, swimmers.indexOf(swimmer));
+            if (swimmer instanceof CompetitiveSwimmer){
+                printCompetitiveSwimmer(swimmer, swimmers.indexOf(swimmer));
+            } else {
+                printSwimmer(swimmer, swimmers.indexOf(swimmer));
+            }
         }
         System.out.println("Skriv \"Sorter\" for at sortere efter en anden parameter, eller \"Tilbage\" for at gå tilbage.");
     }

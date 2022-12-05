@@ -1,4 +1,5 @@
 package FileAndDatabase;
+import MainClasses.CompetitiveSwimmer;
 import MainClasses.Swimmer;
 
 import java.io.File;
@@ -15,12 +16,18 @@ public class FileHandler {
     public FileHandler(){
         file = new File("Resources/Svømmer.txt");
     }
-    //Svømmere skal med lille s
-    public void saveSwimmers(ArrayList<Swimmer> Svømmere)throws FileNotFoundException{
+    //Swimmere skal med lille s
+    public void saveSwimmers(ArrayList<Swimmer> Swimmere)throws FileNotFoundException{
         output = new PrintStream(file);
-        if (!Svømmere.isEmpty()){
-            for (Swimmer svømmer : Svømmere){
-                output.println(svømmer.getName()+ "; "+svømmer.getAge()+ "; " + svømmer.getIsActive()+ "; " +svømmer.getIsCompetitive());
+        if (!Swimmere.isEmpty()){
+            for (Swimmer swimmer : Swimmere){
+                    if (swimmer instanceof CompetitiveSwimmer){
+                        output.println(swimmer.getName()+ "; "+swimmer.getAge()+ "; " + swimmer.getIsActive()+ "; " + swimmer.getIsCompetitive()+ "; " +
+                                        swimmer.getSwimmingDisciplines()+ "; " + swimmer.getBestResult()+ "; " + swimmer.getDateOfResult()+ "; " +
+                                swimmer.getCompetitionOfResults()+ "; " + swimmer.getPlaceOfResult()+ "; " + swimmer.getTrainer());
+                    } else {
+                        output.println(swimmer.getName()+ "; "+swimmer.getAge()+ "; " + swimmer.getIsActive()+ "; " + swimmer.getIsCompetitive());
+                    }
             }
         }
     }

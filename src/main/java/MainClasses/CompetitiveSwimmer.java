@@ -30,7 +30,7 @@ public class CompetitiveSwimmer extends Swimmer {
         return bestResult;
     }
 
-    public String getDateOfResult() {
+    public String getDateOfResult(){
         return dateOfResult;
     }
 
