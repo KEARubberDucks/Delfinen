@@ -1,4 +1,5 @@
 package FileAndDatabase;
+import Enums.Discipline;
 import MainClasses.CompetitiveSwimmer;
 import MainClasses.Swimmer;
 
@@ -21,7 +22,7 @@ public class FileHandler {
         output = new PrintStream(file);
         if (!Svømmere.isEmpty()){
             for (Swimmer svømmer : Svømmere){
-                output.println(svømmer.getName()+ "; "+svømmer.getAge()+ "; " + svømmer.getIsActive()+ "; " +svømmer.getIsCompetitive());
+                output.println(svømmer);
             }
         }
     }
@@ -36,8 +37,8 @@ public class FileHandler {
                     attributeList[0],
                     Integer.parseInt(attributeList[1]),
                     attributeList[2].equals("ja"),
-                    true
-
+                    true, attributeList[4],
+                     getDiscipline(attributeList[5])
                 );
             else
                 svømmerToAdd = new Swimmer(
@@ -50,5 +51,15 @@ public class FileHandler {
             returnList.add(svømmerToAdd);
         }
         return returnList;
+    }
+
+    private Discipline getDiscipline(String s) {
+        return switch (s){
+            case "BUTTERFLY" -> Discipline.BUTTERFLY;
+            case "CRAWL" -> Discipline.CRAWL;
+            case "RYGCRAWL" -> Discipline.RYGCRAWL;
+            case "BRYSTSVMØMNING" -> Discipline.BRYSTSVMØMNING;
+            default -> null;
+        };
     }
 }

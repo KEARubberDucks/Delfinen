@@ -1,4 +1,4 @@
-package MainClasses;
+/*package MainClasses;
 
 import java.util.ArrayList;
 
@@ -29,3 +29,4 @@ public class Discipline {
 
     //TODO: evt. også en konkurrence class, der holder styr på stævne, placering of tid.
 }
+*/

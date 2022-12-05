@@ -70,4 +70,9 @@ public class Swimmer {
     public void setCompetitive(boolean competitive) {
         this.competitive = competitive;
     }
+
+    @Override
+    public String toString() {
+        return getName()+ "; "+ getAge()+ "; " + getIsActive()+ "; " + getIsCompetitive();
+    }
 }

@@ -33,9 +33,12 @@ public class UserInterface {
                 "Alder: %d\n" +
                 "Aktiv: %s\n" +
                 "Competetiv: %s\n" +
-                "Aldersgruppe: %s\n" +
-                "--------------- \n",
-                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup());
+                "Aldersgruppe: %s\n" ,(index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup());
+        if (swimmer instanceof CompetitiveSwimmer)
+            System.out.printf("Træner: %s\n" +
+                    "Disciplin: %s\n", ((CompetitiveSwimmer) swimmer).getCoachName(), ((CompetitiveSwimmer) swimmer).getDiscipline().toString().toLowerCase());
+        System.out.println("--------------- \n");
+
     }
 
     public void signalMessage(Signals signal) {

@@ -25,7 +25,6 @@ public class Controller {
     IsActiveComparator isActiveComparator;
     NameComparator nameComparator;
     SortOption sortingBy;
-    ArrayList<Discipline> disciplines;
 
     public Controller() {
         sc = new Scanner(System.in);
@@ -38,13 +37,6 @@ public class Controller {
         nameComparator = new NameComparator();
         sortingBy = SortOption.NAME;
 
-        disciplines = new ArrayList<>();
-        disciplines.addAll(List.of(
-                new Discipline("Butterfly"),
-                new Discipline("Crawl"),
-                new Discipline("Rygcrawl"),
-                new Discipline("Brystsvømning")
-        ));
     }
 
     public void startProgram() throws FileNotFoundException {
@@ -194,7 +186,7 @@ public class Controller {
                     answered = true;
                     break;
                 default:
-                    System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
+                    System.out.println("Indtast ja eller nej. Inputtet er ikke korrekt");
             }
         }
         answered = false;
