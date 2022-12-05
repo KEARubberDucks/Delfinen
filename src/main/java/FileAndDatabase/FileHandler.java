@@ -1,4 +1,5 @@
 package FileAndDatabase;
+import MainClasses.CompetitiveSwimmer;
 import MainClasses.Swimmer;
 
 import java.io.File;
@@ -25,19 +26,27 @@ public class FileHandler {
         }
     }
     public ArrayList<Swimmer> loadSvømmer() throws FileNotFoundException{
-        //TODO: Hvis svømmerne er kompetitive skal de være af den nye subklasse CompetitiveSwimmer.java
         ArrayList<Swimmer> returnList = new ArrayList<>();
         Swimmer svømmerToAdd;
         input = new Scanner(file);
         while (input.hasNextLine()){
             String[] attributeList = input.nextLine().split("; ");
-            svømmerToAdd = new Swimmer(
+            if (attributeList[3].equals("ja"))
+                svømmerToAdd = new CompetitiveSwimmer(
                     attributeList[0],
                     Integer.parseInt(attributeList[1]),
                     attributeList[2].equals("ja"),
-                    attributeList[3].equals("ja")
+                    true
 
-            );
+                );
+            else
+                svømmerToAdd = new Swimmer(
+                        attributeList[0],
+                        Integer.parseInt(attributeList[1]),
+                        attributeList[2].equals("ja"),
+                        false
+
+                );
             returnList.add(svømmerToAdd);
         }
         return returnList;
