@@ -13,31 +13,31 @@ public class FileHandler {
     PrintStream output;
     Scanner input;
     public FileHandler(){
-        file = new File("Resources/Svømmer.txt");
+        file = new File("Resources/Swimmer.txt");
     }
-    //Svømmere skal med lille s
-    public void saveSwimmers(ArrayList<Swimmer> Svømmere)throws FileNotFoundException{
+    //Swimmers skal med lille s
+    public void saveSwimmers(ArrayList<Swimmer> Swimmers)throws FileNotFoundException{
         output = new PrintStream(file);
-        if (!Svømmere.isEmpty()){
-            for (Swimmer svømmer : Svømmere){
-                output.println(svømmer.getName()+ "; "+svømmer.getAge()+ "; " + svømmer.getIsActive()+ "; " +svømmer.getIsCompetitive());
+        if (!Swimmers.isEmpty()){
+            for (Swimmer swimmer : Swimmers){
+                output.println(swimmer.getName()+ "; "+swimmer.getAge()+ "; " + swimmer.getIsActive()+ "; " +swimmer.getIsCompetitive());
             }
         }
     }
-    public ArrayList<Swimmer> loadSvømmer() throws FileNotFoundException{
+    public ArrayList<Swimmer> loadSwimmer() throws FileNotFoundException{
         ArrayList<Swimmer> returnList = new ArrayList<>();
-        Swimmer svømmerToAdd;
+        Swimmer swimmerToAdd;
         input = new Scanner(file);
         while (input.hasNextLine()){
             String[] attributeList = input.nextLine().split("; ");
-            svømmerToAdd = new Swimmer(
+            swimmerToAdd = new Swimmer(
                     attributeList[0],
                     Integer.parseInt(attributeList[1]),
                     attributeList[2].equals("ja"),
                     attributeList[3].equals("ja")
 
             );
-            returnList.add(svømmerToAdd);
+            returnList.add(swimmerToAdd);
         }
         return returnList;
     }

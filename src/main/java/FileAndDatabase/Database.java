@@ -28,8 +28,7 @@ public class Database {
         swimmers.remove(swimmerDelete);
         unsavedChanges = true;
     }
-
-    public void printHeroes() {
+    public void printSwimmers() {
         System.out.println("liste af svømmere");
         for (Swimmer swimmer : swimmers) {
             System.out.println(" ");

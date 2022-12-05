@@ -1,6 +1,6 @@
 package MainClasses;
 import Comparators.AgeComparator;
-import Comparators.CompetetiveComparator;
+import Comparators.CompetitiveComparator;
 import Comparators.IsActiveComparator;
 import Comparators.NameComparator;
 
@@ -26,7 +26,7 @@ public class Controller {
     Database database;
 
     AgeComparator ageComparator;
-    CompetetiveComparator competetiveComparator;
+    CompetitiveComparator competitiveComparator;
     IsActiveComparator isActiveComparator;
     NameComparator nameComparator;
     SortOption sortingBy;
@@ -36,7 +36,7 @@ public class Controller {
         fileHandler = new FileHandler();
         database = new Database();
         ageComparator = new AgeComparator();
-        competetiveComparator = new CompetetiveComparator();
+        competitiveComparator = new CompetitiveComparator();
         isActiveComparator = new IsActiveComparator();
         nameComparator = new NameComparator();
         sortingBy = SortOption.NAME;
@@ -44,7 +44,7 @@ public class Controller {
 
     public void startProgram() throws FileNotFoundException {
         shouldRun = true;
-        ArrayList<Swimmer> swimmers = fileHandler.loadSvømmer();
+        ArrayList<Swimmer> swimmers = fileHandler.loadSwimmer();
         database.initSwimmers(swimmers);
         mainLoop();
     }
@@ -93,7 +93,7 @@ public class Controller {
     private Comparator getComparator() {
         return switch (sortingBy){
             case AGE -> ageComparator;
-            case IS_COMPETITIVE -> competetiveComparator;
+            case IS_COMPETITIVE -> competitiveComparator;
             case IS_ACTIVE -> isActiveComparator;
             case NAME -> nameComparator;
         };
@@ -217,7 +217,7 @@ public class Controller {
         Swimmer swimmerToDelete = null;
         while (!swimmerChosen) {
             ui.signalMessage(Signals.CHOOSE_SWIMMMER);
-            database.printHeroes();
+            database.printSwimmers();
             try {
                 indexHeroToEdit = sc.nextInt();
                 sc.nextLine();

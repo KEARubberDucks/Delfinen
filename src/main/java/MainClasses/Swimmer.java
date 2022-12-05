@@ -9,11 +9,11 @@ public class Swimmer {
     private Type type;
     private boolean competitive;
 
-    public Swimmer(String name, int age, boolean isActive, boolean competetiv) {
+    public Swimmer(String name, int age, boolean isActive, boolean competitive) {
         this.name = name;
         this.age = age;
         this.isActive = isActive;
-        this.competitive = competetiv;
+        this.competitive = competitive;
         if (age < 18)
             type = Type.JUNIOR;
         else if (age > 60)
