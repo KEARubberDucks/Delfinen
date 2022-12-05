@@ -122,30 +122,6 @@ public class Controller {
     private void cashierMenu() {
         ui.signalMessage(Signals.NOT_IMPLEMENTED);
     }
-    private Swimmer choosePayer() {
-        boolean loopEndValue = false;
-        int indexHeroToEdit = 0;
-        Swimmer swimmerToDelete = null;
-        while (!loopEndValue) {
-            ui.signalMessage(Signals.CHOOSE_SWIMMMER);
-            ui.printPayers(database.getSwimmers());
-            try {
-                indexHeroToEdit = sc.nextInt();
-                sc.nextLine();
-            } catch (InputMismatchException IME) {
-                ui.signalMessage(Signals.INCORRECT_INPUT);
-            }
-            sc.nextLine();
-            try {
-                swimmerToDelete = database.getSwimmers().get(indexHeroToEdit - 1);
-                loopEndValue = true;
-            } catch (IndexOutOfBoundsException IOBE) {
-                //ui.chooseNumberInRange(database.getSwimmers().size());
-                loopEndValue = false;
-            }
-        }
-        return swimmerToDelete;
-    }
     private void paid(ArrayList<Swimmer> swimmers){
         int usersPaid = 0;
         double amountPaid = 0;
