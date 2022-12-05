@@ -36,7 +36,7 @@ public class UserInterface {
                 "Aldersgruppe: %s\n" ,(index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup());
         if (swimmer instanceof CompetitiveSwimmer)
             System.out.printf("Træner: %s\n" +
-                    "Disciplin: %s\n", ((CompetitiveSwimmer) swimmer).getCoachName(), ((CompetitiveSwimmer) swimmer).getDiscipline().toString().toLowerCase());
+                    "Disciplin: %s\n", ((CompetitiveSwimmer) swimmer).getCoachName(), ((CompetitiveSwimmer) swimmer).getDisciplines().toString().toLowerCase());
         System.out.println("--------------- \n");
 
     }

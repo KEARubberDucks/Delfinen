@@ -1,6 +1,9 @@
 package FileAndDatabase;
 
 import java.util.ArrayList;
+
+import Enums.Discipline;
+import MainClasses.CompetitiveSwimmer;
 import MainClasses.Swimmer;
 
 public class Database {
@@ -44,5 +47,10 @@ public class Database {
 
     public boolean hasUnsavedChanges(){ 
         return unsavedChanges;
+    }
+
+    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, String coachName, Discipline[] choices) {
+        swimmers.add(new CompetitiveSwimmer(name, age, isActive, competetiv, coachName, choices));
+        unsavedChanges = true;
     }
 }

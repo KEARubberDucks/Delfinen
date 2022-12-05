@@ -53,13 +53,18 @@ public class FileHandler {
         return returnList;
     }
 
-    private Discipline getDiscipline(String s) {
-        return switch (s){
-            case "BUTTERFLY" -> Discipline.BUTTERFLY;
-            case "CRAWL" -> Discipline.CRAWL;
-            case "RYGCRAWL" -> Discipline.RYGCRAWL;
-            case "BRYSTSVMØMNING" -> Discipline.BRYSTSVMØMNING;
-            default -> null;
-        };
+    private Discipline[] getDiscipline(String s) {
+        String[] disciplines = s.split(", ");
+        Discipline[] returnArray = new Discipline[disciplines.length];
+        for (int i = 0; i < disciplines.length; i++){
+            returnArray[i] = switch (s){
+                case "BUTTERFLY" -> Discipline.BUTTERFLY;
+                case "CRAWL" -> Discipline.CRAWL;
+                case "RYGCRAWL" -> Discipline.RYGCRAWL;
+                case "BRYSTSVMØMNING" -> Discipline.BRYSTSVMØMNING;
+                default -> null;
+            };
+        }
+        return returnArray;
     }
 }
