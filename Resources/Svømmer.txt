@@ -1,3 +1,3 @@
-Adam; 25; ja; nej
-Tore; 100; nej; ja
-Zebra; 50; nej; nej
+Adam; 25; ja; nej; nej
+Tore; 100; nej; ja; nej
+Zebra; 50; nej; nej; nej

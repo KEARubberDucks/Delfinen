@@ -34,8 +34,27 @@ public class UserInterface {
                 "Aktiv: %s\n" +
                 "Competetiv: %s\n" +
                 "Aldersgruppe: %s\n" +
+                "Betalt: %s\n" +
                 "--------------- \n",
-                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup());
+                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup(), swimmer.getHasPaid());
+    }
+
+    public void printPayer(Swimmer swimmer){
+        System.out.printf("Navn: %s\n" +
+                        "Alder: %d\n" +
+                        "Aktiv: %s\n" +
+                        "Competetiv: %s\n" +
+                        "Aldersgruppe: %s\n" +
+                        "Betalt: %s\n" +
+                        "--------------- \n",
+                swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup(), swimmer.getHasPaid());
+    }
+
+    public void printPayers(ArrayList<Swimmer> swimmers) {
+        // for each loop der printer alle svømmerne i arrayet
+        for (Swimmer swimmer : swimmers){
+            printSwimmer(swimmer, swimmers.indexOf(swimmer));
+        }
     }
 
     public void signalMessage(Signals signal) {

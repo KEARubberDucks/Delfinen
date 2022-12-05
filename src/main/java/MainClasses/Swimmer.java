@@ -8,8 +8,9 @@ public class Swimmer {
     private enum Type {SENIOR, NORMAL, JUNIOR}
     private Type type;
     private boolean competitive;
+    private boolean hasPaid;
 
-    public Swimmer(String name, int age, boolean isActive, boolean competetiv) {
+    public Swimmer(String name, int age, boolean isActive, boolean competetiv, boolean hasPaid) {
         this.name = name;
         this.age = age;
         this.isActive = isActive;
@@ -19,6 +20,7 @@ public class Swimmer {
         else if (age > 60)
             type = Type.SENIOR;
         else type = Type.NORMAL;
+        this.hasPaid = hasPaid;
     }
     public String getName(){
         return name;
@@ -38,6 +40,12 @@ public class Swimmer {
 
     public String getIsCompetitive() {
         return parseBoolean(competitive);
+    }
+    public String getHasPaid(){
+        return parseBoolean(hasPaid);
+    }
+    public void setHasPaid(boolean payment){
+        hasPaid = payment;
     }
 
     public void setName(String name) {

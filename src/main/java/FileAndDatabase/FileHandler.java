@@ -20,7 +20,7 @@ public class FileHandler {
         output = new PrintStream(file);
         if (!Svømmere.isEmpty()){
             for (Swimmer svømmer : Svømmere){
-                output.println(svømmer.getName()+ "; "+svømmer.getAge()+ "; " + svømmer.getIsActive()+ "; " +svømmer.getIsCompetitive());
+                output.println(svømmer.getName()+ "; "+svømmer.getAge()+ "; " + svømmer.getIsActive()+ "; " +svømmer.getIsCompetitive()+ "; " + svømmer.getHasPaid());
             }
         }
     }
@@ -34,8 +34,8 @@ public class FileHandler {
                     attributeList[0],
                     Integer.parseInt(attributeList[1]),
                     attributeList[2].equals("ja"),
-                    attributeList[3].equals("ja")
-
+                    attributeList[3].equals("ja"),
+                    attributeList[4].equals("ja")
             );
             returnList.add(svømmerToAdd);
         }

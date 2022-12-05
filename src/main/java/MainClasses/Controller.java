@@ -59,7 +59,7 @@ public class Controller {
                 sc.nextLine();
                 switch (choice) {
                     case 1 -> createSwimmer();
-                    case 2 -> cashierMenu();
+                    case 2 -> expectedPayments();
                     case 3 -> deleteSwimmer();
                     case 4 -> coachMenu();
                     case 5 -> editSwimmer();
@@ -122,9 +122,88 @@ public class Controller {
     private void cashierMenu() {
         ui.signalMessage(Signals.NOT_IMPLEMENTED);
     }
+    private Swimmer choosePayer() {
+        boolean loopEndValue = false;
+        int indexHeroToEdit = 0;
+        Swimmer swimmerToDelete = null;
+        while (!loopEndValue) {
+            ui.signalMessage(Signals.CHOOSE_SWIMMMER);
+            ui.printPayers(database.getSwimmers());
+            try {
+                indexHeroToEdit = sc.nextInt();
+                sc.nextLine();
+            } catch (InputMismatchException IME) {
+                ui.signalMessage(Signals.INCORRECT_INPUT);
+            }
+            sc.nextLine();
+            try {
+                swimmerToDelete = database.getSwimmers().get(indexHeroToEdit - 1);
+                loopEndValue = true;
+            } catch (IndexOutOfBoundsException IOBE) {
+                //ui.chooseNumberInRange(database.getSwimmers().size());
+                loopEndValue = false;
+            }
+        }
+        return swimmerToDelete;
+    }
+    private void paid(ArrayList<Swimmer> swimmers){
+        int usersPaid = 0;
+        double amountPaid = 0;
+        for (Swimmer swimmer : swimmers){
+            if(swimmer.getHasPaid().contains("ja")) {
+                if(swimmer.getIsActive().contains("ja")) {
+                    if (swimmer.getAgeGroup().contains("junior")) {
+                        usersPaid++;
+                        amountPaid = amountPaid+1000;
+                    } else if (swimmer.getAgeGroup().contains("senior")) {
+                        usersPaid++;
+                        amountPaid = amountPaid+(1600*0.75);
+                    } else {
+                        usersPaid++;
+                        amountPaid = amountPaid+1600;
+                    }
+                } else {
+                    usersPaid++;
+                    amountPaid = amountPaid+500;
+                }
+            }
+        }
+        System.out.println("antal betallinger: " + usersPaid);
+        System.out.println("mængde betalt: " + amountPaid + " kr.");
+    }
+    private void notPaid(ArrayList<Swimmer> swimmers){
+        int usersPaid = 0;
+        double amountPaid = 0;
+        for (Swimmer swimmer : swimmers){
+            if(swimmer.getHasPaid().contains("nej")) {
+                if(swimmer.getIsActive().contains("ja")) {
+                    if (swimmer.getAgeGroup().contains("junior")) {
+                        usersPaid++;
+                        amountPaid = amountPaid+1000;
+                    } else if (swimmer.getAgeGroup().contains("senior")) {
+                        usersPaid++;
+                        amountPaid = amountPaid+(1600*0.75);
+                    } else {
+                        usersPaid++;
+                        amountPaid = amountPaid+1600;
+                    }
+                } else {
+                    usersPaid++;
+                    amountPaid = amountPaid+500;
+                }
+            }
+        }
+        System.out.println("antal manglende betalinger: " + usersPaid);
+        System.out.println("mængde manglende betalinger: " + amountPaid + " kr.");
+    }
+    private void expectedPayments(){
+        paid(database.getSwimmers());
+        notPaid(database.getSwimmers());
+        System.out.println("total");
+    }
 
     private void deleteSwimmer() {
-        //boolean loop end value loop slutter ikke indtil det bliver sat til true
+        //boolean loopEndValue loop slutter ikke indtil det bliver sat til true
         //initialize de forskellige variabler jeg benytter
         boolean loopEndValue = false;
         int indexDelete = 0;
@@ -161,6 +240,7 @@ public class Controller {
         int age = 0;
         boolean isActive = false;
         boolean competetiv = false;
+        boolean havePaid = false;
         System.out.println("opret svømmer!");
         System.out.println("indtast svømmerens navn");
         name = scanner.nextLine();
@@ -205,10 +285,24 @@ public class Controller {
                     answered = true;
                 }
                 default -> System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
-
             }
         }
-        database.createSwimmer(name, age, isActive, competetiv);
+        answered = false;
+        while (!answered) {
+            System.out.println("Har svømmeren betalt? ja eller nej");
+            switch (scanner.nextLine().toLowerCase()) {
+                case "ja", "j"->{
+                    havePaid = true;
+                    answered = true;
+                }
+                case "nej", "n"->{
+                    havePaid = false;
+                    answered = true;
+                }
+                default -> System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
+            }
+        }
+        database.createSwimmer(name, age, isActive, competetiv, havePaid);
     }
 
     private Swimmer chooseSwimmer() {

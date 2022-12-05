@@ -20,8 +20,8 @@ public class Database {
         this.swimmers = swimmers;
     }
 
-    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv) {
-        swimmers.add(new Swimmer(name, age, isActive, competetiv));
+    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, boolean paid) {
+        swimmers.add(new Swimmer(name, age, isActive, competetiv, paid));
         unsavedChanges = true;
     }
     public void deleteSwimmer(Swimmer swimmerDelete){
