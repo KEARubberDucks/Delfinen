@@ -2,6 +2,8 @@ package MainClasses;
 
 import Enums.Signals;
 import Enums.SortOption;
+import Swimmers.CompetitiveSwimmer;
+import Swimmers.Swimmer;
 
 import java.util.ArrayList;
 import java.util.Comparator;

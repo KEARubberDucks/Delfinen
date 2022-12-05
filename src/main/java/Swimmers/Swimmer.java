@@ -1,4 +1,4 @@
-package MainClasses;
+package Swimmers;
 
 public class Swimmer {
 

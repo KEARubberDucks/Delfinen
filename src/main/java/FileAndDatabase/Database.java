@@ -3,8 +3,8 @@ package FileAndDatabase;
 import java.util.ArrayList;
 
 import Enums.Discipline;
-import MainClasses.CompetitiveSwimmer;
-import MainClasses.Swimmer;
+import Swimmers.CompetitiveSwimmer;
+import Swimmers.Swimmer;
 
 public class Database {
     private ArrayList<Swimmer> swimmers;

@@ -10,6 +10,7 @@ import Enums.SortOption;
 
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
+import Swimmers.Swimmer;
 
 import java.io.FileNotFoundException;
 import java.util.*;

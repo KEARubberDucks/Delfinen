@@ -1,6 +1,6 @@
 package Comparators;
 
-import MainClasses.Swimmer;
+import Swimmers.Swimmer;
 
 import java.util.Comparator;
 

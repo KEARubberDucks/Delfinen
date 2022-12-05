@@ -1,8 +1,8 @@
-package MainClasses;
+package Swimmers;
 
 import Enums.Discipline;
 
-public class CompetitiveSwimmer extends Swimmer{
+public class CompetitiveSwimmer extends Swimmer {
     private String coachName;
     private Discipline[] disciplines;
 

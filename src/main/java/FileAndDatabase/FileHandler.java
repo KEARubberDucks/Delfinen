@@ -1,7 +1,7 @@
 package FileAndDatabase;
 import Enums.Discipline;
-import MainClasses.CompetitiveSwimmer;
-import MainClasses.Swimmer;
+import Swimmers.CompetitiveSwimmer;
+import Swimmers.Swimmer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
