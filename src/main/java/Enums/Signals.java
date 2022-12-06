@@ -1,6 +1,10 @@
 package Enums;
 
 public enum Signals {
+    ASK_FOR_NAME,
+    ASK_FOR_AGE,
+    ASK_IF_SWIMMER_ACTIVE,
+    ASK_IF_SWIMMER_COMPETITIVE,
     NOT_A_NUMBER,
     NOT_IMPLEMENTED,
     INCORRECT_INPUT,

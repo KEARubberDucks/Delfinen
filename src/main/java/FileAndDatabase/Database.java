@@ -28,18 +28,7 @@ public class Database {
         swimmers.remove(swimmerDelete);
         unsavedChanges = true;
     }
-    public void printSwimmers() {
-        System.out.println("liste af svømmere");
-        for (Swimmer swimmer : swimmers) {
-            System.out.println(" ");
-            System.out.println((swimmers.indexOf(swimmer) + 1) + "----------");
-            System.out.println("svømmers navn: " + swimmer.getName());
-            System.out.println("svømmers age: " + swimmer.getAge());
-            System.out.println("er kompetetiv: " + swimmer.getIsCompetitive());
-            System.out.println("----------");
-        }
 
-    }
 
     public boolean hasUnsavedChanges(){ 
         return unsavedChanges;

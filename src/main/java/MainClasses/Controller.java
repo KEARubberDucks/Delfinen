@@ -1,4 +1,5 @@
 package MainClasses;
+
 import Comparators.AgeComparator;
 import Comparators.CompetitiveComparator;
 import Comparators.IsActiveComparator;
@@ -30,6 +31,7 @@ public class Controller {
     IsActiveComparator isActiveComparator;
     NameComparator nameComparator;
     SortOption sortingBy;
+
     public Controller() {
         sc = new Scanner(System.in);
         ui = new UserInterface();
@@ -63,8 +65,8 @@ public class Controller {
                     case 3 -> deleteSwimmer();
                     case 4 -> coachMenu();
                     case 5 -> editSwimmer();
-                    case 9 ->{
-                        if (database.hasUnsavedChanges()){
+                    case 9 -> {
+                        if (database.hasUnsavedChanges()) {
                             fileHandler.saveSwimmers(database.getSwimmers());
                         }
                         shouldRun = false;
@@ -79,10 +81,10 @@ public class Controller {
 
     private void coachMenu() {
         boolean inMenu = true;
-        while(inMenu){
+        while (inMenu) {
             ui.printSwimmers(database.getSwimmers(), sortingBy, getComparator());
             String userChoice = sc.nextLine();
-            switch (userChoice.trim().toLowerCase()){
+            switch (userChoice.trim().toLowerCase()) {
                 case "sorter" -> sorterListeMenu();
                 case "tilbage" -> inMenu = false;
                 default -> ui.signalMessage(Signals.INCORRECT_INPUT);
@@ -91,7 +93,7 @@ public class Controller {
     }
 
     private Comparator getComparator() {
-        return switch (sortingBy){
+        return switch (sortingBy) {
             case AGE -> ageComparator;
             case IS_COMPETITIVE -> competitiveComparator;
             case IS_ACTIVE -> isActiveComparator;
@@ -105,12 +107,11 @@ public class Controller {
         if (sc.hasNextInt()) {
             userChoice = sc.nextInt();
             sc.nextLine();
-        }
-        else {
+        } else {
             ui.signalMessage(Signals.NOT_A_NUMBER);
             return;
         }
-        switch (userChoice){
+        switch (userChoice) {
             case 1 -> sortingBy = SortOption.values()[0];
             case 2 -> sortingBy = SortOption.values()[1];
             case 3 -> sortingBy = SortOption.values()[2];
@@ -161,16 +162,16 @@ public class Controller {
         int age = 0;
         boolean isActive = false;
         boolean competetiv = false;
-        System.out.println("opret svømmer!");
-        System.out.println("indtast svømmerens navn");
+        ui.printCreateSwimmerText();
+        ui.signalMessage(Signals.ASK_FOR_NAME);
         name = scanner.nextLine();
-        System.out.println("indtast svømmernes alder");
+        ui.signalMessage(Signals.ASK_FOR_AGE);
         while (!answered) {
             if (scanner.hasNextInt()) {
                 age = scanner.nextInt();
                 answered = true;
             } else {
-                System.out.println("dette er ikke et tal");
+                ui.signalMessage(Signals.NOT_A_NUMBER);
                 answered = false;
                 scanner.nextLine();
             }
@@ -178,33 +179,34 @@ public class Controller {
         scanner.nextLine();
         answered = false;
         while (!answered) {
-            System.out.println("Er svømmeren aktiv ja eller nej");
+            ui.signalMessage(Signals.ASK_IF_SWIMMER_ACTIVE);
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j":
                     isActive = true;
                     answered = true;
                     break;
-                case "nej", "n":
+                case "nej", "n":;
                     isActive = false;
                     answered = true;
                     break;
                 default:
-                    System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
+                    ui.signalMessage(Signals.INCORRECT_INPUT_BOOLEAN);
             }
         }
         answered = false;
         while (!answered) {
-            System.out.println("Er svømmeren competitiv? ja eller nej");
+            ui.signalMessage(Signals.ASK_IF_SWIMMER_COMPETITIVE);
             switch (scanner.nextLine().toLowerCase()) {
-                case "ja", "j"->{
+                case "ja", "j" -> {
                     competetiv = true;
                     answered = true;
                 }
-                case "nej", "n"->{
+                case "nej", "n" -> {
                     competetiv = false;
                     answered = true;
                 }
-                default -> System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
+                default -> ui.signalMessage(Signals.INCORRECT_INPUT_BOOLEAN);
+
 
             }
         }
@@ -217,7 +219,7 @@ public class Controller {
         Swimmer swimmerToDelete = null;
         while (!swimmerChosen) {
             ui.signalMessage(Signals.CHOOSE_SWIMMMER);
-            database.printSwimmers();
+            ui.printSwimmers(database.getSwimmers());
             try {
                 indexHeroToEdit = sc.nextInt();
                 sc.nextLine();
