@@ -10,7 +10,6 @@ public class Database {
     private ArrayList<Swimmer> swimmers;
     private ArrayList<Swimmer> searchResult;
     private boolean unsavedChanges;
-    private int year;
     public Database() {
         unsavedChanges = false;
     }

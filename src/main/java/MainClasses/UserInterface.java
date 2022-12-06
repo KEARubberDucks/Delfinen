@@ -63,6 +63,7 @@ public class UserInterface {
             case CURRENCY -> System.out.println(" kr. ");
             case CONFIRMED_SWIMMER_CHOOSEN -> System.out.println("svømmer valgt");
             case PROMPT_YES_NO -> System.out.println("Hvad vil du ændre det til ja/nej");
+            case MISSING_PAYERS -> System.out.println("Disse svømmere mangler at betal");
             default -> System.out.println("HurrDurr, dette skal ikke kunne findes blah, ret dine enums");
         }
     }
@@ -103,6 +104,8 @@ public class UserInterface {
     }
     public void cashierMenu(){
         System.out.print("1: oversigt\n" +
-                "2: betaling \n" );
+                "2: betaling \n" +
+                "3: manglende betalere \n");
     }
+
 }

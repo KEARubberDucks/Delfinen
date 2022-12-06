@@ -24,21 +24,19 @@ public class Payment {
         }
         return usersPaid;
     }
+    public ArrayList<Swimmer> getMissingPayers(ArrayList<Swimmer> swimmers) {
+        ArrayList<Swimmer> missingPayers = new ArrayList<>();
+        for (Swimmer swimmer : swimmers){
+            if(swimmer.getHasPaid().contains("nej")) {
+                missingPayers.add(swimmer);
+            }
+        } return missingPayers;
+    }
     public int swimmersNotPaid(ArrayList<Swimmer> swimmers){
         int usersPaid = 0;
         for (Swimmer swimmer : swimmers){
             if(swimmer.getHasPaid().contains("nej")) {
-                if(swimmer.getIsActive().contains("ja")) {
-                    if (swimmer.getAgeGroup().contains("junior")) {
-                        usersPaid++;
-                    } else if (swimmer.getAgeGroup().contains("senior")) {
-                        usersPaid++;
-                    } else {
-                        usersPaid++;
-                    }
-                } else {
-                    usersPaid++;
-                }
+                usersPaid++;
             }
         }
         return usersPaid;
@@ -75,4 +73,5 @@ public class Payment {
             }
         } return totalPaid;
     }
+
 }

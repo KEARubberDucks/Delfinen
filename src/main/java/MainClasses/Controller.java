@@ -135,6 +135,7 @@ public class Controller {
         switch (userChoice){
             case 1 -> expectedPayments();
             case 2 -> swimmerPayment();
+            case 3 -> missingPayers();
             default -> ui.signalMessage(Signals.INVALID_INPUT);
         }
     }
@@ -154,6 +155,10 @@ public class Controller {
         System.out.print(payment.swimmersMembershipDebt(database.getSwimmers()));
         ui.signalMessage(Signals.CURRENCY);
     }
+    private void missingPayers(){
+        ui.signalMessage(Signals.MISSING_PAYERS);
+        ui.printSwimmers(payment.getMissingPayers(database.getSwimmers()), sortingBy, getComparator());
+    }
     private void swimmerPayment(){
         boolean loopEndValue = false;
         Swimmer swimmerPaying = choosePayer();
@@ -165,12 +170,12 @@ public class Controller {
             switch (userInput.toLowerCase()) {
                 case "ja", "j":
                     swimmerPaying.setHasPaid(true);
-                    database.unsavedChangesTrue();
+                    //database.unsavedChangesTrue();
                     loopEndValue=true;
                     break;
                 case "nej", "n":
                     swimmerPaying.setHasPaid(false);
-                    database.unsavedChangesTrue();
+                    //database.unsavedChangesTrue();
                     loopEndValue=true;
                     break;
                 default:
