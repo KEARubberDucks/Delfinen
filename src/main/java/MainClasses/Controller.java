@@ -48,9 +48,8 @@ public class Controller {
         ArrayList<Swimmer> swimmers = fileHandler.loadSvømmer();
         database.initSwimmers(swimmers);
         shouldRun = true;
-        if (fileHandler.loadYear() < database.getCurrentYear()){
+        if (0 < database.getCurrentYear()){
             payment.setSwimmersNotPaid(database.getSwimmers());
-            System.out.println("success");
         }
         mainLoop();
     }
