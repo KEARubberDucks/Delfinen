@@ -156,19 +156,21 @@ public class Controller {
     }
     private void swimmerPayment(){
         boolean loopEndValue = false;
-        Swimmer SwimmerPaying = choosePayer();
+        Swimmer swimmerPaying = choosePayer();
         ui.signalMessage(Signals.CONFIRMED_SWIMMER_CHOOSEN);
-        ui.printSwimmer(SwimmerPaying, 0);
+        ui.printSwimmer(swimmerPaying, 0);
         while (!loopEndValue) {
             ui.signalMessage(Signals.PROMPT_YES_NO);
             String userInput = sc.nextLine();
             switch (userInput.toLowerCase()) {
                 case "ja", "j":
-                    database.payStatus(SwimmerPaying, true);
+                    swimmerPaying.setHasPaid(true);
+                    database.unsavedChangesTrue();
                     loopEndValue=true;
                     break;
                 case "nej", "n":
-                    database.payStatus(SwimmerPaying, false);
+                    swimmerPaying.setHasPaid(false);
+                    database.unsavedChangesTrue();
                     loopEndValue=true;
                     break;
                 default:
