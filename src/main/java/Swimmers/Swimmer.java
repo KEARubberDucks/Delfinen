@@ -82,6 +82,6 @@ public class Swimmer {
 
     @Override
     public String toString() {
-        return getName()+ "; "+ getAge()+ "; " + getIsActive()+ "; " + getIsCompetitive();
+        return getName()+ "; "+ getAge()+ "; " + getIsActive()+ "; " + getIsCompetitive()+ "; " + getHasPaid();
     }
 }

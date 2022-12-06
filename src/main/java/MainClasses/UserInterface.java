@@ -107,5 +107,10 @@ public class UserInterface {
                 "2: betaling \n" +
                 "3: manglende betalere \n");
     }
-
+    public void printSwimmersNoSort(ArrayList<Swimmer> swimmers) {
+        // for each loop der printer alle svømmerne i arrayet
+        for (Swimmer swimmer : swimmers){
+            printSwimmer(swimmer, swimmers.indexOf(swimmer));
+        }
+    }
 }
