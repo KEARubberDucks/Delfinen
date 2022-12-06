@@ -61,7 +61,7 @@ public class Controller {
                 sc.nextLine();
                 switch (choice) {
                     case 1 -> createSwimmer();
-                    case 2 -> expectedPayments();
+                    case 2 -> cashierMenu();
                     case 3 -> deleteSwimmer();
                     case 4 -> coachMenu();
                     case 5 -> editSwimmer();
@@ -122,7 +122,21 @@ public class Controller {
     }
 
     private void cashierMenu() {
-        ui.signalMessage(Signals.NOT_IMPLEMENTED);
+        ui.cashierMenu();
+        int userChoice = 0;
+        if (sc.hasNextInt()) {
+            userChoice = sc.nextInt();
+            sc.nextLine();
+        }
+        else {
+            ui.signalMessage(Signals.NOT_A_NUMBER);
+            return;
+        }
+        switch (userChoice){
+            case 1 -> expectedPayments();
+            case 2 -> swimmerPayment();
+            default -> ui.signalMessage(Signals.INVALID_INPUT);
+        }
     }
 
     private void expectedPayments(){
@@ -140,7 +154,50 @@ public class Controller {
         System.out.print(payment.swimmersMembershipDebt(database.getSwimmers()));
         ui.signalMessage(Signals.CURRENCY);
     }
-
+    private void swimmerPayment(){
+        boolean loopEndValue = false;
+        Swimmer SwimmerPaying = choosePayer();
+        ui.signalMessage(Signals.CONFIRMED_SWIMMER_CHOOSEN);
+        ui.printSwimmer(SwimmerPaying, 0);
+        while (!loopEndValue) {
+            ui.signalMessage(Signals.PROMPT_YES_NO);
+            String userInput = sc.nextLine();
+            switch (userInput.toLowerCase()) {
+                case "ja", "j":
+                    SwimmerPaying.setHasPaid(true);
+                    loopEndValue=true;
+                    break;
+                case "nej", "n":
+                    SwimmerPaying.setHasPaid(false);
+                    loopEndValue=true;
+                    break;
+                default:
+                    ui.signalMessage(Signals.INCORRECT_INPUT_BOOLEAN);
+            }
+        }
+    }
+    private Swimmer choosePayer() {
+        boolean loopEndValue = false;
+        int indexPayer = 0;
+        Swimmer swimmerPaying = null;
+        while (!loopEndValue) {
+            ui.signalMessage(Signals.CHOOSE_SWIMMMER);
+            ui.printSwimmers(database.getSwimmers(),sortingBy,getComparator());
+            try {
+                indexPayer = sc.nextInt();
+                sc.nextLine();
+            } catch (InputMismatchException IME) {
+                ui.signalMessage(Signals.INCORRECT_INPUT);
+            }
+            try {
+                swimmerPaying = database.getSwimmers().get(indexPayer - 1);
+                loopEndValue = true;
+            } catch (IndexOutOfBoundsException IOBE) {
+                loopEndValue = false;
+            }
+        }
+        return swimmerPaying;
+    }
     private void deleteSwimmer() {
         //boolean loopEndValue loop slutter ikke indtil det bliver sat til true
         //initialize de forskellige variabler jeg benytter

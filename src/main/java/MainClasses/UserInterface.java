@@ -36,15 +36,14 @@ public class UserInterface {
                 "Aktiv: %s\n" +
                 "Competetiv: %s\n" +
                 "Aldersgruppe: %s\n" +
-                "Betalt: %s\n" +
-                "--------------- \n",
+                "Betalt: %s\n",
                 (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup(), swimmer.getHasPaid());
         if (swimmer instanceof CompetitiveSwimmer)
             System.out.printf("Træner: %s\n" +
                     "Disciplin: %s\n", ((CompetitiveSwimmer) swimmer).getCoachName(), ((CompetitiveSwimmer) swimmer).getDisciplines().toString().toLowerCase());
         System.out.println("--------------- \n");
-
     }
+
     public void signalMessage(Signals signal) {
         switch (signal){
             case NOT_A_NUMBER -> System.out.println("Indtast venligst et nummer");
@@ -62,6 +61,8 @@ public class UserInterface {
             case USERS_MISSING_PAYMENT -> System.out.print("antal svømmere der mangler at betale: ");
             case AMOUNT_PAY_MISSING -> System.out.print("mængde manglende betalinger: ");
             case CURRENCY -> System.out.println(" kr. ");
+            case CONFIRMED_SWIMMER_CHOOSEN -> System.out.println("svømmer valgt");
+            case PROMPT_YES_NO -> System.out.println("Hvad vil du ændre det til ja/nej");
             default -> System.out.println("HurrDurr, dette skal ikke kunne findes blah, ret dine enums");
         }
     }
@@ -99,5 +100,9 @@ public class UserInterface {
             i++;
             System.out.printf("%d: %s\n", i, parseSortOption(option));
         }
+    }
+    public void cashierMenu(){
+        System.out.print("1: oversigt\n" +
+                "2: betaling \n" );
     }
 }
