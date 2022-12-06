@@ -2,6 +2,8 @@ package MainClasses;
 
 import Enums.Signals;
 import Enums.SortOption;
+import Swimmers.CompetitiveSwimmer;
+import Swimmers.Swimmer;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -37,6 +39,11 @@ public class UserInterface {
                 "Betalt: %s\n" +
                 "--------------- \n",
                 (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup(), swimmer.getHasPaid());
+        if (swimmer instanceof CompetitiveSwimmer)
+            System.out.printf("Træner: %s\n" +
+                    "Disciplin: %s\n", ((CompetitiveSwimmer) swimmer).getCoachName(), ((CompetitiveSwimmer) swimmer).getDisciplines().toString().toLowerCase());
+        System.out.println("--------------- \n");
+
     }
     public void signalMessage(Signals signal) {
         switch (signal){
