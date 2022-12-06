@@ -15,6 +15,7 @@ public class Swimmer {
         this.age = age;
         this.isActive = isActive;
         this.competitive = competetiv;
+        this.hasPaid = hasPaid;
         setType(age);
     }
 

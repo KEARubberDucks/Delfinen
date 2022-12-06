@@ -214,6 +214,21 @@ public class Controller {
         }
         answered = false;
         while (!answered) {
+            System.out.println("Har svømmeren betalt? ja eller nej");
+            switch (scanner.nextLine().toLowerCase()) {
+                case "ja", "j"->{
+                    havePaid = true;
+                    answered = true;
+                }
+                case "nej", "n"->{
+                    havePaid = false;
+                    answered = true;
+                }
+                default -> System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
+            }
+        }
+        answered = false;
+        while (!answered) {
             System.out.println("Er svømmeren competitiv? ja eller nej");
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j"->{
@@ -228,32 +243,17 @@ public class Controller {
                             4: BRYSTSVMØMNING""");
                     String[] choices = sc.nextLine().split(",".trim());
                     Discipline[] disciplines = getDisciplinesFromChoices(choices);
-                    database.createSwimmer(name, age, isActive, competetiv, coachName, disciplines);
+                    database.createSwimmer(name, age, isActive, competetiv, havePaid, coachName, disciplines);
                     answered = true;
                 }
                 case "nej", "n"->{
                     competetiv = false;
                     answered = true;
+                    database.createSwimmer(name, age, isActive, competetiv, havePaid);
                 }
                 default -> System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
             }
         }
-        answered = false;
-        while (!answered) {
-            System.out.println("Har svømmeren betalt? ja eller nej");
-            switch (scanner.nextLine().toLowerCase()) {
-                case "ja", "j"->{
-                    havePaid = true;
-                    answered = true;
-                }
-                case "nej", "n"->{
-                    havePaid = false;
-                    answered = true;
-                }
-                default -> System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
-            }
-        }
-        database.createSwimmer(name, age, isActive, competetiv, havePaid);
     }
 
     private Discipline[] getDisciplinesFromChoices(String[] choices) {

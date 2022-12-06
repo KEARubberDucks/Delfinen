@@ -1,5 +1,7 @@
 package FileAndDatabase;
-import MainClasses.Swimmer;
+import Enums.Discipline;
+import Swimmers.CompetitiveSwimmer;
+import Swimmers.Swimmer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,19 +34,21 @@ public class FileHandler {
             String[] attributeList = input.nextLine().split("; ");
             if (attributeList[3].equals("ja"))
                 svømmerToAdd = new CompetitiveSwimmer(
-                    attributeList[0],
-                    Integer.parseInt(attributeList[1]),
-                    attributeList[2].equals("ja"),
-                    true, attributeList[4],
-                     getDiscipline(attributeList[5])
+                        attributeList[0],
+                        Integer.parseInt(attributeList[1]),
+                        attributeList[2].equals("ja"),
+                        true,
+                        attributeList[4].equals("ja"),
+                        attributeList[5],
+                        getDiscipline(attributeList[6])
                 );
             else
                 svømmerToAdd = new Swimmer(
                         attributeList[0],
                         Integer.parseInt(attributeList[1]),
                         attributeList[2].equals("ja"),
-                        false
-
+                        false,
+                        attributeList[4].equals("ja")
                 );
             returnList.add(svømmerToAdd);
         }

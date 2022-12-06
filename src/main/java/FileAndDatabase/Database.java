@@ -49,8 +49,8 @@ public class Database {
         return unsavedChanges;
     }
 
-    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, String coachName, Discipline[] choices) {
-        swimmers.add(new CompetitiveSwimmer(name, age, isActive, competetiv, coachName, choices));
+    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, boolean hasPaid, String coachName, Discipline[] choices) {
+        swimmers.add(new CompetitiveSwimmer(name, age, isActive, competetiv, hasPaid, coachName, choices));
         unsavedChanges = true;
     }
 }
