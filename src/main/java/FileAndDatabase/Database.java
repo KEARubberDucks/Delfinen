@@ -49,7 +49,7 @@ public class Database {
         return unsavedChanges;
     }
 
-    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, String coachName, Discipline[] choices) {
+    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, String coachName, ArrayList<Discipline> choices) {
         swimmers.add(new CompetitiveSwimmer(name, age, isActive, competetiv, coachName, choices));
         unsavedChanges = true;
     }

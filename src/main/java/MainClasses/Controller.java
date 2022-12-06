@@ -10,9 +10,11 @@ import Enums.SortOption;
 
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
+import Swimmers.CompetitiveSwimmer;
 import Swimmers.Swimmer;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.*;
 
 
@@ -41,14 +43,14 @@ public class Controller {
 
     }
 
-    public void startProgram() throws FileNotFoundException {
+    public void startProgram() throws FileNotFoundException, ParseException {
         shouldRun = true;
         ArrayList<Swimmer> swimmers = fileHandler.loadSvømmer();
         database.initSwimmers(swimmers);
         mainLoop();
     }
 
-    private void mainLoop() throws FileNotFoundException {
+    private void mainLoop() throws FileNotFoundException, ParseException {
         int choice = 0;
         ui.welcome();
         while (shouldRun) {
@@ -76,7 +78,31 @@ public class Controller {
         }
     }
 
-    private void coachMenu() {
+    private void coachMenu() throws ParseException {
+        boolean inMenu = true;
+        while(inMenu){
+            ui.coachMenu();
+            if (sc.hasNextInt()){
+                int menuItem = sc.nextInt();
+                switch (menuItem){
+                    case 1 -> printSwimmers();
+                    case 2 -> createCompetitiveResult();
+                    case 3 -> ui.signalMessage(Signals.NOT_IMPLEMENTED);
+                    case 4 -> inMenu = false;
+                    default -> ui.signalMessage(Signals.INVALID_INPUT);
+                }
+            }
+        }
+    }
+
+    private void createCompetitiveResult() throws ParseException {
+        Swimmer swimmer =  chooseSwimmer();
+        if (swimmer.getIsCompetitive().equals("ja")){
+            ui.createResult(sc, (CompetitiveSwimmer) swimmer);
+        } else ui.signalMessage(Signals.SWIMMER_NOT_COMPETITIVE);
+    }
+
+    private void printSwimmers() {
         boolean inMenu = true;
         while(inMenu){
             ui.printSwimmers(database.getSwimmers(), sortingBy, getComparator());
@@ -200,14 +226,7 @@ public class Controller {
                     competetiv = true;
                     System.out.println("Hvad hedder svømmerens træner?");
                     String coachName = sc.nextLine();
-                    System.out.println("Hvilke(n) disciplin(er) udøver svømmeren? (Vælg med kommasepererede tal fra 1-4)");
-                    System.out.println("""
-                            1: BUTTERFLY
-                            2: CRAWL
-                            3: RYGCRAWL
-                            4: BRYSTSVMØMNING""");
-                    String[] choices = sc.nextLine().split(",".trim());
-                    Discipline[] disciplines = getDisciplinesFromChoices(choices);
+                    ArrayList<Discipline> disciplines = ui.getDisciplineChoices(scanner);
                     database.createSwimmer(name, age, isActive, competetiv, coachName, disciplines);
                     answered = true;
                 }
@@ -220,20 +239,6 @@ public class Controller {
 
             }
         }
-    }
-
-    private Discipline[] getDisciplinesFromChoices(String[] choices) {
-        Discipline[] returnArray = new Discipline[choices.length];
-        for (int i = 0; i < choices.length; i++) {
-            returnArray[i] = switch (choices[i].trim()){
-                case "1" -> Discipline.BUTTERFLY;
-                case "2" -> Discipline.CRAWL;
-                case "3" -> Discipline.RYGCRAWL;
-                case "4" -> Discipline.BRYSTSVMØMNING;
-                default -> null;
-            };
-        }
-        return returnArray;
     }
 
     private Swimmer chooseSwimmer() {

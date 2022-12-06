@@ -1,12 +1,17 @@
 package MainClasses;
 
+import Enums.Discipline;
 import Enums.Signals;
 import Enums.SortOption;
 import Swimmers.CompetitiveSwimmer;
 import Swimmers.Swimmer;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.Scanner;
 
 public class UserInterface {
 
@@ -44,19 +49,19 @@ public class UserInterface {
     }
 
     public void signalMessage(Signals signal) {
-        switch (signal){
-            case NOT_A_NUMBER -> System.out.println("Indtast venligst et nummer");
-            case NOT_IMPLEMENTED -> System.out.println("Denne funktionalitet er ikke implementeret endnu");
-            case INCORRECT_INPUT -> System.out.println("Kunne ikke genkende input");
-            case CHOOSE_SWIMMMER -> System.out.println("vælg en svømmer");
-            case CHOOSE_EDIT_OPTION -> System.out.println("vælg en mulighed til redigere");
-            case ASK_FOR_EDIT -> System.out.println("Hvad vil du ændre det til");
-            case INCORRECT_INPUT_BOOLEAN -> System.out.println("vælg mellem ja eller nej");
-            case INCORRECT_VARIABLE_TYPE -> System.out.print("Ikke korrekt input, skriv venligst et tal");
-            case CHOOSE_SWIMMER -> System.out.println("Indtast svømmer id på den svømmer du gerne vil slette");
-            case INVALID_INPUT -> System.out.println("ugyldigt input");
-            default -> System.out.println("HurrDurr, dette skal ikke kunne findes blah, ret dine enums");
-        }
+        System.out.println(switch (signal){
+            case NOT_A_NUMBER -> "Indtast venligst et nummer";
+            case NOT_IMPLEMENTED -> "Denne funktionalitet er ikke implementeret endnu";
+            case INCORRECT_INPUT -> "Kunne ikke genkende input";
+            case CHOOSE_SWIMMMER -> "vælg en svømmer";
+            case CHOOSE_EDIT_OPTION -> "vælg en mulighed til redigere";
+            case ASK_FOR_EDIT -> "Hvad vil du ændre det til";
+            case INCORRECT_INPUT_BOOLEAN -> "vælg mellem ja eller nej";
+            case INCORRECT_VARIABLE_TYPE -> "Ikke korrekt input, skriv venligst et tal";
+            case CHOOSE_SWIMMER -> "Indtast svømmer id på den svømmer du gerne vil slette";
+            case INVALID_INPUT -> "ugyldigt input";
+            case SWIMMER_NOT_COMPETITIVE -> "Denne svømmer er ikke kompetitiv";
+        });
     }
 
     public void printSwimmers(ArrayList<Swimmer> swimmers, SortOption sortOption, Comparator<Swimmer> comparator) {
@@ -92,5 +97,94 @@ public class UserInterface {
             i++;
             System.out.printf("%d: %s\n", i, parseSortOption(option));
         }
+    }
+
+    public void coachMenu() {
+        System.out.println("Vælg venligst en funktion:\n" +
+                "1: Se en liste over alle svømmere\n" +
+                "2: Indtast et resultat\n" +
+                "3: Se en liste over top 5 svømmere inden for en disciplin\n" +
+                "4: Tilbage");
+    }
+
+    public void createResult(Scanner sc, CompetitiveSwimmer swimmer) throws ParseException {
+        boolean inMenu = true;
+        int time = 0;
+        while(inMenu) {
+            System.out.println("Hvor lang tid i sekunder varede ræset?");
+            if (sc.hasNextInt()) {
+                time = sc.nextInt();
+                inMenu = false;
+            } else {
+                signalMessage(Signals.NOT_A_NUMBER);
+            }
+            sc.nextLine();
+        }
+        inMenu = true;
+        Date date = new Date();
+        while(inMenu){
+            System.out.println("Hvornår var ræset? (datoformat dd/MM/yyyy)");
+            String input = sc.nextLine();
+            try {
+                date = new SimpleDateFormat("dd/MM/yyyy").parse(input);
+                inMenu = false;
+            } catch (ParseException e) {
+                signalMessage(Signals.INVALID_INPUT);
+            }
+        }
+        System.out.println("Indtast stedet for ræset");
+        String place = sc.nextLine();
+        Discipline discipline = getDiscipline(sc);
+        swimmer.createCompetitiveResult(time, date, place, discipline);
+    }
+
+    private Discipline getDiscipline(Scanner sc) {
+        boolean inMenu = true;
+        int choice = 0;
+        while(inMenu) {
+            System.out.println("Hvilken disciplin?");
+            System.out.println("""
+                    1: BUTTERFLY
+                    2: CRAWL
+                    3: RYGCRAWL
+                    4: BRYSTSVMØMNING""");
+            if (sc.hasNextInt()) {
+                choice = sc.nextInt();
+                inMenu = false;
+            } else {
+                signalMessage(Signals.NOT_A_NUMBER);
+            }
+            sc.nextLine();
+        }
+        String[] choiceArray = new String[1];
+        choiceArray[0] = String.valueOf(choice);
+        ArrayList<Discipline> disciplines = getDisciplinesFromChoices(choiceArray);
+        return disciplines.get(0);
+    }
+
+    public ArrayList<Discipline> getDisciplineChoices(Scanner sc) {
+        System.out.println("Hvilke(n) disciplin(er) udøver svømmeren? (Vælg med kommasepererede tal fra 1-4)");
+        System.out.println("""
+                1: BUTTERFLY
+                2: CRAWL
+                3: RYGCRAWL
+                4: BRYSTSVMØMNING""");
+        String[] choices = sc.nextLine().split(",".trim());
+        ArrayList<Discipline> disciplines = getDisciplinesFromChoices(choices);
+        return disciplines;
+    }
+
+    private ArrayList<Discipline> getDisciplinesFromChoices(String[] choices) {
+        ArrayList<Discipline>  returnArray = new ArrayList<>();
+        for (String choice : choices) {
+            returnArray.add(switch (choice.trim()) {
+                case "1" -> Discipline.BUTTERFLY;
+                case "2" -> Discipline.CRAWL;
+                case "3" -> Discipline.RYGCRAWL;
+                case "4" -> Discipline.BRYSTSVMØMNING;
+                default -> null;
+            });
+        }
+        return returnArray;
     }
 }
