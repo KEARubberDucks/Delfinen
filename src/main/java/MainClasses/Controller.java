@@ -164,11 +164,11 @@ public class Controller {
             String userInput = sc.nextLine();
             switch (userInput.toLowerCase()) {
                 case "ja", "j":
-                    SwimmerPaying.setHasPaid(true);
+                    database.payStatus(SwimmerPaying, true);
                     loopEndValue=true;
                     break;
                 case "nej", "n":
-                    SwimmerPaying.setHasPaid(false);
+                    database.payStatus(SwimmerPaying, false);
                     loopEndValue=true;
                     break;
                 default:

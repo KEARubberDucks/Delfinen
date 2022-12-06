@@ -10,7 +10,7 @@ public class Database {
     private ArrayList<Swimmer> swimmers;
     private ArrayList<Swimmer> searchResult;
     private boolean unsavedChanges;
-
+    private int year;
     public Database() {
         unsavedChanges = false;
     }
@@ -31,7 +31,10 @@ public class Database {
         swimmers.remove(swimmerDelete);
         unsavedChanges = true;
     }
-
+    public void payStatus(Swimmer swimmerPaying, boolean payStatus){
+        swimmerPaying.setHasPaid(payStatus);
+        unsavedChanges = true;
+    }
     public void printHeroes() {
         System.out.println("liste af svømmere");
         for (Swimmer swimmer : swimmers) {
