@@ -140,7 +140,6 @@ public class Controller {
         System.out.print(payment.swimmersMembershipDebt(database.getSwimmers()));
         ui.signalMessage(Signals.CURRENCY);
     }
-    //TODO move system.out.print out from controller to ui
 
     private void deleteSwimmer() {
         //boolean loopEndValue loop slutter ikke indtil det bliver sat til true
