@@ -9,6 +9,7 @@ import Enums.SortOption;
 
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
+import Payments.Payment;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -24,12 +25,12 @@ public class Controller {
     UserInterface ui;
     FileHandler fileHandler;
     Database database;
-
     AgeComparator ageComparator;
     CompetetiveComparator competetiveComparator;
     IsActiveComparator isActiveComparator;
     NameComparator nameComparator;
     SortOption sortingBy;
+    Payment payment;
     public Controller() {
         sc = new Scanner(System.in);
         ui = new UserInterface();
@@ -40,6 +41,7 @@ public class Controller {
         isActiveComparator = new IsActiveComparator();
         nameComparator = new NameComparator();
         sortingBy = SortOption.NAME;
+        payment = new Payment();
     }
 
     public void startProgram() throws FileNotFoundException {
@@ -122,89 +124,20 @@ public class Controller {
     private void cashierMenu() {
         ui.signalMessage(Signals.NOT_IMPLEMENTED);
     }
-    private int swimmersPaid(ArrayList<Swimmer> swimmers){
-        int usersPaid = 0;
-        for (Swimmer swimmer : swimmers){
-            if(swimmer.getHasPaid().contains("ja")) {
-                if(swimmer.getIsActive().contains("ja")) {
-                    if (swimmer.getAgeGroup().contains("junior")) {
-                        usersPaid++;
-                    } else if (swimmer.getAgeGroup().contains("senior")) {
-                        usersPaid++;
-                    } else {
-                        usersPaid++;
-                    }
-                } else {
-                    usersPaid++;
-                }
-            }
-        }
-        return usersPaid;
-    }
-    private int swimmersNotPaid(ArrayList<Swimmer> swimmers){
-        int usersPaid = 0;
-        for (Swimmer swimmer : swimmers){
-            if(swimmer.getHasPaid().contains("nej")) {
-                if(swimmer.getIsActive().contains("ja")) {
-                    if (swimmer.getAgeGroup().contains("junior")) {
-                        usersPaid++;
-                    } else if (swimmer.getAgeGroup().contains("senior")) {
-                        usersPaid++;
-                    } else {
-                        usersPaid++;
-                    }
-                } else {
-                    usersPaid++;
-                }
-            }
-        }
-        return usersPaid;
-    }
-    private double swimmerMembershipPrice(Swimmer swimmer){
-        double amountPaid = 0;
-        if(swimmer.getIsActive().contains("ja")) {
-            if (swimmer.getAgeGroup().contains("junior")) {
-                amountPaid = amountPaid+1000;
-            } else if (swimmer.getAgeGroup().contains("senior")) {
-                amountPaid = amountPaid+(1600*0.75);
-            } else {
-                amountPaid = amountPaid+1600;
-            }
-        } else {
-            amountPaid = amountPaid+500;
-        } return amountPaid;
-    }
-    private double swimmersMembershipIncome(ArrayList<Swimmer> swimmers){
-        double totalPaid = 0;
-        for (Swimmer swimmer : swimmers){
-            if(swimmer.getHasPaid().contains("ja")) {
-                double amountPaid = swimmerMembershipPrice(swimmer);
-                totalPaid = totalPaid+amountPaid;
-            }
-        } return totalPaid;
-    }
-    private double swimmersMembershipDebt(ArrayList<Swimmer> swimmers){
-        double totalPaid = 0;
-        for (Swimmer swimmer : swimmers){
-            if(swimmer.getHasPaid().contains("nej")) {
-                double amountPaid = swimmerMembershipPrice(swimmer);
-                totalPaid = totalPaid+amountPaid;
-            }
-        } return totalPaid;
-    }
+
     private void expectedPayments(){
         //income
         ui.signalMessage(Signals.USERS_PAID);
-        System.out.println(swimmersPaid(database.getSwimmers()));
+        System.out.println(payment.swimmersPaid(database.getSwimmers()));
         ui.signalMessage(Signals.AMOUNT_PAID);
-        System.out.print(swimmersMembershipIncome(database.getSwimmers()));
+        System.out.print(payment.swimmersMembershipIncome(database.getSwimmers()));
         ui.signalMessage(Signals.CURRENCY);
 
         //debt
         ui.signalMessage(Signals.USERS_MISSING_PAYMENT);
-        System.out.println(swimmersNotPaid(database.getSwimmers()));
+        System.out.println(payment.swimmersNotPaid(database.getSwimmers()));
         ui.signalMessage(Signals.AMOUNT_PAY_MISSING);
-        System.out.print(swimmersMembershipDebt(database.getSwimmers()));
+        System.out.print(payment.swimmersMembershipDebt(database.getSwimmers()));
         ui.signalMessage(Signals.CURRENCY);
     }
     //TODO move system.out.print out from controller to ui
