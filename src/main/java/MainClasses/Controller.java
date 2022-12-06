@@ -4,18 +4,16 @@ import Comparators.CompetetiveComparator;
 import Comparators.IsActiveComparator;
 import Comparators.NameComparator;
 
+import Enums.Discipline;
 import Enums.Signals;
 import Enums.SortOption;
 
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
+import Swimmers.Swimmer;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-
-import java.util.Comparator;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Controller {
@@ -24,12 +22,12 @@ public class Controller {
     UserInterface ui;
     FileHandler fileHandler;
     Database database;
-
     AgeComparator ageComparator;
     CompetetiveComparator competetiveComparator;
     IsActiveComparator isActiveComparator;
     NameComparator nameComparator;
     SortOption sortingBy;
+
     public Controller() {
         sc = new Scanner(System.in);
         ui = new UserInterface();
@@ -40,6 +38,7 @@ public class Controller {
         isActiveComparator = new IsActiveComparator();
         nameComparator = new NameComparator();
         sortingBy = SortOption.NAME;
+
     }
 
     public void startProgram() throws FileNotFoundException {
@@ -155,6 +154,7 @@ public class Controller {
     }
 
     public void createSwimmer() {
+        //TODO: Alt system.out her skal refaktorisers til UI klassen
         Scanner scanner = new Scanner(System.in);
         boolean answered = false;
         String name = "";
@@ -189,7 +189,7 @@ public class Controller {
                     answered = true;
                     break;
                 default:
-                    System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
+                    System.out.println("Indtast ja eller nej. Inputtet er ikke korrekt");
             }
         }
         answered = false;
@@ -198,17 +198,42 @@ public class Controller {
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j"->{
                     competetiv = true;
+                    System.out.println("Hvad hedder svømmerens træner?");
+                    String coachName = sc.nextLine();
+                    System.out.println("Hvilke(n) disciplin(er) udøver svømmeren? (Vælg med kommasepererede tal fra 1-4)");
+                    System.out.println("""
+                            1: BUTTERFLY
+                            2: CRAWL
+                            3: RYGCRAWL
+                            4: BRYSTSVMØMNING""");
+                    String[] choices = sc.nextLine().split(",".trim());
+                    Discipline[] disciplines = getDisciplinesFromChoices(choices);
+                    database.createSwimmer(name, age, isActive, competetiv, coachName, disciplines);
                     answered = true;
                 }
                 case "nej", "n"->{
                     competetiv = false;
                     answered = true;
+                    database.createSwimmer(name, age, isActive, competetiv);
                 }
                 default -> System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
 
             }
         }
-        database.createSwimmer(name, age, isActive, competetiv);
+    }
+
+    private Discipline[] getDisciplinesFromChoices(String[] choices) {
+        Discipline[] returnArray = new Discipline[choices.length];
+        for (int i = 0; i < choices.length; i++) {
+            returnArray[i] = switch (choices[i].trim()){
+                case "1" -> Discipline.BUTTERFLY;
+                case "2" -> Discipline.CRAWL;
+                case "3" -> Discipline.RYGCRAWL;
+                case "4" -> Discipline.BRYSTSVMØMNING;
+                default -> null;
+            };
+        }
+        return returnArray;
     }
 
     private Swimmer chooseSwimmer() {
@@ -254,6 +279,7 @@ public class Controller {
         }
         ui.signalMessage(Signals.ASK_FOR_EDIT);
         String change = sc.nextLine();
+        //TODO: Der er en fejl her hvor man skal dobbelt trykke på "Enter" for at den opfanger ens valg
         switch (menuItem) {
             case 1:
                 SwimmerToEdit.setName(change);
@@ -297,6 +323,7 @@ public class Controller {
                 boolean changeSet2 = false;
                 while (!changeSet2) {
                     switch (change) {
+                        //TODO: Her skal vi håndtere at svømmeren skal gøres kompetitiv hvis det ændres fra nej til ja, og omvendt
                         case ("ja") -> {
                             SwimmerToEdit.setCompetitive(true);
                             changeSet2 = true;
