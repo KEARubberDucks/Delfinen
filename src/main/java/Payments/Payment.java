@@ -73,5 +73,9 @@ public class Payment {
             }
         } return totalPaid;
     }
-
+    public void setSwimmersNotPaid(ArrayList<Swimmer> swimmers){
+        for (Swimmer swimmer : swimmers){
+            swimmer.setHasPaid(false);
+        }
+    }
 }

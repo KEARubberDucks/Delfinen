@@ -45,9 +45,13 @@ public class Controller {
     }
 
     public void startProgram() throws FileNotFoundException {
-        shouldRun = true;
         ArrayList<Swimmer> swimmers = fileHandler.loadSvømmer();
         database.initSwimmers(swimmers);
+        shouldRun = true;
+        if (fileHandler.loadYear() < database.getCurrentYear()){
+            payment.setSwimmersNotPaid(database.getSwimmers());
+            System.out.println("success");
+        }
         mainLoop();
     }
 
@@ -68,6 +72,7 @@ public class Controller {
                     case 9 ->{
                         if (database.hasUnsavedChanges()){
                             fileHandler.saveSwimmers(database.getSwimmers());
+                            fileHandler.saveYear(database.getCurrentYear());
                         }
                         shouldRun = false;
                     }
