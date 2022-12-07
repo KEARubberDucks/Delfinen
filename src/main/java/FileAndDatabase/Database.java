@@ -44,9 +44,6 @@ public class Database {
     public void setUnsavedChanges(){
         unsavedChanges = true;
     }
-    public boolean isUnsavedChanges(){
-        return unsavedChanges;
-    }
 
     public boolean hasUnsavedChanges(){ 
         return unsavedChanges;
