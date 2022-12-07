@@ -12,10 +12,22 @@ import java.util.Scanner;
 
 public class FileHandler {
     File file;
+    File file2;
     PrintStream output;
     Scanner input;
     public FileHandler(){
         file = new File("Resources/Svømmer.txt");
+        file2 = new File("Resources/currentYear.txt");
+    }
+    public void saveYear(int currentYear)throws FileNotFoundException{
+        output = new PrintStream(file2);
+        output.println(currentYear);
+    }
+    public int loadYear() throws FileNotFoundException{
+        int currentYear;
+        input = new Scanner(file2);
+        currentYear = Integer.parseInt(input.nextLine());
+        return currentYear;
     }
     //Svømmere skal med lille s
     public void saveSwimmers(ArrayList<Swimmer> Svømmere)throws FileNotFoundException{
@@ -34,19 +46,21 @@ public class FileHandler {
             String[] attributeList = input.nextLine().split("; ");
             if (attributeList[3].equals("ja"))
                 svømmerToAdd = new CompetitiveSwimmer(
-                    attributeList[0],
-                    Integer.parseInt(attributeList[1]),
-                    attributeList[2].equals("ja"),
-                    true, attributeList[4],
-                     getDiscipline(attributeList[5])
+                        attributeList[0],
+                        Integer.parseInt(attributeList[1]),
+                        attributeList[2].equals("ja"),
+                        true,
+                        attributeList[4].equals("ja"),
+                        attributeList[5],
+                        getDiscipline(attributeList[6])
                 );
             else
                 svømmerToAdd = new Swimmer(
                         attributeList[0],
                         Integer.parseInt(attributeList[1]),
                         attributeList[2].equals("ja"),
-                        false
-
+                        false,
+                        attributeList[4].equals("ja")
                 );
             returnList.add(svømmerToAdd);
         }

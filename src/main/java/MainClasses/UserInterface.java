@@ -40,28 +40,37 @@ public class UserInterface {
                 "Alder: %d\n" +
                 "Aktiv: %s\n" +
                 "Competetiv: %s\n" +
-                "Aldersgruppe: %s\n" ,(index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup());
+                "Aldersgruppe: %s\n" +
+                "Betalt: %s\n",
+                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup(), swimmer.getHasPaid());
         if (swimmer instanceof CompetitiveSwimmer)
             System.out.printf("Træner: %s\n" +
                     "Disciplin: %s\n", ((CompetitiveSwimmer) swimmer).getCoachName(), ((CompetitiveSwimmer) swimmer).getDisciplines().toString().toLowerCase());
         System.out.println("--------------- \n");
-
     }
 
     public void signalMessage(Signals signal) {
-        System.out.println(switch (signal){
-            case NOT_A_NUMBER -> "Indtast venligst et nummer";
-            case NOT_IMPLEMENTED -> "Denne funktionalitet er ikke implementeret endnu";
-            case INCORRECT_INPUT -> "Kunne ikke genkende input";
-            case CHOOSE_SWIMMMER -> "vælg en svømmer";
-            case CHOOSE_EDIT_OPTION -> "vælg en mulighed til redigere";
-            case ASK_FOR_EDIT -> "Hvad vil du ændre det til";
-            case INCORRECT_INPUT_BOOLEAN -> "vælg mellem ja eller nej";
-            case INCORRECT_VARIABLE_TYPE -> "Ikke korrekt input, skriv venligst et tal";
-            case CHOOSE_SWIMMER -> "Indtast svømmer id på den svømmer du gerne vil slette";
-            case INVALID_INPUT -> "ugyldigt input";
-            case SWIMMER_NOT_COMPETITIVE -> "Denne svømmer er ikke kompetitiv";
-        });
+        switch (signal){
+            case NOT_A_NUMBER -> System.out.println("Indtast venligst et nummer");
+            case NOT_IMPLEMENTED -> System.out.println("Denne funktionalitet er ikke implementeret endnu");
+            case INCORRECT_INPUT -> System.out.println("Kunne ikke genkende input");
+            case CHOOSE_SWIMMMER -> System.out.println("vælg en svømmer");
+            case CHOOSE_EDIT_OPTION -> System.out.println("vælg en mulighed til redigere");
+            case ASK_FOR_EDIT -> System.out.println("Hvad vil du ændre det til");
+            case INCORRECT_INPUT_BOOLEAN -> System.out.println("vælg mellem ja eller nej");
+            case INCORRECT_VARIABLE_TYPE -> System.out.print("Ikke korrekt input, skriv venligst et tal");
+            case CHOOSE_SWIMMER -> System.out.println("Indtast svømmer id på den svømmer du gerne vil slette");
+            case INVALID_INPUT -> System.out.println("ugyldigt input");
+            case USERS_PAID -> System.out.print("antal svømmere der har betalt: ");
+            case AMOUNT_PAID -> System.out.print("mængde betalt: ");
+            case USERS_MISSING_PAYMENT -> System.out.print("antal svømmere der mangler at betale: ");
+            case AMOUNT_PAY_MISSING -> System.out.print("mængde manglende betalinger: ");
+            case CURRENCY -> System.out.println(" kr. ");
+            case CONFIRMED_SWIMMER_CHOOSEN -> System.out.println("svømmer valgt");
+            case PROMPT_YES_NO -> System.out.println("Hvad vil du ændre det til ja/nej");
+            case MISSING_PAYERS -> System.out.println("Disse svømmere mangler at betal");
+            default -> System.out.println("HurrDurr, dette skal ikke kunne findes blah, ret dine enums");
+        }
     }
 
     public void printSwimmers(ArrayList<Swimmer> swimmers, SortOption sortOption, Comparator<Swimmer> comparator) {
@@ -186,5 +195,16 @@ public class UserInterface {
             });
         }
         return returnArray;
+    }
+    public void cashierMenu(){
+        System.out.print("1: oversigt\n" +
+                "2: betaling \n" +
+                "3: manglende betalere \n");
+    }
+    public void printSwimmersNoSort(ArrayList<Swimmer> swimmers) {
+        // for each loop der printer alle svømmerne i arrayet
+        for (Swimmer swimmer : swimmers){
+            printSwimmer(swimmer, swimmers.indexOf(swimmer));
+        }
     }
 }
