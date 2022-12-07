@@ -10,11 +10,11 @@ public class Swimmer {
     private boolean competitive;
     private boolean hasPaid;
 
-    public Swimmer(String name, int age, boolean isActive, boolean competetiv, boolean hasPaid) {
+    public Swimmer(String name, int age, boolean isActive, boolean competitive, boolean hasPaid) {
         this.name = name;
         this.age = age;
         this.isActive = isActive;
-        this.competitive = competetiv;
+        this.competitive = competitive;
         this.hasPaid = hasPaid;
         setType(age);
     }

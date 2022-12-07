@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -51,6 +52,10 @@ public class UserInterface {
 
     public void signalMessage(Signals signal) {
         switch (signal){
+            case ASK_FOR_NAME -> System.out.println("indtast svømmerens navn");
+            case ASK_FOR_AGE -> System.out.println("indtast svømmernes alder");
+            case ASK_IF_SWIMMER_ACTIVE ->  System.out.println("Er svømmeren aktiv ja eller nej");
+            case ASK_IF_SWIMMER_COMPETITIVE -> System.out.println("Er svømmeren competitiv? ja eller nej");
             case NOT_A_NUMBER -> System.out.println("Indtast venligst et nummer");
             case NOT_IMPLEMENTED -> System.out.println("Denne funktionalitet er ikke implementeret endnu");
             case INCORRECT_INPUT -> System.out.println("Kunne ikke genkende input");
@@ -105,6 +110,20 @@ public class UserInterface {
         for (SortOption option : SortOption.values()) {
             i++;
             System.out.printf("%d: %s\n", i, parseSortOption(option));
+        }
+    }
+    public void printCreateSwimmerText(){
+        System.out.println("opret svømmer!");
+    }
+    public void printSwimmers(ArrayList<Swimmer> swimmers) {
+        System.out.println("liste af svømmere");
+        for (Swimmer swimmer : swimmers) {
+            System.out.println(" ");
+            System.out.println((swimmers.indexOf(swimmer) + 1) + "----------");
+            System.out.println("svømmers navn: " + swimmer.getName());
+            System.out.println("svømmers age: " + swimmer.getAge());
+            System.out.println("er kompetetiv: " + swimmer.getIsCompetitive());
+            System.out.println("----------");
         }
     }
 

@@ -1,6 +1,7 @@
 package MainClasses;
+
 import Comparators.AgeComparator;
-import Comparators.CompetetiveComparator;
+import Comparators.CompetitiveComparator;
 import Comparators.IsActiveComparator;
 import Comparators.NameComparator;
 
@@ -20,17 +21,17 @@ import java.util.*;
 
 
 public class Controller {
-    boolean shouldRun;
-    Scanner sc;
-    UserInterface ui;
-    FileHandler fileHandler;
-    Database database;
-    AgeComparator ageComparator;
-    CompetetiveComparator competetiveComparator;
-    IsActiveComparator isActiveComparator;
-    NameComparator nameComparator;
-    SortOption sortingBy;
-    Payment payment;
+    private boolean shouldRun;
+    private Scanner sc;
+    private UserInterface ui;
+    private FileHandler fileHandler;
+    private Database database;
+    private AgeComparator ageComparator;
+    private CompetitiveComparator competitiveComparator;
+    private IsActiveComparator isActiveComparator;
+    private NameComparator nameComparator;
+    private SortOption sortingBy;
+    private Payment payment;
 
     public Controller() {
         sc = new Scanner(System.in);
@@ -38,7 +39,7 @@ public class Controller {
         fileHandler = new FileHandler();
         database = new Database();
         ageComparator = new AgeComparator();
-        competetiveComparator = new CompetetiveComparator();
+        competitiveComparator = new CompetitiveComparator();
         isActiveComparator = new IsActiveComparator();
         nameComparator = new NameComparator();
         sortingBy = SortOption.NAME;
@@ -47,7 +48,7 @@ public class Controller {
     }
 
     public void startProgram() throws FileNotFoundException, ParseException {
-        ArrayList<Swimmer> swimmers = fileHandler.loadSvømmer();
+        ArrayList<Swimmer> swimmers = fileHandler.loadSwimmer();
         database.initSwimmers(swimmers);
         shouldRun = true;
         if (0 < database.getCurrentYear()){
@@ -111,10 +112,10 @@ public class Controller {
 
     private void printSwimmers() {
         boolean inMenu = true;
-        while(inMenu){
+        while (inMenu) {
             ui.printSwimmers(database.getSwimmers(), sortingBy, getComparator());
             String userChoice = sc.nextLine();
-            switch (userChoice.trim().toLowerCase()){
+            switch (userChoice.trim().toLowerCase()) {
                 case "sorter" -> sorterListeMenu();
                 case "tilbage" -> inMenu = false;
                 default -> ui.signalMessage(Signals.INCORRECT_INPUT);
@@ -122,10 +123,10 @@ public class Controller {
         }
     }
 
-    private Comparator getComparator() {
-        return switch (sortingBy){
+    private Comparator<Swimmer> getComparator() {
+        return switch (sortingBy) {
             case AGE -> ageComparator;
-            case IS_COMPETITIVE -> competetiveComparator;
+            case IS_COMPETITIVE -> competitiveComparator;
             case IS_ACTIVE -> isActiveComparator;
             case NAME -> nameComparator;
         };
@@ -137,12 +138,11 @@ public class Controller {
         if (sc.hasNextInt()) {
             userChoice = sc.nextInt();
             sc.nextLine();
-        }
-        else {
+        } else {
             ui.signalMessage(Signals.NOT_A_NUMBER);
             return;
         }
-        switch (userChoice){
+        switch (userChoice) {
             case 1 -> sortingBy = SortOption.values()[0];
             case 2 -> sortingBy = SortOption.values()[1];
             case 3 -> sortingBy = SortOption.values()[2];
@@ -276,43 +276,39 @@ public class Controller {
     }
 
     public void createSwimmer() {
-        //TODO: Alt system.out her skal refaktorisers til UI klassen
         Scanner scanner = new Scanner(System.in);
         boolean answered = false;
         String name = "";
         int age = 0;
         boolean isActive = false;
-        boolean competetiv = false;
+        boolean competitive = false;
         boolean havePaid = false;
-        System.out.println("opret svømmer!");
-        System.out.println("indtast svømmerens navn");
+        ui.printCreateSwimmerText();
+        ui.signalMessage(Signals.ASK_FOR_NAME);
         name = scanner.nextLine();
-        System.out.println("indtast svømmernes alder");
+        ui.signalMessage(Signals.ASK_FOR_AGE);
         while (!answered) {
             if (scanner.hasNextInt()) {
                 age = scanner.nextInt();
                 answered = true;
             } else {
-                System.out.println("dette er ikke et tal");
-                answered = false;
+                ui.signalMessage(Signals.NOT_A_NUMBER);
                 scanner.nextLine();
             }
         }
         scanner.nextLine();
         answered = false;
         while (!answered) {
-            System.out.println("Er svømmeren aktiv ja eller nej");
+            ui.signalMessage(Signals.ASK_IF_SWIMMER_ACTIVE);
             switch (scanner.nextLine().toLowerCase()) {
-                case "ja", "j":
+                case "ja", "j" -> {
                     isActive = true;
                     answered = true;
-                    break;
-                case "nej", "n":
-                    isActive = false;
+                }
+                case "nej", "n" -> {
                     answered = true;
-                    break;
-                default:
-                    System.out.println("Indtast ja eller nej. Inputtet er ikke korrekt");
+                }
+                default -> ui.signalMessage(Signals.INCORRECT_INPUT_BOOLEAN);
             }
         }
         answered = false;
@@ -324,7 +320,6 @@ public class Controller {
                     answered = true;
                 }
                 case "nej", "n"->{
-                    havePaid = false;
                     answered = true;
                 }
                 default -> System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
@@ -332,22 +327,22 @@ public class Controller {
         }
         answered = false;
         while (!answered) {
-            System.out.println("Er svømmeren competitiv? ja eller nej");
+            ui.signalMessage(Signals.ASK_IF_SWIMMER_COMPETITIVE);
             switch (scanner.nextLine().toLowerCase()) {
-                case "ja", "j"->{
-                    competetiv = true;
+                case "ja", "j" -> {
+                    competitive = true;
                     System.out.println("Hvad hedder svømmerens træner?");
                     String coachName = sc.nextLine();
                     ArrayList<Discipline> disciplines = ui.getDisciplineChoices(scanner);
-                    database.createSwimmer(name, age, isActive, competetiv, havePaid,coachName, disciplines);
+                    database.createSwimmer(name, age, isActive, competitive, havePaid,coachName, disciplines);
                     answered = true;
                 }
-                case "nej", "n"->{
-                    competetiv = false;
+                case "nej", "n" -> {
+                    competitive = false;
                     answered = true;
-                    database.createSwimmer(name, age, isActive, competetiv, havePaid);
+                    database.createSwimmer(name, age, isActive, competitive, havePaid);
                 }
-                default -> System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
+                default -> ui.signalMessage(Signals.INCORRECT_INPUT_BOOLEAN);
             }
         }
     }
@@ -358,10 +353,9 @@ public class Controller {
         Swimmer swimmerToDelete = null;
         while (!swimmerChosen) {
             ui.signalMessage(Signals.CHOOSE_SWIMMMER);
-            database.printHeroes();
+            ui.printSwimmers(database.getSwimmers());
             try {
                 indexHeroToEdit = sc.nextInt();
-                sc.nextLine();
             } catch (InputMismatchException IME) {
                 ui.signalMessage(Signals.INCORRECT_INPUT);
             }
