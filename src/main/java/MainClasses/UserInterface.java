@@ -147,7 +147,7 @@ public class UserInterface {
                     1: BUTTERFLY
                     2: CRAWL
                     3: RYGCRAWL
-                    4: BRYSTSVMØMNING""");
+                    4: BRYSTSVØMNING""");
             if (sc.hasNextInt()) {
                 choice = sc.nextInt();
                 inMenu = false;
@@ -168,7 +168,7 @@ public class UserInterface {
                 1: BUTTERFLY
                 2: CRAWL
                 3: RYGCRAWL
-                4: BRYSTSVMØMNING""");
+                4: BRYSTSVØMNING""");
         String[] choices = sc.nextLine().split(",".trim());
         ArrayList<Discipline> disciplines = getDisciplinesFromChoices(choices);
         return disciplines;
@@ -181,7 +181,7 @@ public class UserInterface {
                 case "1" -> Discipline.BUTTERFLY;
                 case "2" -> Discipline.CRAWL;
                 case "3" -> Discipline.RYGCRAWL;
-                case "4" -> Discipline.BRYSTSVMØMNING;
+                case "4" -> Discipline.BRYSTSVØMNING;
                 default -> null;
             });
         }

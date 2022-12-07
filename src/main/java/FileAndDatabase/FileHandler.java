@@ -61,7 +61,7 @@ public class FileHandler {
                 case "BUTTERFLY" -> Discipline.BUTTERFLY;
                 case "CRAWL" -> Discipline.CRAWL;
                 case "RYGCRAWL" -> Discipline.RYGCRAWL;
-                case "BRYSTSVMØMNING" -> Discipline.BRYSTSVMØMNING;
+                case "BRYSTSVMØMNING" -> Discipline.BRYSTSVØMNING;
                 default -> null;
             });
         }
