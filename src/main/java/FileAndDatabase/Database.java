@@ -1,17 +1,26 @@
 package FileAndDatabase;
 
+import java.time.Year;
 import java.util.ArrayList;
-import MainClasses.Swimmer;
+import java.util.Calendar;
+
+import Enums.Discipline;
+import Swimmers.CompetitiveSwimmer;
+import Swimmers.Swimmer;
 
 public class Database {
     private ArrayList<Swimmer> swimmers;
     private ArrayList<Swimmer> searchResult;
     private boolean unsavedChanges;
-
+    int currentYear;
     public Database() {
         unsavedChanges = false;
     }
 
+    public int getCurrentYear() {
+        currentYear = Year.now().getValue();
+        return currentYear;
+    }
     public ArrayList<Swimmer> getSwimmers() {
         return swimmers;
     }
@@ -20,8 +29,8 @@ public class Database {
         this.swimmers = swimmers;
     }
 
-    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv) {
-        swimmers.add(new Swimmer(name, age, isActive, competetiv));
+    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, boolean paid) {
+        swimmers.add(new Swimmer(name, age, isActive, competetiv, paid));
         unsavedChanges = true;
     }
     public void deleteSwimmer(Swimmer swimmerDelete){
@@ -29,8 +38,16 @@ public class Database {
         unsavedChanges = true;
     }
 
+    public void unsavedChangesTrue(){
+        unsavedChanges = true;
+    }
 
     public boolean hasUnsavedChanges(){ 
         return unsavedChanges;
+    }
+
+    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, boolean hasPaid, String coachName, ArrayList<Discipline> choices) {
+        swimmers.add(new CompetitiveSwimmer(name, age, isActive, competetiv, hasPaid, coachName, choices));
+        unsavedChanges = true;
     }
 }
