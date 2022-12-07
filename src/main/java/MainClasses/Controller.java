@@ -68,6 +68,7 @@ public class Controller {
                     case 3 -> deleteSwimmer();
                     case 4 -> coachMenu();
                     case 5 -> editSwimmer();
+                    case 6 -> System.out.println(database.isUnsavedChanges());
                     case 9 ->{
                         if (database.hasUnsavedChanges()){
                             fileHandler.saveSwimmers(database.getSwimmers());
@@ -174,7 +175,7 @@ public class Controller {
     }
     private void swimmerPayment(){
         boolean loopEndValue = false;
-        Swimmer swimmerPaying = choosePayer();
+        Swimmer swimmerPaying = chooseSwimmer();
         ui.signalMessage(Signals.CONFIRMED_SWIMMER_CHOOSEN);
         ui.printSwimmer(swimmerPaying, 0);
         while (!loopEndValue) {
@@ -194,7 +195,7 @@ public class Controller {
             }
         }
     }
-    private Swimmer choosePayer() {
+    private Swimmer chooseSwimmer() {
         boolean loopEndValue = false;
         int indexPayer = 0;
         Swimmer swimmerPaying = null;
@@ -345,30 +346,6 @@ public class Controller {
         return returnArray;
     }
 
-    private Swimmer chooseSwimmer() {
-        boolean swimmerChosen = false;
-        int indexHeroToEdit = 0;
-        Swimmer swimmerToDelete = null;
-        while (!swimmerChosen) {
-            ui.signalMessage(Signals.CHOOSE_SWIMMMER);
-            database.printHeroes();
-            try {
-                indexHeroToEdit = sc.nextInt();
-                sc.nextLine();
-            } catch (InputMismatchException IME) {
-                ui.signalMessage(Signals.INCORRECT_INPUT);
-            }
-            sc.nextLine();
-            try {
-                swimmerToDelete = database.getSwimmers().get(indexHeroToEdit - 1);
-                swimmerChosen = true;
-            } catch (IndexOutOfBoundsException IOBE) {
-                //ui.chooseNumberInRange(database.getSwimmers().size());
-                swimmerChosen = false;
-            }
-        }
-        return swimmerToDelete;
-    }
 
     private void editSwimmer() {
         Swimmer SwimmerToEdit = chooseSwimmer();
@@ -379,25 +356,26 @@ public class Controller {
             ui.swimmerInformation();
             try {
                 menuItem = sc.nextInt();
+                sc.nextLine();
                 attributeChosen = true;
             } catch (InputMismatchException IME) {
                 attributeChosen = false;
                 ui.signalMessage(Signals.INCORRECT_INPUT);
             }
-            sc.nextLine();
         }
         ui.signalMessage(Signals.ASK_FOR_EDIT);
         String change = sc.nextLine();
-        //TODO: Der er en fejl her hvor man skal dobbelt trykke på "Enter" for at den opfanger ens valg
         switch (menuItem) {
             case 1:
                 SwimmerToEdit.setName(change);
+                database.setUnsavedChanges();
                 break;
             case 2:
                 boolean intSet = false;
                 while (!intSet) {
                     try {
                         SwimmerToEdit.setAge(Integer.parseInt(change));
+                        database.setUnsavedChanges();
                         intSet = true;
                     } catch (InputMismatchException | NumberFormatException IME) {
                         ui.signalMessage(Signals.INCORRECT_VARIABLE_TYPE);
@@ -414,10 +392,12 @@ public class Controller {
                     switch (change) {
                         case ("ja") -> {
                             SwimmerToEdit.setActive(true);
+                            database.setUnsavedChanges();
                             changeSet = true;
                         }
                         case ("nej") -> {
                             SwimmerToEdit.setActive(false);
+                            database.setUnsavedChanges();
                             changeSet = true;
                         }
                         default -> {
@@ -435,10 +415,12 @@ public class Controller {
                         //TODO: Her skal vi håndtere at svømmeren skal gøres kompetitiv hvis det ændres fra nej til ja, og omvendt
                         case ("ja") -> {
                             SwimmerToEdit.setCompetitive(true);
+                            database.setUnsavedChanges();
                             changeSet2 = true;
                         }
                         case ("nej") -> {
                             SwimmerToEdit.setCompetitive(false);
+                            database.setUnsavedChanges();
                             changeSet2 = true;
                         }
                         default -> {

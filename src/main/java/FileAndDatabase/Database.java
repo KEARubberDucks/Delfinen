@@ -41,17 +41,11 @@ public class Database {
         swimmer.setHasPaid(paid);
         unsavedChanges = true;
     }
-    public void printHeroes() {
-        System.out.println("liste af svømmere");
-        for (Swimmer swimmer : swimmers) {
-            System.out.println(" ");
-            System.out.println((swimmers.indexOf(swimmer) + 1) + "----------");
-            System.out.println("svømmers navn: " + swimmer.getName());
-            System.out.println("svømmers age: " + swimmer.getAge());
-            System.out.println("er kompetetiv: " + swimmer.getIsCompetitive());
-            System.out.println("----------");
-        }
-
+    public void setUnsavedChanges(){
+        unsavedChanges = true;
+    }
+    public boolean isUnsavedChanges(){
+        return unsavedChanges;
     }
 
     public boolean hasUnsavedChanges(){ 
