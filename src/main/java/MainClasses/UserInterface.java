@@ -25,9 +25,9 @@ public class UserInterface {
     public void mainMenu() {
         System.out.print("Vælg en mulighed: \n" +
                 "1: Opret ny Svømmer\n" +
-                "2: Se oplysninger om kontigentbetalinger (ikke implementeret)\n" +
+                "2: Kassør menu\n" +
                 "3: Slette en svømmer\n" +
-                "4: Se oplysninger om klubbens svømmer\n" +
+                "4: Træner menu\n" +
                 "5: Redigere i svømmere\n" +
                 "9: Afslut\n"
         );
@@ -112,7 +112,7 @@ public class UserInterface {
         System.out.println("Vælg venligst en funktion:\n" +
                 "1: Se en liste over alle svømmere\n" +
                 "2: Indtast et resultat\n" +
-                "3: Se en liste over top 5 svømmere inden for en disciplin\n" +
+                "3: Se en liste over top 5 svømmere inden for en disciplin (ikke implementeret endnu)\n" +
                 "4: Tilbage");
     }
 
