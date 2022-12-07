@@ -21,17 +21,17 @@ import java.util.*;
 
 
 public class Controller {
-    boolean shouldRun;
-    Scanner sc;
-    UserInterface ui;
-    FileHandler fileHandler;
-    Database database;
-    AgeComparator ageComparator;
-    CompetitiveComparator competitiveComparator;
-    IsActiveComparator isActiveComparator;
-    NameComparator nameComparator;
-    SortOption sortingBy;
-    Payment payment;
+    private boolean shouldRun;
+    private Scanner sc;
+    private UserInterface ui;
+    private FileHandler fileHandler;
+    private Database database;
+    private AgeComparator ageComparator;
+    private CompetitiveComparator competitiveComparator;
+    private IsActiveComparator isActiveComparator;
+    private NameComparator nameComparator;
+    private SortOption sortingBy;
+    private Payment payment;
 
     public Controller() {
         sc = new Scanner(System.in);
@@ -123,7 +123,7 @@ public class Controller {
         }
     }
 
-    private Comparator getComparator() {
+    private Comparator<Swimmer> getComparator() {
         return switch (sortingBy) {
             case AGE -> ageComparator;
             case IS_COMPETITIVE -> competitiveComparator;
@@ -281,7 +281,7 @@ public class Controller {
         String name = "";
         int age = 0;
         boolean isActive = false;
-        boolean competetiv = false;
+        boolean competitive = false;
         boolean havePaid = false;
         ui.printCreateSwimmerText();
         ui.signalMessage(Signals.ASK_FOR_NAME);
@@ -293,7 +293,6 @@ public class Controller {
                 answered = true;
             } else {
                 ui.signalMessage(Signals.NOT_A_NUMBER);
-                answered = false;
                 scanner.nextLine();
             }
         }
@@ -302,16 +301,14 @@ public class Controller {
         while (!answered) {
             ui.signalMessage(Signals.ASK_IF_SWIMMER_ACTIVE);
             switch (scanner.nextLine().toLowerCase()) {
-                case "ja", "j":
+                case "ja", "j" -> {
                     isActive = true;
                     answered = true;
-                    break;
-                case "nej", "n":
-                    isActive = false;
+                }
+                case "nej", "n" -> {
                     answered = true;
-                    break;
-                default:
-                    ui.signalMessage(Signals.INCORRECT_INPUT_BOOLEAN);
+                }
+                default -> ui.signalMessage(Signals.INCORRECT_INPUT_BOOLEAN);
             }
         }
         answered = false;
@@ -323,7 +320,6 @@ public class Controller {
                     answered = true;
                 }
                 case "nej", "n"->{
-                    havePaid = false;
                     answered = true;
                 }
                 default -> System.out.println("Indtast ja eller nej. inputtet er ikke korrekt");
@@ -334,17 +330,17 @@ public class Controller {
             ui.signalMessage(Signals.ASK_IF_SWIMMER_COMPETITIVE);
             switch (scanner.nextLine().toLowerCase()) {
                 case "ja", "j" -> {
-                    competetiv = true;
+                    competitive = true;
                     System.out.println("Hvad hedder svømmerens træner?");
                     String coachName = sc.nextLine();
                     ArrayList<Discipline> disciplines = ui.getDisciplineChoices(scanner);
-                    database.createSwimmer(name, age, isActive, competetiv, havePaid,coachName, disciplines);
+                    database.createSwimmer(name, age, isActive, competitive, havePaid,coachName, disciplines);
                     answered = true;
                 }
                 case "nej", "n" -> {
-                    competetiv = false;
+                    competitive = false;
                     answered = true;
-                    database.createSwimmer(name, age, isActive, competetiv, havePaid);
+                    database.createSwimmer(name, age, isActive, competitive, havePaid);
                 }
                 default -> ui.signalMessage(Signals.INCORRECT_INPUT_BOOLEAN);
             }
@@ -360,7 +356,6 @@ public class Controller {
             ui.printSwimmers(database.getSwimmers());
             try {
                 indexHeroToEdit = sc.nextInt();
-                sc.nextLine();
             } catch (InputMismatchException IME) {
                 ui.signalMessage(Signals.INCORRECT_INPUT);
             }

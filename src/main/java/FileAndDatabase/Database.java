@@ -12,7 +12,7 @@ public class Database {
     private ArrayList<Swimmer> swimmers;
     private ArrayList<Swimmer> searchResult;
     private boolean unsavedChanges;
-    int currentYear;
+    private int currentYear;
     public Database() {
         unsavedChanges = false;
     }
@@ -29,8 +29,8 @@ public class Database {
         this.swimmers = swimmers;
     }
 
-    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, boolean paid) {
-        swimmers.add(new Swimmer(name, age, isActive, competetiv, paid));
+    public void createSwimmer(String name, int age, boolean isActive, boolean competitive, boolean paid) {
+        swimmers.add(new Swimmer(name, age, isActive, competitive, paid));
         unsavedChanges = true;
     }
     public void deleteSwimmer(Swimmer swimmerDelete){
@@ -46,8 +46,8 @@ public class Database {
         return unsavedChanges;
     }
 
-    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, boolean hasPaid, String coachName, ArrayList<Discipline> choices) {
-        swimmers.add(new CompetitiveSwimmer(name, age, isActive, competetiv, hasPaid, coachName, choices));
+    public void createSwimmer(String name, int age, boolean isActive, boolean competitive, boolean hasPaid, String coachName, ArrayList<Discipline> choices) {
+        swimmers.add(new CompetitiveSwimmer(name, age, isActive, competitive, hasPaid, coachName, choices));
         unsavedChanges = true;
     }
 }

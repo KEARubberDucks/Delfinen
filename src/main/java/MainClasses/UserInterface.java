@@ -127,14 +127,6 @@ public class UserInterface {
         }
     }
 
-
-
-
-
-
-    }
-
-
     public void coachMenu() {
         System.out.println("Vælg venligst en funktion:\n" +
                 "1: Se en liste over alle svømmere\n" +
