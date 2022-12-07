@@ -37,7 +37,8 @@ public class Database {
         swimmers.remove(swimmerDelete);
         unsavedChanges = true;
     }
-    public void unsavedChangesTrue(){
+    public void swimmerPayment(Swimmer swimmer, boolean paid){
+        swimmer.setHasPaid(paid);
         unsavedChanges = true;
     }
     public void printHeroes() {
