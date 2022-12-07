@@ -339,7 +339,7 @@ public class Controller {
                     System.out.println("Hvad hedder svømmerens træner?");
                     String coachName = sc.nextLine();
                     ArrayList<Discipline> disciplines = ui.getDisciplineChoices(scanner);
-                    database.createSwimmer(name, age, isActive, competetiv, coachName, disciplines);
+                    database.createSwimmer(name, age, isActive, competetiv, havePaid,coachName, disciplines);
                     answered = true;
                 }
                 case "nej", "n"->{
