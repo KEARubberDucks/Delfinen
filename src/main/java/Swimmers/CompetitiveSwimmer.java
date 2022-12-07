@@ -6,8 +6,8 @@ public class CompetitiveSwimmer extends Swimmer {
     private String coachName;
     private Discipline[] disciplines;
 
-    public CompetitiveSwimmer(String name, int age, boolean isActive, boolean competitive, String coachName, Discipline[] disciplines) {
-        super(name, age, isActive, competitive);
+    public CompetitiveSwimmer(String name, int age, boolean isActive, boolean competitive, boolean hasPaid, String coachName, Discipline[] disciplines) {
+        super(name, age, isActive, competitive, hasPaid);
         this.coachName = coachName;
         this.disciplines = disciplines;
     }

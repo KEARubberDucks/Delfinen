@@ -35,12 +35,13 @@ public class UserInterface {
                 "Alder: %d\n" +
                 "Aktiv: %s\n" +
                 "Competetiv: %s\n" +
-                "Aldersgruppe: %s\n" ,(index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup());
+                "Aldersgruppe: %s\n" +
+                "Betalt: %s\n",
+                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup(), swimmer.getHasPaid());
         if (swimmer instanceof CompetitiveSwimmer)
             System.out.printf("Træner: %s\n" +
                     "Disciplin: %s\n", ((CompetitiveSwimmer) swimmer).getCoachName(), ((CompetitiveSwimmer) swimmer).getDisciplines().toString().toLowerCase());
         System.out.println("--------------- \n");
-
     }
 
     public void signalMessage(Signals signal) {
@@ -55,6 +56,14 @@ public class UserInterface {
             case INCORRECT_VARIABLE_TYPE -> System.out.print("Ikke korrekt input, skriv venligst et tal");
             case CHOOSE_SWIMMER -> System.out.println("Indtast svømmer id på den svømmer du gerne vil slette");
             case INVALID_INPUT -> System.out.println("ugyldigt input");
+            case USERS_PAID -> System.out.print("antal svømmere der har betalt: ");
+            case AMOUNT_PAID -> System.out.print("mængde betalt: ");
+            case USERS_MISSING_PAYMENT -> System.out.print("antal svømmere der mangler at betale: ");
+            case AMOUNT_PAY_MISSING -> System.out.print("mængde manglende betalinger: ");
+            case CURRENCY -> System.out.println(" kr. ");
+            case CONFIRMED_SWIMMER_CHOOSEN -> System.out.println("svømmer valgt");
+            case PROMPT_YES_NO -> System.out.println("Hvad vil du ændre det til ja/nej");
+            case MISSING_PAYERS -> System.out.println("Disse svømmere mangler at betal");
             default -> System.out.println("HurrDurr, dette skal ikke kunne findes blah, ret dine enums");
         }
     }
@@ -91,6 +100,17 @@ public class UserInterface {
         for (SortOption option : SortOption.values()) {
             i++;
             System.out.printf("%d: %s\n", i, parseSortOption(option));
+        }
+    }
+    public void cashierMenu(){
+        System.out.print("1: oversigt\n" +
+                "2: betaling \n" +
+                "3: manglende betalere \n");
+    }
+    public void printSwimmersNoSort(ArrayList<Swimmer> swimmers) {
+        // for each loop der printer alle svømmerne i arrayet
+        for (Swimmer swimmer : swimmers){
+            printSwimmer(swimmer, swimmers.indexOf(swimmer));
         }
     }
 }
