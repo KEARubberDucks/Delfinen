@@ -203,10 +203,10 @@ public class Controller {
             ui.printSwimmersNoSort(database.getSwimmers());
             try {
                 indexPayer = sc.nextInt();
-                sc.nextLine();
             } catch (InputMismatchException IME) {
                 ui.signalMessage(Signals.INCORRECT_INPUT);
             }
+            sc.nextLine();
             try {
                 swimmerPaying = database.getSwimmers().get(indexPayer - 1);
                 loopEndValue = true;
@@ -345,7 +345,6 @@ public class Controller {
         return returnArray;
     }
 
-
     private void editSwimmer() {
         Swimmer SwimmerToEdit = chooseSwimmer();
         ui.signalMessage(Signals.CHOOSE_EDIT_OPTION);
@@ -355,12 +354,11 @@ public class Controller {
             ui.swimmerInformation();
             try {
                 menuItem = sc.nextInt();
-                sc.nextLine();
                 attributeChosen = true;
             } catch (InputMismatchException IME) {
-                attributeChosen = false;
                 ui.signalMessage(Signals.INCORRECT_INPUT);
             }
+            sc.nextLine();
         }
         ui.signalMessage(Signals.ASK_FOR_EDIT);
         String change = sc.nextLine();
