@@ -1,6 +1,5 @@
 package FileAndDatabase;
 
-import java.time.Year;
 import java.util.ArrayList;
 
 import Enums.Discipline;
@@ -11,15 +10,10 @@ public class Database {
     private ArrayList<Swimmer> swimmers;
     private ArrayList<Swimmer> searchResult;
     private boolean unsavedChanges;
-    private int currentYear;
     public Database() {
         unsavedChanges = false;
     }
 
-    public int getCurrentYear() {
-        currentYear = Year.now().getValue();
-        return currentYear;
-    }
 
     public ArrayList<Swimmer> getSwimmers() {
         return swimmers;
