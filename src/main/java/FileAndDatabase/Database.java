@@ -32,7 +32,11 @@ public class Database {
         unsavedChanges = true;
     }
 
-    public void unsavedChangesTrue(){
+    public void swimmerPayment(Swimmer swimmer, boolean paid){
+        swimmer.setHasPaid(paid);
+        unsavedChanges = true;
+    }
+    public void setUnsavedChanges(){
         unsavedChanges = true;
     }
 
