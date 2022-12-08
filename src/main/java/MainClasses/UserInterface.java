@@ -1,5 +1,6 @@
 package MainClasses;
 
+import Comparators.BestSwimmer;
 import Enums.Signals;
 import Enums.SortOption;
 
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class UserInterface {
+    ArrayList<CompetitiveSwimmer> competitiveSwimmers = new ArrayList<>();
 
     public UserInterface(){
     }
@@ -22,6 +24,7 @@ public class UserInterface {
                 "3: Slette en svømmer\n" +
                 "4: Se oplysninger om klubbens svømmer\n" +
                 "5: Redigere i svømmere\n" +
+                "6: se beste svømmere\n" +
                 "9: Afslut\n"
         );
     }
@@ -56,6 +59,39 @@ public class UserInterface {
                 (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getIsActive(), swimmer.getIsCompetitive(), swimmer.getAgeGroup(),
                 swimmer.getSwimmingDisciplines(), swimmer.getBestResult(), swimmer.getDateOfResult(),
                 swimmer.getCompetitionOfResults(), swimmer.getPlaceOfResult(), swimmer.getTrainer());
+    }
+
+    public void printBestCompetitiveSwimmer(CompetitiveSwimmer competitiveSwimmer, int index){
+        System.out.printf(
+                "Svømmer id: %d \n" +
+                        "Navn: %s\n" +
+                        "Alder: %d\n" +
+                        "Aktiv: %s\n" +
+                        "Competetiv: %s\n" +
+                        "Aldersgruppe: %s\n" +
+                        "Svømme disciplin: %s\n" +
+                        "Beste resultat: %s\n" +
+                        "Resultat Dato: %s\n" +
+                        "placering: %s\n" +
+                        "Beste resultat fra: %s\n" +
+                        "Træner: %s\n" +
+                        "--------------- \n",
+                (index + 1), competitiveSwimmer.getName(), competitiveSwimmer.getAge(), competitiveSwimmer.getIsActive(), competitiveSwimmer.getIsCompetitive(), competitiveSwimmer.getAgeGroup(),
+                competitiveSwimmer.getSwimmingDisciplines(), competitiveSwimmer.getBestResult(), competitiveSwimmer.getDateOfResult(),
+                competitiveSwimmer.getCompetitionOfResults(), competitiveSwimmer.getPlaceOfResult(), competitiveSwimmer.getTrainer());
+    }
+
+    public void printBestSwimmer(ArrayList<Swimmer> swimmers, String sport, Comparator sorter){
+        for(Swimmer swimmer: swimmers){
+            if (swimmer instanceof CompetitiveSwimmer){
+                if (swimmer.getSwimmingDisciplines().contains(sport) == true){
+                    competitiveSwimmers.add((CompetitiveSwimmer) swimmer);
+                    competitiveSwimmers.sort(sorter); //sorter ikke
+                    printBestCompetitiveSwimmer((CompetitiveSwimmer) swimmer, competitiveSwimmers.indexOf(competitiveSwimmers));
+                }
+
+            }
+        }
     }
 
     public void signalMessage(Signals signal) {

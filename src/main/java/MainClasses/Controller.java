@@ -1,9 +1,6 @@
 package MainClasses;
 
-import Comparators.AgeComparator;
-import Comparators.CompetetiveComparator;
-import Comparators.IsActiveComparator;
-import Comparators.NameComparator;
+import Comparators.*;
 
 import Enums.Signals;
 import Enums.SortOption;
@@ -31,6 +28,7 @@ public class Controller {
     IsActiveComparator isActiveComparator;
     NameComparator nameComparator;
     SortOption sortingBy;
+    BestSwimmer bestSwimmer;
 
     public Controller() {
         sc = new Scanner(System.in);
@@ -42,6 +40,7 @@ public class Controller {
         isActiveComparator = new IsActiveComparator();
         nameComparator = new NameComparator();
         sortingBy = SortOption.NAME;
+        bestSwimmer = new BestSwimmer();
     }
 
     public void startProgram() throws FileNotFoundException {
@@ -65,6 +64,7 @@ public class Controller {
                     case 3 -> deleteSwimmer();
                     case 4 -> coachMenu();
                     case 5 -> editSwimmer();
+                    case 6 -> BestSwimmers();
                     case 9 -> {
                         if (database.hasUnsavedChanges()) {
                             fileHandler.saveSwimmers(database.getSwimmers());
@@ -88,6 +88,35 @@ public class Controller {
                 case "sorter" -> sorterListeMenu();
                 case "tilbage" -> inMenu = false;
                 default -> ui.signalMessage(Signals.INCORRECT_INPUT);
+            }
+        }
+    }
+
+    private void BestSwimmers(){
+        boolean Sport = false;
+        while (!Sport){
+            System.out.println("hvilken svømme diciplin vil du gerne se de beste fra");
+            ui.printSwimmingDisciplines();
+            int UserChoice = sc.nextInt();
+            switch (UserChoice){
+                case 1:
+                    ui.printBestSwimmer(database.getSwimmers(), "Butterfly", bestSwimmer);
+                    Sport = true;
+                    break;
+                case 2:
+                    ui.printBestSwimmer(database.getSwimmers(), "Crawl", bestSwimmer);
+                    Sport = true;
+                    break;
+                case 3:
+                    ui.printBestSwimmer(database.getSwimmers(), "Rygcrawl", bestSwimmer);
+                    Sport = true;
+                    break;
+                case 4:
+                    ui.printBestSwimmer(database.getSwimmers(), "Brystsvømning", bestSwimmer);
+                    Sport = true;
+                    break;
+                default:
+                    ui.signalMessage(Signals.INCORRECT_INPUT);
             }
         }
     }
