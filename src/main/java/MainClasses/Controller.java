@@ -48,7 +48,7 @@ public class Controller {
         ArrayList<Swimmer> swimmers = fileHandler.loadSvømmer();
         database.initSwimmers(swimmers);
         shouldRun = true;
-        if (0 < database.getCurrentYear()){
+        if (fileHandler.loadYear() < database.getCurrentYear()){
             payment.setSwimmersNotPaid(database.getSwimmers());
         }
         mainLoop();
@@ -365,14 +365,12 @@ public class Controller {
         switch (menuItem) {
             case 1:
                 SwimmerToEdit.setName(change);
-                database.setUnsavedChanges();
                 break;
             case 2:
                 boolean intSet = false;
                 while (!intSet) {
                     try {
                         SwimmerToEdit.setAge(Integer.parseInt(change));
-                        database.setUnsavedChanges();
                         intSet = true;
                     } catch (InputMismatchException | NumberFormatException IME) {
                         ui.signalMessage(Signals.INCORRECT_VARIABLE_TYPE);
@@ -389,12 +387,10 @@ public class Controller {
                     switch (change) {
                         case ("ja") -> {
                             SwimmerToEdit.setActive(true);
-                            database.setUnsavedChanges();
                             changeSet = true;
                         }
                         case ("nej") -> {
                             SwimmerToEdit.setActive(false);
-                            database.setUnsavedChanges();
                             changeSet = true;
                         }
                         default -> {
@@ -412,12 +408,10 @@ public class Controller {
                         //TODO: Her skal vi håndtere at svømmeren skal gøres kompetitiv hvis det ændres fra nej til ja, og omvendt
                         case ("ja") -> {
                             SwimmerToEdit.setCompetitive(true);
-                            database.setUnsavedChanges();
                             changeSet2 = true;
                         }
                         case ("nej") -> {
                             SwimmerToEdit.setCompetitive(false);
-                            database.setUnsavedChanges();
                             changeSet2 = true;
                         }
                         default -> {
@@ -430,7 +424,7 @@ public class Controller {
 
             default:
                 ui.signalMessage(Signals.INCORRECT_INPUT);
-        }
+        } database.setUnsavedChanges();
     }
 }
 
