@@ -17,6 +17,10 @@ public class CompetitiveSwimmer extends Swimmer {
         this.results = new ArrayList<>();
     }
 
+    public ArrayList<CompetitiveResult> getResults() {
+        return results;
+    }
+
     public String getCoachName() {
         return coachName;
     }

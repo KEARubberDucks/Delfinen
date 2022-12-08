@@ -1,5 +1,6 @@
 package FileAndDatabase;
 import Enums.Discipline;
+import Swimmers.CompetitiveResult;
 import Swimmers.CompetitiveSwimmer;
 import Swimmers.Swimmer;
 
@@ -29,6 +30,7 @@ public class FileHandler {
 //        currentYear = Integer.parseInt(input.nextLine());
 //        return currentYear;
 //    }
+
     //Swimmers skal med lille s
     public void saveSwimmers(ArrayList<Swimmer> Swimmers)throws FileNotFoundException{
         output = new PrintStream(file);
@@ -53,6 +55,7 @@ public class FileHandler {
                         attributeList[4].equals("ja"),
                         attributeList[5],
                         getDiscipline(attributeList[6])
+                        //getResults(attributeList[7])
                 );
             else
                 swimmerToAdd = new Swimmer(
@@ -66,6 +69,13 @@ public class FileHandler {
         }
         return returnList;
     }
+
+/*
+    private Object getResults(String s) {
+        return CompetitiveSwimmer.getResults();
+    }
+
+ */
 
     private ArrayList<Discipline> getDiscipline(String s) {
         String[] disciplines = s.split(", ");

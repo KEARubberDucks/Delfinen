@@ -95,7 +95,7 @@ public class Controller {
                 switch (menuItem){
                     case 1 -> printSwimmers();
                     case 2 -> createCompetitiveResult();
-                    case 3 -> ui.signalMessage(Signals.NOT_IMPLEMENTED);
+                    case 3 -> ui.ChooseGroupOfSwimmers(database.getSwimmers());
                     case 4 -> inMenu = false;
                     default -> ui.signalMessage(Signals.INVALID_INPUT);
                 }

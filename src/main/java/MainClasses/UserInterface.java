@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Date;
-import java.util.Scanner;
 
 public class UserInterface {
 
@@ -135,6 +134,24 @@ public class UserInterface {
                 "4: Tilbage");
     }
 
+    void ChooseGroupOfSwimmers(ArrayList<Swimmer> swimmers){
+        for (Swimmer swimmer : swimmers){
+            if (swimmer instanceof CompetitiveSwimmer){
+                printDisciplin((CompetitiveSwimmer) swimmer, swimmers.indexOf(swimmer));
+            }
+
+        }
+    }
+    public void printDisciplin(CompetitiveSwimmer swimmer, int index){
+        System.out.printf(
+                "Svømmer id: %d \n" +
+                        "Navn: %s\n" +
+                        "Alder: %d\n" +
+                        "Resultat: %s\n",
+                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getResults());
+
+    }
+
     public void createResult(Scanner sc, CompetitiveSwimmer swimmer) throws ParseException {
         boolean inMenu = true;
         int time = 0;
@@ -166,7 +183,7 @@ public class UserInterface {
         swimmer.createCompetitiveResult(time, date, place, discipline);
     }
 
-    private Discipline getDiscipline(Scanner sc) {
+    public Discipline getDiscipline(Scanner sc) {
         boolean inMenu = true;
         int choice = 0;
         while(inMenu) {
