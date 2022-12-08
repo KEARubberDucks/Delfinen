@@ -4,5 +4,5 @@ public enum Discipline {
     BUTTERFLY,
     CRAWL,
     RYGCRAWL,
-    BRYSTSVMØMNING
+    BRYSTSVØMNING
 }

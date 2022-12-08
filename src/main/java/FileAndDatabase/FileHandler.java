@@ -11,41 +11,41 @@ import java.util.Scanner;
 
 
 public class FileHandler {
-    File file;
-    File file2;
-    PrintStream output;
-    Scanner input;
+    private File file;
+    private File file2;
+    private PrintStream output;
+    private Scanner input;
     public FileHandler(){
-        file = new File("Resources/Svømmer.txt");
+        file = new File("Resources/Swimmer.txt");
         file2 = new File("Resources/currentYear.txt");
     }
     public void saveYear(int currentYear)throws FileNotFoundException{
         output = new PrintStream(file2);
         output.println(currentYear);
     }
-    public int loadYear() throws FileNotFoundException{
-        int currentYear;
-        input = new Scanner(file2);
-        currentYear = Integer.parseInt(input.nextLine());
-        return currentYear;
-    }
-    //Svømmere skal med lille s
-    public void saveSwimmers(ArrayList<Swimmer> Svømmere)throws FileNotFoundException{
+//    public int loadYear() throws FileNotFoundException{
+//        int currentYear;
+//        input = new Scanner(file2);
+//        currentYear = Integer.parseInt(input.nextLine());
+//        return currentYear;
+//    }
+    //Swimmers skal med lille s
+    public void saveSwimmers(ArrayList<Swimmer> Swimmers)throws FileNotFoundException{
         output = new PrintStream(file);
-        if (!Svømmere.isEmpty()){
-            for (Swimmer svømmer : Svømmere){
-                output.println(svømmer);
+        if (!Swimmers.isEmpty()){
+            for (Swimmer swimmer : Swimmers){
+                output.println(swimmer);
             }
         }
     }
-    public ArrayList<Swimmer> loadSvømmer() throws FileNotFoundException{
+    public ArrayList<Swimmer> loadSwimmer() throws FileNotFoundException{
         ArrayList<Swimmer> returnList = new ArrayList<>();
-        Swimmer svømmerToAdd;
+        Swimmer swimmerToAdd;
         input = new Scanner(file);
         while (input.hasNextLine()){
             String[] attributeList = input.nextLine().split("; ");
             if (attributeList[3].equals("ja"))
-                svømmerToAdd = new CompetitiveSwimmer(
+                swimmerToAdd = new CompetitiveSwimmer(
                         attributeList[0],
                         Integer.parseInt(attributeList[1]),
                         attributeList[2].equals("ja"),
@@ -55,29 +55,29 @@ public class FileHandler {
                         getDiscipline(attributeList[6])
                 );
             else
-                svømmerToAdd = new Swimmer(
+                swimmerToAdd = new Swimmer(
                         attributeList[0],
                         Integer.parseInt(attributeList[1]),
                         attributeList[2].equals("ja"),
                         false,
                         attributeList[4].equals("ja")
                 );
-            returnList.add(svømmerToAdd);
+            returnList.add(swimmerToAdd);
         }
         return returnList;
     }
 
-    private Discipline[] getDiscipline(String s) {
+    private ArrayList<Discipline> getDiscipline(String s) {
         String[] disciplines = s.split(", ");
-        Discipline[] returnArray = new Discipline[disciplines.length];
-        for (int i = 0; i < disciplines.length; i++){
-            returnArray[i] = switch (s){
+        ArrayList<Discipline> returnArray = new ArrayList<>();
+        for (String discipline : disciplines) {
+            returnArray.add(switch (discipline) {
                 case "BUTTERFLY" -> Discipline.BUTTERFLY;
                 case "CRAWL" -> Discipline.CRAWL;
                 case "RYGCRAWL" -> Discipline.RYGCRAWL;
-                case "BRYSTSVMØMNING" -> Discipline.BRYSTSVMØMNING;
+                case "BRYSTSVØMNING" -> Discipline.BRYSTSVØMNING;
                 default -> null;
-            };
+            });
         }
         return returnArray;
     }

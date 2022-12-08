@@ -1,3 +1,0 @@
-Adam; 25; ja; nej; nej
-Tore; 100; nej; ja; nej; træner navnet; CRAWL
-Zebra; 50; nej; nej; ja
