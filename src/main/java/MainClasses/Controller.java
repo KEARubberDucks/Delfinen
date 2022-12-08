@@ -51,7 +51,7 @@ public class Controller {
         ArrayList<Swimmer> swimmers = fileHandler.loadSwimmer();
         database.initSwimmers(swimmers);
         shouldRun = true;
-        if (0 < database.getCurrentYear()){
+        if (0 < payment.getCurrentYear()){
             payment.setSwimmersNotPaid(database.getSwimmers());
         }
         mainLoop();
@@ -74,7 +74,7 @@ public class Controller {
                     case 9 ->{
                         if (database.hasUnsavedChanges()){
                             fileHandler.saveSwimmers(database.getSwimmers());
-                            fileHandler.saveYear(database.getCurrentYear());
+                            fileHandler.saveYear(payment.getCurrentYear());
                         }
                         shouldRun = false;
                     }
@@ -118,7 +118,7 @@ public class Controller {
             switch (userChoice.trim().toLowerCase()) {
                 case "sorter" -> sorterListeMenu();
                 case "tilbage" -> inMenu = false;
-                default -> ui.signalMessage(Signals.INCORRECT_INPUT);
+                default -> ui.signalMessage(Signals.INVALID_INPUT);
             }
         }
     }
@@ -194,7 +194,7 @@ public class Controller {
             switch (userChoice.trim().toLowerCase()) {
                 case "sorter" -> sorterListeMenu();
                 case "tilbage" -> loopEndValue = false;
-                default -> ui.signalMessage(Signals.INCORRECT_INPUT);
+                default -> ui.signalMessage(Signals.INVALID_INPUT);
             }
         }
     }
@@ -233,7 +233,7 @@ public class Controller {
                 indexPayer = sc.nextInt();
                 sc.nextLine();
             } catch (InputMismatchException IME) {
-                ui.signalMessage(Signals.INCORRECT_INPUT);
+                ui.signalMessage(Signals.INVALID_INPUT);
             }
             try {
                 swimmerPaying = database.getSwimmers().get(indexPayer - 1);
@@ -357,7 +357,7 @@ public class Controller {
             try {
                 indexHeroToEdit = sc.nextInt();
             } catch (InputMismatchException IME) {
-                ui.signalMessage(Signals.INCORRECT_INPUT);
+                ui.signalMessage(Signals.INVALID_INPUT);
             }
             sc.nextLine();
             try {
@@ -383,7 +383,7 @@ public class Controller {
                 attributeChosen = true;
             } catch (InputMismatchException IME) {
                 attributeChosen = false;
-                ui.signalMessage(Signals.INCORRECT_INPUT);
+                ui.signalMessage(Signals.INVALID_INPUT);
             }
             sc.nextLine();
         }
@@ -451,7 +451,7 @@ public class Controller {
                 break;
 
             default:
-                ui.signalMessage(Signals.INCORRECT_INPUT);
+                ui.signalMessage(Signals.INVALID_INPUT);
         }
     }
 }

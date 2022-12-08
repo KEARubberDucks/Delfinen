@@ -2,24 +2,16 @@ package Payments;
 
 import Swimmers.Swimmer;
 
+import java.time.Year;
 import java.util.ArrayList;
 
 public class Payment {
+    private int currentYear;
     public int swimmersPaid(ArrayList<Swimmer> swimmers){
         int usersPaid = 0;
         for (Swimmer swimmer : swimmers){
             if(swimmer.getHasPaid().contains("ja")) {
-                if(swimmer.getIsActive().contains("ja")) {
-                    if (swimmer.getAgeGroup().contains("junior")) {
-                        usersPaid++;
-                    } else if (swimmer.getAgeGroup().contains("senior")) {
-                        usersPaid++;
-                    } else {
-                        usersPaid++;
-                    }
-                } else {
                     usersPaid++;
-                }
             }
         }
         return usersPaid;
@@ -33,26 +25,20 @@ public class Payment {
         } return missingPayers;
     }
     public int swimmersNotPaid(ArrayList<Swimmer> swimmers){
-        int usersPaid = 0;
-        for (Swimmer swimmer : swimmers){
-            if(swimmer.getHasPaid().contains("nej")) {
-                usersPaid++;
-            }
-        }
-        return usersPaid;
+        return swimmers.size() - swimmersPaid(swimmers);
     }
     public double swimmerMembershipPrice(Swimmer swimmer){
-        double amountPaid = 0;
+        double amountPaid;
         if(swimmer.getIsActive().contains("ja")) {
             if (swimmer.getAgeGroup().contains("junior")) {
-                amountPaid = amountPaid+1000;
+                amountPaid = 1000;
             } else if (swimmer.getAgeGroup().contains("senior")) {
-                amountPaid = amountPaid+(1600*0.75);
+                amountPaid = (1600*0.75);
             } else {
-                amountPaid = amountPaid+1600;
+                amountPaid = 1600;
             }
         } else {
-            amountPaid = amountPaid+500;
+            amountPaid = 500;
         } return amountPaid;
     }
     public double swimmersMembershipIncome(ArrayList<Swimmer> swimmers){
@@ -65,17 +51,19 @@ public class Payment {
         } return totalPaid;
     }
     public double swimmersMembershipDebt(ArrayList<Swimmer> swimmers){
-        double totalPaid = 0;
-        for (Swimmer swimmer : swimmers){
-            if(swimmer.getHasPaid().contains("nej")) {
-                double amountPaid = swimmerMembershipPrice(swimmer);
-                totalPaid = totalPaid+amountPaid;
-            }
-        } return totalPaid;
+        double totalDebt = 0;
+        for (Swimmer swimmer : getMissingPayers(swimmers)){
+                double debt = swimmerMembershipPrice(swimmer);
+                totalDebt += debt;
+        } return totalDebt;
     }
     public void setSwimmersNotPaid(ArrayList<Swimmer> swimmers){
         for (Swimmer swimmer : swimmers){
             swimmer.setHasPaid(false);
         }
+    }
+    public int getCurrentYear() {
+        currentYear = Year.now().getValue();
+        return currentYear;
     }
 }
