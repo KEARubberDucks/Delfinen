@@ -51,7 +51,7 @@ public class Controller {
         ArrayList<Swimmer> swimmers = fileHandler.loadSwimmer();
         database.initSwimmers(swimmers);
         shouldRun = true;
-        if (0 < database.getCurrentYear()){
+        if (fileHandler.loadYear() < database.getCurrentYear()){
             payment.setSwimmersNotPaid(database.getSwimmers());
         }
         mainLoop();
@@ -200,7 +200,7 @@ public class Controller {
     }
     private void swimmerPayment(){
         boolean loopEndValue = false;
-        Swimmer swimmerPaying = choosePayer();
+        Swimmer swimmerPaying = chooseSwimmer();
         ui.signalMessage(Signals.CONFIRMED_SWIMMER_CHOOSEN);
         ui.printSwimmer(swimmerPaying, 0);
         while (!loopEndValue) {
@@ -208,13 +208,11 @@ public class Controller {
             String userInput = sc.nextLine();
             switch (userInput.toLowerCase()) {
                 case "ja", "j":
-                    swimmerPaying.setHasPaid(true);
-                    database.unsavedChangesTrue();
+                    database.swimmerPayment(swimmerPaying, true);
                     loopEndValue=true;
                     break;
                 case "nej", "n":
-                    swimmerPaying.setHasPaid(false);
-                    database.unsavedChangesTrue();
+                    database.swimmerPayment(swimmerPaying, false);
                     loopEndValue=true;
                     break;
                 default:
@@ -222,7 +220,7 @@ public class Controller {
             }
         }
     }
-    private Swimmer choosePayer() {
+    private Swimmer chooseSwimmer() {
         boolean loopEndValue = false;
         int indexPayer = 0;
         Swimmer swimmerPaying = null;
@@ -231,10 +229,10 @@ public class Controller {
             ui.printSwimmersNoSort(database.getSwimmers());
             try {
                 indexPayer = sc.nextInt();
-                sc.nextLine();
             } catch (InputMismatchException IME) {
                 ui.signalMessage(Signals.INCORRECT_INPUT);
             }
+            sc.nextLine();
             try {
                 swimmerPaying = database.getSwimmers().get(indexPayer - 1);
                 loopEndValue = true;
@@ -347,30 +345,6 @@ public class Controller {
         }
     }
 
-    private Swimmer chooseSwimmer() {
-        boolean swimmerChosen = false;
-        int indexHeroToEdit = 0;
-        Swimmer swimmerToDelete = null;
-        while (!swimmerChosen) {
-            ui.signalMessage(Signals.CHOOSE_SWIMMMER);
-            ui.printSwimmers(database.getSwimmers());
-            try {
-                indexHeroToEdit = sc.nextInt();
-            } catch (InputMismatchException IME) {
-                ui.signalMessage(Signals.INCORRECT_INPUT);
-            }
-            sc.nextLine();
-            try {
-                swimmerToDelete = database.getSwimmers().get(indexHeroToEdit - 1);
-                swimmerChosen = true;
-            } catch (IndexOutOfBoundsException IOBE) {
-                //ui.chooseNumberInRange(database.getSwimmers().size());
-                swimmerChosen = false;
-            }
-        }
-        return swimmerToDelete;
-    }
-
     private void editSwimmer() {
         Swimmer SwimmerToEdit = chooseSwimmer();
         ui.signalMessage(Signals.CHOOSE_EDIT_OPTION);
@@ -382,14 +356,12 @@ public class Controller {
                 menuItem = sc.nextInt();
                 attributeChosen = true;
             } catch (InputMismatchException IME) {
-                attributeChosen = false;
                 ui.signalMessage(Signals.INCORRECT_INPUT);
             }
             sc.nextLine();
         }
         ui.signalMessage(Signals.ASK_FOR_EDIT);
         String change = sc.nextLine();
-        //TODO: Der er en fejl her hvor man skal dobbelt trykke på "Enter" for at den opfanger ens valg
         switch (menuItem) {
             case 1:
                 SwimmerToEdit.setName(change);
@@ -452,7 +424,7 @@ public class Controller {
 
             default:
                 ui.signalMessage(Signals.INCORRECT_INPUT);
-        }
+        } database.setUnsavedChanges();
     }
 }
 
