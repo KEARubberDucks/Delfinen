@@ -1,4 +1,0 @@
-Adam; 25; ja; nej
-Bobby; 32; nej; nej
-Tore; 100; ja; nej
-Zebra; 50; nej; nej

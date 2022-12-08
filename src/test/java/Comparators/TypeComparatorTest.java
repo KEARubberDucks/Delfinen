@@ -1,7 +1,7 @@
 package Comparators;
 
 import FileAndDatabase.Database;
-import MainClasses.Swimmer;
+import Swimmers.Swimmer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +21,7 @@ class TypeComparatorTest {
     @Test
     void compareGreater() {
         //Arrange
-        CompetetiveComparator typeComparator = new CompetetiveComparator();
+        CompetitiveComparator typeComparator = new CompetitiveComparator();
         Swimmer superheroA = new Swimmer("A",18,false,false);
         Swimmer superheroB = new Swimmer("B",21,false,true);
         Swimmer superheroC = new Swimmer("C",100,false,true);
@@ -35,7 +35,7 @@ class TypeComparatorTest {
     @Test
     void compareEqual() {
         //Arrange
-        CompetetiveComparator typeComparator = new CompetetiveComparator();
+        CompetitiveComparator typeComparator = new CompetitiveComparator();
         Swimmer superheroA = new Swimmer("A",18,false,false);
         Swimmer superheroB = new Swimmer("B",21,false,true);
         Swimmer superheroC = new Swimmer("C",100,false,true);
@@ -48,7 +48,7 @@ class TypeComparatorTest {
     @Test
     void compareLower() {
         //Arrange
-        CompetetiveComparator typeComparator = new CompetetiveComparator();
+        CompetitiveComparator typeComparator = new CompetitiveComparator();
         Swimmer superheroA = new Swimmer("A",18,false,false);
         Swimmer superheroB = new Swimmer("B",21,false,true);
         Swimmer superheroC = new Swimmer("C",100,false,true);

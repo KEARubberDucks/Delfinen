@@ -1,19 +1,26 @@
 package FileAndDatabase;
 
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
 
-import MainClasses.CompetitiveSwimmer;
-import MainClasses.Swimmer;
+import Enums.Discipline;
+import Swimmers.CompetitiveSwimmer;
+import Swimmers.Swimmer;
 
 public class Database {
     private ArrayList<Swimmer> swimmers;
     private ArrayList<Swimmer> searchResult;
     private boolean unsavedChanges;
-
+    private int currentYear;
     public Database() {
         unsavedChanges = false;
     }
 
+    public int getCurrentYear() {
+        currentYear = Year.now().getValue();
+        return currentYear;
+    }
     public ArrayList<Swimmer> getSwimmers() {
         return swimmers;
     }
@@ -22,37 +29,25 @@ public class Database {
         this.swimmers = swimmers;
     }
 
-    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv) {
-        swimmers.add(new Swimmer(name, age, isActive, competetiv));
+    public void createSwimmer(String name, int age, boolean isActive, boolean competitive, boolean paid) {
+        swimmers.add(new Swimmer(name, age, isActive, competitive, paid));
         unsavedChanges = true;
     }
-
-    public void createSwimmer(String name, int age, boolean isActive, boolean competetiv, String swimmingDisciplines, String bestResult,
-                              String dateOfResult, int competitionOfResults, String placeOfResult, String trainer){
-
-        swimmers.add(new CompetitiveSwimmer(name, age, isActive, competetiv, swimmingDisciplines, bestResult, dateOfResult, competitionOfResults, placeOfResult, trainer));
-        unsavedChanges = true;
-    }
-
     public void deleteSwimmer(Swimmer swimmerDelete){
         swimmers.remove(swimmerDelete);
         unsavedChanges = true;
     }
 
-    public void printHeroes() {
-        System.out.println("liste af svømmere");
-        for (Swimmer swimmer : swimmers) {
-            System.out.println(" ");
-            System.out.println((swimmers.indexOf(swimmer) + 1) + "----------");
-            System.out.println("svømmers navn: " + swimmer.getName());
-            System.out.println("svømmers age: " + swimmer.getAge());
-            System.out.println("er kompetetiv: " + swimmer.getIsCompetitive());
-            System.out.println("----------");
-        }
-
+    public void unsavedChangesTrue(){
+        unsavedChanges = true;
     }
 
     public boolean hasUnsavedChanges(){ 
         return unsavedChanges;
+    }
+
+    public void createSwimmer(String name, int age, boolean isActive, boolean competitive, boolean hasPaid, String coachName, ArrayList<Discipline> choices) {
+        swimmers.add(new CompetitiveSwimmer(name, age, isActive, competitive, hasPaid, coachName, choices));
+        unsavedChanges = true;
     }
 }

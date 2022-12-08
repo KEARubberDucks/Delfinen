@@ -1,7 +1,7 @@
 package FileAndDatabase;
-
-import MainClasses.CompetitiveSwimmer;
-import MainClasses.Swimmer;
+import Enums.Discipline;
+import Swimmers.CompetitiveSwimmer;
+import Swimmers.Swimmer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,66 +11,74 @@ import java.util.Scanner;
 
 
 public class FileHandler {
-    File file;
-    File file2;
-    PrintStream output;
-    PrintStream output2;
-    Scanner input;
-
-    public FileHandler() {
-        file = new File("Resources/Svømmer.txt");
-        file2 = new File("Resources/CompetitiveSvømmer.txt");
+    private File file;
+    private File file2;
+    private PrintStream output;
+    private Scanner input;
+    public FileHandler(){
+        file = new File("Resources/Swimmer.txt");
+        file2 = new File("Resources/currentYear.txt");
     }
-
-    //Swimmere skal med lille s
-    public void saveSwimmers(ArrayList<Swimmer> Swimmere) throws FileNotFoundException {
+    public void saveYear(int currentYear)throws FileNotFoundException{
+        output = new PrintStream(file2);
+        output.println(currentYear);
+    }
+//    public int loadYear() throws FileNotFoundException{
+//        int currentYear;
+//        input = new Scanner(file2);
+//        currentYear = Integer.parseInt(input.nextLine());
+//        return currentYear;
+//    }
+    //Swimmers skal med lille s
+    public void saveSwimmers(ArrayList<Swimmer> Swimmers)throws FileNotFoundException{
         output = new PrintStream(file);
-        output2 = new PrintStream(file2);
-        if (!Swimmere.isEmpty()) {
-            for (Swimmer swimmer : Swimmere) {
-                if (swimmer instanceof CompetitiveSwimmer) {
-                    output2.println(swimmer.getName() + "; " + swimmer.getAge() + "; " + swimmer.getIsActive() + "; " + swimmer.getIsCompetitive() + "; " +
-                            swimmer.getSwimmingDisciplines() + "; " + swimmer.getBestResult() + "; " + swimmer.getDateOfResult() + "; " +
-                            swimmer.getCompetitionOfResults() + "; " + swimmer.getPlaceOfResult() + "; " + swimmer.getTrainer());
-                } else {
-                    output.println(swimmer.getName() + "; " + swimmer.getAge() + "; " + swimmer.getIsActive() + "; " + swimmer.getIsCompetitive());
-                }
+        if (!Swimmers.isEmpty()){
+            for (Swimmer swimmer : Swimmers){
+                output.println(swimmer);
             }
         }
     }
-
-    public ArrayList<Swimmer> loadSvømmer() throws FileNotFoundException {
+    public ArrayList<Swimmer> loadSwimmer() throws FileNotFoundException{
         ArrayList<Swimmer> returnList = new ArrayList<>();
         Swimmer swimmerToAdd;
         input = new Scanner(file);
-        while (input.hasNextLine()) {
+        while (input.hasNextLine()){
             String[] attributeList = input.nextLine().split("; ");
-
-            swimmerToAdd = new Swimmer(
-                    attributeList[0],
-                    Integer.parseInt(attributeList[1]),
-                    attributeList[2].equals("ja"),
-                    attributeList[3].equals("ja")
-            );
-            returnList.add(swimmerToAdd);
-        }
-        input = new Scanner(file2);
-        while (input.hasNextLine()) {
-            String[] attributeList = input.nextLine().split("; ");
-            swimmerToAdd = new CompetitiveSwimmer(
-                    attributeList[0],
-                    Integer.parseInt(attributeList[1]),
-                    attributeList[2].equals("ja"),
-                    attributeList[3].equals("ja"),
-                    attributeList[4],
-                    attributeList[5],
-                    attributeList[6],
-                    Integer.parseInt(attributeList[7]),
-                    attributeList[8],
-                    attributeList[9]
-            );
+            if (attributeList[3].equals("ja"))
+                swimmerToAdd = new CompetitiveSwimmer(
+                        attributeList[0],
+                        Integer.parseInt(attributeList[1]),
+                        attributeList[2].equals("ja"),
+                        true,
+                        attributeList[4].equals("ja"),
+                        attributeList[5],
+                        getDiscipline(attributeList[6])
+                );
+            else
+                swimmerToAdd = new Swimmer(
+                        attributeList[0],
+                        Integer.parseInt(attributeList[1]),
+                        attributeList[2].equals("ja"),
+                        false,
+                        attributeList[4].equals("ja")
+                );
             returnList.add(swimmerToAdd);
         }
         return returnList;
+    }
+
+    private ArrayList<Discipline> getDiscipline(String s) {
+        String[] disciplines = s.split(", ");
+        ArrayList<Discipline> returnArray = new ArrayList<>();
+        for (String discipline : disciplines) {
+            returnArray.add(switch (discipline) {
+                case "BUTTERFLY" -> Discipline.BUTTERFLY;
+                case "CRAWL" -> Discipline.CRAWL;
+                case "RYGCRAWL" -> Discipline.RYGCRAWL;
+                case "BRYSTSVØMNING" -> Discipline.BRYSTSVØMNING;
+                default -> null;
+            });
+        }
+        return returnArray;
     }
 }
