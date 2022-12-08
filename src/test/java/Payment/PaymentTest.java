@@ -16,17 +16,7 @@ class PaymentTest {
     Database db;
     Database db2;
     Payment payment;
-/*
-        Swimmer testSwimmer = new Swimmer("juniorActive", 17, true, false, false);
-        Swimmer testSwimmer = new Swimmer("juniorPassive", 17, false, true, false);
-        Swimmer testSwimmer = new Swimmer("normalActive", 22, true, true, false);
-        Swimmer testSwimmer = new Swimmer("normalPassive", 22, false, true, false);
-        Swimmer testSwimmer = new Swimmer("seniorActive", 66, true, true, false);
-        Swimmer testSwimmer = new Swimmer("seniorPassive", 66, false, true, false);
-        ArrayList<Swimmer> testSwimmers = new ArrayList<>(List.of(juniorActive, juniorPassive, normalActive, normalPassive, seniorActive, seniorPassive));
-        database.initSwimmers(testSwimmers);
 
- */
     @BeforeEach
     void setup(){
         db = new Database();
