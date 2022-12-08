@@ -48,4 +48,14 @@ public class Database {
         swimmers.add(new CompetitiveSwimmer(name, age, isActive, competitive, hasPaid, coachName, choices));
         unsavedChanges = true;
     }
+
+    public ArrayList<Swimmer> getCompetitiveSwimmers() {
+        ArrayList<Swimmer> compSwimmers = new ArrayList<>();
+        for (Swimmer swimmer : swimmers) {
+            if (swimmer instanceof CompetitiveSwimmer){
+                compSwimmers.add(swimmer);
+            }
+        }
+        return compSwimmers;
+    }
 }

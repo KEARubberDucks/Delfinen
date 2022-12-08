@@ -95,12 +95,22 @@ public class Controller {
                 switch (menuItem){
                     case 1 -> printSwimmers();
                     case 2 -> createCompetitiveResult();
-                    case 3 -> ui.signalMessage(Signals.NOT_IMPLEMENTED);
-                    case 4 -> inMenu = false;
+                    case 3 -> changeCoach();
+                    case 4 -> ui.signalMessage(Signals.NOT_IMPLEMENTED);
+                    case 5 -> inMenu = false;
                     default -> ui.signalMessage(Signals.INVALID_INPUT);
                 }
+            }else{
+                ui.signalMessage(Signals.NOT_A_NUMBER);
+                sc.nextLine();
             }
         }
+    }
+
+    private void changeCoach() {
+        ArrayList<Swimmer> competitiveSwimmers = database.getCompetitiveSwimmers();
+        ui.changecoach(sc, competitiveSwimmers, sortingBy, getComparator());
+        database.setUnsavedChanges();
     }
 
     private void createCompetitiveResult() throws ParseException {
