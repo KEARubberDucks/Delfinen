@@ -131,8 +131,9 @@ public class UserInterface {
         System.out.println("Vælg venligst en funktion:\n" +
                 "1: Se en liste over alle svømmere\n" +
                 "2: Indtast et resultat\n" +
-                "3: Se en liste over top 5 svømmere inden for en disciplin (ikke implementeret endnu)\n" +
-                "4: Tilbage");
+                "3: Skift træner for en svømmer\n" +
+                "4: Se en liste over top 5 svømmere inden for en disciplin (ikke implementeret endnu)\n" +
+                "5: Tilbage");
     }
 
     public void createResult(Scanner sc, CompetitiveSwimmer swimmer) throws ParseException {
@@ -225,5 +226,20 @@ public class UserInterface {
         for (Swimmer swimmer : swimmers){
             printSwimmer(swimmer, swimmers.indexOf(swimmer));
         }
+    }
+
+    public void changecoach(Scanner sc, ArrayList<Swimmer> competitiveSwimmers, SortOption sortingBy, Comparator<Swimmer> comparator) {
+        System.out.println("Hvilken svømmers træner vil du gerne ændre: ");
+        printSwimmers(competitiveSwimmers, sortingBy, comparator);
+        int userchoice = sc.hasNextInt() ? sc.nextInt() : competitiveSwimmers.size() + 1;
+        sc.nextLine();
+        if (userchoice > 0 && userchoice < competitiveSwimmers.size() + 1){
+            CompetitiveSwimmer swimmer = (CompetitiveSwimmer) competitiveSwimmers.get(userchoice - 1);
+            System.out.printf("Den nuværende træner er: %s\n" +
+                    "Hvad hedder den nye træner?\n", swimmer.getCoachName());
+            String newCoachName = sc.nextLine();
+            swimmer.setCoachName(newCoachName);
+            System.out.printf("Ok, den nye træner er sat til at være: %s \n", newCoachName);
+        }else signalMessage(Signals.INVALID_INPUT);
     }
 }
