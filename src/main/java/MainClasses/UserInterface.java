@@ -7,6 +7,7 @@ import Enums.SortOption;
 import Swimmers.CompetitiveSwimmer;
 import Swimmers.Swimmer;
 
+import java.sql.SQLOutput;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -149,7 +150,13 @@ public class UserInterface {
                 bestSwimmer.add((CompetitiveSwimmer) swimmer);
             }
         }
-        //bestSwimmer.sort(results);
+        try {
+            bestSwimmer.sort(results);
+        } catch (IndexOutOfBoundsException E){
+            System.out.println("ERROR: et sorterings elements kunne ikke sorteres");
+        }
+
+
         for (CompetitiveSwimmer bestSwimmers: bestSwimmer){
             if (bestSwimmers.getDisciplinesString() == disciplineUsed){
                 printDisciplin(bestSwimmers, swimmers.indexOf(bestSwimmer));
