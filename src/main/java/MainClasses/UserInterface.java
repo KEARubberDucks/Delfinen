@@ -7,6 +7,7 @@ import Enums.SortOption;
 import Swimmers.CompetitiveSwimmer;
 import Swimmers.Swimmer;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -142,9 +143,9 @@ public class UserInterface {
                 bestSwimmer.add((CompetitiveSwimmer) swimmer);
             }
         }
-        bestSwimmer.sort(results);
+        //bestSwimmer.sort(results);
         for (CompetitiveSwimmer swimmer: bestSwimmer){
-            if (swimmer.getDisciplines() == disciplineUsed)
+            //if (swimmer.getDisciplines() == disciplineUsed)
             printDisciplin(swimmer, swimmers.indexOf(swimmer));
         }
         bestSwimmer.clear();
@@ -157,8 +158,10 @@ public class UserInterface {
         System.out.println("Alder:" + swimmer.getAge());
         System.out.println("Svømme disciplin: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getDiscipline());
         System.out.println("Beste tid: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getTimeInSeconds() + " sekunder");
-        System.out.println("Beste tid's dato: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getDate());
+        DateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println("Beste tid's dato: " + outputDateFormat.format(swimmer.getResults().get(swimmer.getResults().size() - 1).getDate()));
         System.out.println("Beste placering: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getPlace());
+        System.out.println("-----------------");
     }
 
     public void createResult(Scanner sc, CompetitiveSwimmer swimmer) throws ParseException {

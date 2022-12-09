@@ -6,6 +6,7 @@ import Swimmers.Swimmer;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.*;
@@ -44,7 +45,8 @@ public class FileHandler {
                 if (swimmer instanceof CompetitiveSwimmer && ((CompetitiveSwimmer) swimmer).getResults().isEmpty() == false){
                     output.print(swimmer);
                     output.print("; " + ((CompetitiveSwimmer) swimmer).getResults().get(0).getTimeInSeconds());
-                    output.print("; " + ((CompetitiveSwimmer) swimmer).getResults().get(0).getDate());
+                    DateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    output.print("; " + outputDateFormat.format(((CompetitiveSwimmer) swimmer).getResults().get(0).getDate()));
                     output.println("; " + ((CompetitiveSwimmer) swimmer).getResults().get(0).getPlace());
                 } else {
                     output.println(swimmer);
@@ -70,8 +72,9 @@ public class FileHandler {
                         getDiscipline(attributeList[6])
                 );
                 try {
-                    //kan ikke tage Swimmer element og bruge det til at lave CompetitiveResult
-                    //getBestResults(Integer.parseInt(attributeList[7]), setDate(attributeList[8]), attributeList[9], setDiscipline(attributeList[6]), (CompetitiveSwimmer) returnList.get(returnList.size()-1));
+                    //det sidste Competitiv svømmer bliver altid gemt som Competitiv svømmer men for ikke deres results med
+                    if(returnList.get(returnList.size()-1) instanceof CompetitiveSwimmer)
+                    getBestResults(Integer.parseInt(attributeList[7]), setDate(attributeList[8]), attributeList[9], setDiscipline(attributeList[6]), (CompetitiveSwimmer) returnList.get(returnList.size()-1));
                 } catch (ClassCastException e) {
                     System.out.println("ERROR: kunne ikke loade beste resultater fra database");
                 }
@@ -92,9 +95,9 @@ public class FileHandler {
     private Date setDate(String s){
         Date newDate = null;
         try {
-            newDate = DateFormat.getDateInstance().parse(s);
+            newDate = new SimpleDateFormat("dd/MM/yyyy").parse(s);
         } catch (ParseException e){
-            System.out.println("ERROR: kunne ikke hente data til Results i database");
+            System.out.println("ERROR: kunne ikke hente fileHandler til Results i database");
         }
         return newDate;
     }

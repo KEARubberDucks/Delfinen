@@ -1,6 +1,6 @@
 Adam; 25; ja; nej; nej
-Tore; 100; nej; ja; nej; Bobby; BUTTERFLY
-Torben; 75; nej; ja; nej; Bobby; BUTTERFLY
-Torre; 50; nej; ja; nej; Bobby; BUTTERFLY
-Torsk; 25; nej; ja; nej; Bobby; BUTTERFLY
 Zebra; 50; nej; nej; nej
+Tore; 100; nej; ja; nej; Bobby; BUTTERFLY; 20; 04/04/2020; KBH Svømmeklub
+Torben; 75; nej; ja; nej; Bobby; BUTTERFLY; 22; 04/04/2020; KBH Svømmeklub
+Torre; 50; nej; ja; nej; Bobby; BUTTERFLY; 24; 04/04/2020; KBH Svømmeklub
+Torsk; 25; nej; ja; nej; Bobby; BUTTERFLY; 26; 04/04/2020; KBH Svømmeklub
