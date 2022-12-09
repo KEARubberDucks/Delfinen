@@ -25,7 +25,6 @@ public class Swimmer {
         else if (age > 60)
             type = Type.SENIOR;
         else type = Type.NORMAL;
-        this.hasPaid = hasPaid;
     }
 
     public String getName(){

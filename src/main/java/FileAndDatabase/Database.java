@@ -1,8 +1,6 @@
 package FileAndDatabase;
 
-import java.time.Year;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import Enums.Discipline;
 import Swimmers.CompetitiveSwimmer;
@@ -12,15 +10,11 @@ public class Database {
     private ArrayList<Swimmer> swimmers;
     private ArrayList<Swimmer> searchResult;
     private boolean unsavedChanges;
-    private int currentYear;
     public Database() {
         unsavedChanges = false;
     }
 
-    public int getCurrentYear() {
-        currentYear = Year.now().getValue();
-        return currentYear;
-    }
+
     public ArrayList<Swimmer> getSwimmers() {
         return swimmers;
     }
@@ -38,7 +32,11 @@ public class Database {
         unsavedChanges = true;
     }
 
-    public void unsavedChangesTrue(){
+    public void swimmerPayment(Swimmer swimmer, boolean paid){
+        swimmer.setHasPaid(paid);
+        unsavedChanges = true;
+    }
+    public void setUnsavedChanges(){
         unsavedChanges = true;
     }
 
@@ -49,5 +47,15 @@ public class Database {
     public void createSwimmer(String name, int age, boolean isActive, boolean competitive, boolean hasPaid, String coachName, ArrayList<Discipline> choices) {
         swimmers.add(new CompetitiveSwimmer(name, age, isActive, competitive, hasPaid, coachName, choices));
         unsavedChanges = true;
+    }
+
+    public ArrayList<Swimmer> getCompetitiveSwimmers() {
+        ArrayList<Swimmer> compSwimmers = new ArrayList<>();
+        for (Swimmer swimmer : swimmers) {
+            if (swimmer instanceof CompetitiveSwimmer){
+                compSwimmers.add(swimmer);
+            }
+        }
+        return compSwimmers;
     }
 }

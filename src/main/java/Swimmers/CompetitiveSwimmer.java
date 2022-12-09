@@ -56,4 +56,7 @@ public class CompetitiveSwimmer extends Swimmer {
         return super.toString() + "; " + getCoachName() + "; " + getDisciplines();
     }
 
+    public void setCoachName(String newCoachName) {
+        coachName = newCoachName;
+    }
 }

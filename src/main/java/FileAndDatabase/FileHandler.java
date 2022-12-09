@@ -30,13 +30,12 @@ public class FileHandler {
         output = new PrintStream(file2);
         output.println(currentYear);
     }
-//    public int loadYear() throws FileNotFoundException{
-//        int currentYear;
-//        input = new Scanner(file2);
-//        currentYear = Integer.parseInt(input.nextLine());
-//        return currentYear;
-//    }
-
+    public int loadYear() throws FileNotFoundException{
+        int currentYear;
+        input = new Scanner(file2);
+        currentYear = Integer.parseInt(input.nextLine());
+        return currentYear;
+    }
     //Swimmers skal med lille s
     public void saveSwimmers(ArrayList<Swimmer> Swimmers)throws FileNotFoundException{
         output = new PrintStream(file);
