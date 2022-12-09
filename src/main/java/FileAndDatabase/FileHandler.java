@@ -94,7 +94,7 @@ public class FileHandler {
         try {
             newDate = DateFormat.getDateInstance().parse(s);
         } catch (ParseException e){
-            System.out.println("ERROR: fejl i database");
+            System.out.println("ERROR: kunne ikke hente data til Results i database");
         }
         return newDate;
     }

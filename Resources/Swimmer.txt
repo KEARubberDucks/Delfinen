@@ -1,3 +1,6 @@
 Adam; 25; ja; nej; nej
-Tore; 100; nej; ja; nej; Bobby; BUTTERFLY; 23; Sat Apr 04 00:00:00 CEST 2020; KBH Svømmeklub
+Tore; 100; nej; ja; nej; Bobby; BUTTERFLY
+Torben; 75; nej; ja; nej; Bobby; BUTTERFLY
+Torre; 50; nej; ja; nej; Bobby; BUTTERFLY
+Torsk; 25; nej; ja; nej; Bobby; BUTTERFLY
 Zebra; 50; nej; nej; nej

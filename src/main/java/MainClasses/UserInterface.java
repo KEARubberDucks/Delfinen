@@ -131,18 +131,23 @@ public class UserInterface {
         System.out.println("Vælg venligst en funktion:\n" +
                 "1: Se en liste over alle svømmere\n" +
                 "2: Indtast et resultat\n" +
-                "3: Se en liste over top 5 svømmere inden for en disciplin (ikke implementeret endnu)\n" +
+                "3: Se en liste over top svømmere inden for en disciplin (WIP)\n" +
                 "4: Tilbage");
     }
 
-    public void ChooseGroupOfSwimmers(ArrayList<Swimmer> swimmers, Comparator results){
-        swimmers.sort(results);
+    public void ChooseGroupOfSwimmers(ArrayList<Swimmer> swimmers, Comparator results, String disciplineUsed){
+        ArrayList<CompetitiveSwimmer> bestSwimmer = new ArrayList<>();
         for (Swimmer swimmer : swimmers){
-            if (swimmer instanceof CompetitiveSwimmer){
-                printDisciplin((CompetitiveSwimmer) swimmer, swimmers.indexOf(swimmer));
+            if (swimmer instanceof CompetitiveSwimmer) {
+                bestSwimmer.add((CompetitiveSwimmer) swimmer);
             }
-
         }
+        bestSwimmer.sort(results);
+        for (CompetitiveSwimmer swimmer: bestSwimmer){
+            if (swimmer.getDisciplines() == disciplineUsed)
+            printDisciplin(swimmer, swimmers.indexOf(swimmer));
+        }
+        bestSwimmer.clear();
     }
 
     public void printDisciplin(CompetitiveSwimmer swimmer, int index){
@@ -221,6 +226,15 @@ public class UserInterface {
         String[] choices = sc.nextLine().split(",".trim());
         ArrayList<Discipline> disciplines = getDisciplinesFromChoices(choices);
         return disciplines;
+    }
+
+    public void seeDisciplines(){
+        System.out.println("Hvilken disciplin du vil se");
+        System.out.println("""
+                1: BUTTERFLY
+                2: CRAWL
+                3: RYGCRAWL
+                4: BRYSTSVØMNING""");
     }
 
     private ArrayList<Discipline> getDisciplinesFromChoices(String[] choices) {

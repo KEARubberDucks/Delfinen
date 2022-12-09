@@ -97,12 +97,40 @@ public class Controller {
                 switch (menuItem){
                     case 1 -> printSwimmers();
                     case 2 -> createCompetitiveResult();
-                    case 3 -> ui.ChooseGroupOfSwimmers(database.getSwimmers(), bestSwimmerResults);
+                    case 3 -> getBestSwimmersList();
                     case 4 -> inMenu = false;
                     default -> ui.signalMessage(Signals.INVALID_INPUT);
                 }
             }
         }
+    }
+
+    private void getBestSwimmersList(){
+        int userInput;
+        String chosenDiscipline = "";
+        boolean menu = false;
+        while (!menu){
+            ui.seeDisciplines();
+            userInput = sc.nextInt();
+            switch (userInput){
+                case 1: chosenDiscipline = "BUTTERFLY";
+                menu = true;
+                break;
+                case 2: chosenDiscipline = "CRAWL";
+                menu = true;
+                break;
+                case 3: chosenDiscipline = "RYGCRAWL";
+                menu = true;
+                break;
+                case 4: chosenDiscipline = "BRYSTSVØMNING";
+                menu = true;
+                break;
+                default:
+                    ui.signalMessage(Signals.INVALID_INPUT);
+                    break;
+            }
+        }
+        ui.ChooseGroupOfSwimmers(database.getSwimmers(), bestSwimmerResults, chosenDiscipline);
     }
 
     private void createCompetitiveResult() throws ParseException {
