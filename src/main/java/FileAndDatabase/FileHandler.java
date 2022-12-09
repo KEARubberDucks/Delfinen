@@ -71,7 +71,7 @@ public class FileHandler {
                 );
                 try {
                     //kan ikke tage Swimmer element og bruge det til at lave CompetitiveResult
-                    getBestResults(Integer.parseInt(attributeList[7]), setDate(attributeList[8]), attributeList[9], setDiscipline(attributeList[6]), (CompetitiveSwimmer) returnList.get(returnList.size()-1));
+                    //getBestResults(Integer.parseInt(attributeList[7]), setDate(attributeList[8]), attributeList[9], setDiscipline(attributeList[6]), (CompetitiveSwimmer) returnList.get(returnList.size()-1));
                 } catch (ClassCastException e) {
                     System.out.println("ERROR: kunne ikke loade beste resultater fra database");
                 }
