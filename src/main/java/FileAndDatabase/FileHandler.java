@@ -4,6 +4,11 @@ import Swimmers.CompetitiveResult;
 import Swimmers.CompetitiveSwimmer;
 import Swimmers.Swimmer;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -36,7 +41,15 @@ public class FileHandler {
         output = new PrintStream(file);
         if (!Swimmers.isEmpty()){
             for (Swimmer swimmer : Swimmers){
-                output.println(swimmer);
+                if (swimmer instanceof CompetitiveSwimmer && ((CompetitiveSwimmer) swimmer).getResults().isEmpty() == false){
+                    output.print(swimmer);
+                    output.print("; " + ((CompetitiveSwimmer) swimmer).getResults().get(0).getTimeInSeconds());
+                    output.print("; " + ((CompetitiveSwimmer) swimmer).getResults().get(0).getDate());
+                    output.println("; " + ((CompetitiveSwimmer) swimmer).getResults().get(0).getPlace());
+                } else {
+                    output.println(swimmer);
+                }
+
             }
         }
     }
@@ -46,7 +59,7 @@ public class FileHandler {
         input = new Scanner(file);
         while (input.hasNextLine()){
             String[] attributeList = input.nextLine().split("; ");
-            if (attributeList[3].equals("ja"))
+            if (attributeList[3].equals("ja")) {
                 swimmerToAdd = new CompetitiveSwimmer(
                         attributeList[0],
                         Integer.parseInt(attributeList[1]),
@@ -55,9 +68,14 @@ public class FileHandler {
                         attributeList[4].equals("ja"),
                         attributeList[5],
                         getDiscipline(attributeList[6])
-                        //getResults(attributeList[7])
                 );
-            else
+                try {
+                    //kan ikke tage Swimmer element og bruge det til at lave CompetitiveResult
+                    getBestResults(Integer.parseInt(attributeList[7]), setDate(attributeList[8]), attributeList[9], setDiscipline(attributeList[6]), (CompetitiveSwimmer) returnList.get(returnList.size()-1));
+                } catch (ClassCastException e) {
+                    System.out.println("ERROR: kunne ikke loade beste resultater fra database");
+                }
+            } else {
                 swimmerToAdd = new Swimmer(
                         attributeList[0],
                         Integer.parseInt(attributeList[1]),
@@ -65,17 +83,21 @@ public class FileHandler {
                         false,
                         attributeList[4].equals("ja")
                 );
+            }
             returnList.add(swimmerToAdd);
         }
         return returnList;
     }
 
-/*
-    private Object getResults(String s) {
-        return CompetitiveSwimmer.getResults();
+    private Date setDate(String s){
+        Date newDate = null;
+        try {
+            newDate = DateFormat.getDateInstance().parse(s);
+        } catch (ParseException e){
+            System.out.println("ERROR: fejl i database");
+        }
+        return newDate;
     }
-
- */
 
     private ArrayList<Discipline> getDiscipline(String s) {
         String[] disciplines = s.split(", ");
@@ -90,5 +112,23 @@ public class FileHandler {
             });
         }
         return returnArray;
+    }
+
+    private Discipline setDiscipline(String s){
+        Discipline chosenDiscipline;
+        switch (s){
+            case "BUTTERFLY" -> chosenDiscipline = Discipline.BUTTERFLY;
+            case "CRAWL" -> chosenDiscipline = Discipline.CRAWL;
+            case "RYGCRAWL" -> chosenDiscipline = Discipline.RYGCRAWL;
+            case "BRYSTSVØMNING" -> chosenDiscipline = Discipline.BRYSTSVØMNING;
+            default -> chosenDiscipline = null;
+        }
+        return chosenDiscipline;
+    }
+
+    private void getBestResults(int timeInSeconds, Date date, String place, Discipline discipline, CompetitiveSwimmer swimmer){
+        ArrayList<CompetitiveResult> returnArray = new ArrayList<>();
+
+        swimmer.createCompetitiveResult(timeInSeconds, date, place, discipline);
     }
 }

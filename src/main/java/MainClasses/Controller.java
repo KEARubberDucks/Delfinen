@@ -110,6 +110,7 @@ public class Controller {
         if (swimmer.getIsCompetitive().equals("ja")){
             ui.createResult(sc, (CompetitiveSwimmer) swimmer);
         } else ui.signalMessage(Signals.SWIMMER_NOT_COMPETITIVE);
+        database.unsavedChangesTrue();
     }
 
     private void printSwimmers() {

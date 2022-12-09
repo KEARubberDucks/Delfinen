@@ -100,6 +100,7 @@ public class UserInterface {
             case AGE -> "alder";
             case IS_ACTIVE -> "om de er aktive";
             case IS_COMPETITIVE -> "om de er competitive";
+            case BEST_SWIMMER -> null;
         };
     }
 
