@@ -28,7 +28,7 @@ public class Controller {
     private CompetitiveComparator competitiveComparator;
     private IsActiveComparator isActiveComparator;
     private NameComparator nameComparator;
-    private BestSwimmer bestSwimmerComparator;
+    private BestSwimmer bestSwimmerResults;
     private SortOption sortingBy;
     private Payment payment;
 
@@ -41,7 +41,7 @@ public class Controller {
         competitiveComparator = new CompetitiveComparator();
         isActiveComparator = new IsActiveComparator();
         nameComparator = new NameComparator();
-        bestSwimmerComparator = new BestSwimmer();
+        bestSwimmerResults = new BestSwimmer();
         sortingBy = SortOption.NAME;
         payment = new Payment();
 
@@ -97,7 +97,7 @@ public class Controller {
                 switch (menuItem){
                     case 1 -> printSwimmers();
                     case 2 -> createCompetitiveResult();
-                    case 3 -> ui.ChooseGroupOfSwimmers(database.getSwimmers());
+                    case 3 -> ui.ChooseGroupOfSwimmers(database.getSwimmers(), bestSwimmerResults);
                     case 4 -> inMenu = false;
                     default -> ui.signalMessage(Signals.INVALID_INPUT);
                 }
@@ -132,7 +132,6 @@ public class Controller {
             case IS_COMPETITIVE -> competitiveComparator;
             case IS_ACTIVE -> isActiveComparator;
             case NAME -> nameComparator;
-            case BEST_SWIMMER -> null;
         };
     }
 

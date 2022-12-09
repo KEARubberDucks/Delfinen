@@ -1,5 +1,6 @@
 package MainClasses;
 
+import Comparators.BestSwimmer;
 import Enums.Discipline;
 import Enums.Signals;
 import Enums.SortOption;
@@ -100,7 +101,6 @@ public class UserInterface {
             case AGE -> "alder";
             case IS_ACTIVE -> "om de er aktive";
             case IS_COMPETITIVE -> "om de er competitive";
-            case BEST_SWIMMER -> null;
         };
     }
 
@@ -135,7 +135,8 @@ public class UserInterface {
                 "4: Tilbage");
     }
 
-    void ChooseGroupOfSwimmers(ArrayList<Swimmer> swimmers){
+    public void ChooseGroupOfSwimmers(ArrayList<Swimmer> swimmers, Comparator results){
+        swimmers.sort(results);
         for (Swimmer swimmer : swimmers){
             if (swimmer instanceof CompetitiveSwimmer){
                 printDisciplin((CompetitiveSwimmer) swimmer, swimmers.indexOf(swimmer));
@@ -143,6 +144,7 @@ public class UserInterface {
 
         }
     }
+
     public void printDisciplin(CompetitiveSwimmer swimmer, int index){
 
         System.out.println("Svømmer id: " + (index+1));
