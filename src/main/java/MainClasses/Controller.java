@@ -148,7 +148,7 @@ public class Controller {
         if (swimmer.getIsCompetitive().equals("ja")){
             ui.createResult(sc, (CompetitiveSwimmer) swimmer);
         } else ui.signalMessage(Signals.SWIMMER_NOT_COMPETITIVE);
-        database.unsavedChangesTrue();
+        database.setUnsavedChanges();
     }
 
     private void printSwimmers() {
@@ -313,7 +313,7 @@ public class Controller {
 
             if (indexDelete == 0){
                 loopEndValue = true;
-                ui.signalMessage(Signals.INCORRECT_INPUT);
+                ui.signalMessage(Signals.INVALID_INPUT);
             }
         }
         //database metode sletter den svømmer der blev hentet tidligere
