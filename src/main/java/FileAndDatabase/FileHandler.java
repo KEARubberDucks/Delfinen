@@ -72,8 +72,7 @@ public class FileHandler {
                         getDiscipline(attributeList[6])
                 );
                 try {
-                    //det sidste Competitiv svømmer bliver altid gemt som Competitiv svømmer men for ikke deres results med
-                    if(returnList.get(returnList.size()-1) instanceof CompetitiveSwimmer)
+                    //den fejler første gang
                     getBestResults(Integer.parseInt(attributeList[7]), setDate(attributeList[8]), attributeList[9], setDiscipline(attributeList[6]), (CompetitiveSwimmer) returnList.get(returnList.size()-1));
                 } catch (ClassCastException e) {
                     System.out.println("ERROR: kunne ikke loade beste resultater fra database");

@@ -33,6 +33,11 @@ public class CompetitiveSwimmer extends Swimmer {
         results.add(new CompetitiveResult(timeInSeconds, date, place, discipline));
     }
 
+    public String getDisciplinesString(){
+        String disciplinesToReturn = String.valueOf(disciplines.get(0));
+        return disciplinesToReturn;
+    }
+
     public String getDisciplines() {
         String returnString = "";
         for (int i = 0; i < disciplines.size() - 1; i++) {

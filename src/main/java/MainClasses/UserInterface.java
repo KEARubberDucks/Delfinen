@@ -89,6 +89,12 @@ public class UserInterface {
         System.out.println("Skriv \"Sorter\" for at sortere efter en anden parameter, eller \"Tilbage\" for at gå tilbage.");
     }
 
+    public void printOnlySwimmers(ArrayList<Swimmer> swimmers){
+        for (Swimmer swimmer : swimmers){
+            printSwimmer(swimmer, swimmers.indexOf(swimmer));
+        }
+    }
+
     public void swimmerInformation(){
         System.out.print("1: Navn \n" +
                 "2: alder \n" +
@@ -144,24 +150,29 @@ public class UserInterface {
             }
         }
         //bestSwimmer.sort(results);
-        for (CompetitiveSwimmer swimmer: bestSwimmer){
-            //if (swimmer.getDisciplines() == disciplineUsed)
-            printDisciplin(swimmer, swimmers.indexOf(swimmer));
+        for (CompetitiveSwimmer bestSwimmers: bestSwimmer){
+            if (bestSwimmers.getDisciplinesString() == disciplineUsed){
+                printDisciplin(bestSwimmers, swimmers.indexOf(bestSwimmer));
+            }
         }
         bestSwimmer.clear();
     }
 
     public void printDisciplin(CompetitiveSwimmer swimmer, int index){
-
-        System.out.println("Svømmer id: " + (index+1));
-        System.out.println("Navn: " + swimmer.getName());
-        System.out.println("Alder:" + swimmer.getAge());
-        System.out.println("Svømme disciplin: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getDiscipline());
-        System.out.println("Beste tid: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getTimeInSeconds() + " sekunder");
-        DateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        System.out.println("Beste tid's dato: " + outputDateFormat.format(swimmer.getResults().get(swimmer.getResults().size() - 1).getDate()));
-        System.out.println("Beste placering: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getPlace());
-        System.out.println("-----------------");
+try {
+    System.out.println("Svømmer id: " + (index + 1));
+    System.out.println("Navn: " + swimmer.getName());
+    System.out.println("Alder:" + swimmer.getAge());
+    //her fra printer den elementer fra den næste svømmer
+    System.out.println("Svømme disciplin: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getDiscipline());
+    System.out.println("Beste tid: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getTimeInSeconds() + " sekunder");
+    DateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    System.out.println("Beste tid's dato: " + outputDateFormat.format(swimmer.getResults().get(swimmer.getResults().size() - 1).getDate()));
+    System.out.println("Beste placering: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getPlace());
+    System.out.println("-----------------");
+} catch (IndexOutOfBoundsException e){
+    System.out.println("ERROR: kunne ikke loade korrekt");
+}
     }
 
     public void createResult(Scanner sc, CompetitiveSwimmer swimmer) throws ParseException {

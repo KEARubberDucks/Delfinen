@@ -282,16 +282,17 @@ public class Controller {
         int indexDelete = 0;
         Swimmer swimmerDelete = null;
         while (!loopEndValue) {
+            //udskriv alle svømmerne i ui
+            ui.printOnlySwimmers(database.getSwimmers());
             //signal enum vælg svømmer
             ui.signalMessage(Signals.CHOOSE_SWIMMER);
-            //udskriv alle svømmerne i ui
-            ui.printSwimmers(database.getSwimmers(), sortingBy, getComparator());
             try {
                 //scanner nextInt i try/catch signal enum for ugyldigt input
                 indexDelete = sc.nextInt();
             } catch (InputMismatchException mismatchException) {
                 ui.signalMessage(Signals.INVALID_INPUT);
             }
+
             try {
                 //fetch svømmeren i database -> bruger valgte index -1 da array starter på 0 ikke 1
                 swimmerDelete = database.getSwimmers().get(indexDelete - 1);
@@ -300,6 +301,11 @@ public class Controller {
             } catch (IndexOutOfBoundsException outOfBoundsException) {
 
                 loopEndValue = false;
+            }
+
+            if (indexDelete == 0){
+                loopEndValue = true;
+                ui.signalMessage(Signals.INCORRECT_INPUT);
             }
         }
         //database metode sletter den svømmer der blev hentet tidligere

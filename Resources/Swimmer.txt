@@ -1,6 +1,18 @@
 Adam; 25; ja; nej; nej
 Zebra; 50; nej; nej; nej
-Tore; 100; nej; ja; nej; Bobby; BUTTERFLY; 20; 04/04/2020; KBH Svømmeklub
-Torben; 75; nej; ja; nej; Bobby; BUTTERFLY; 22; 04/04/2020; KBH Svømmeklub
-Torre; 50; nej; ja; nej; Bobby; BUTTERFLY; 24; 04/04/2020; KBH Svømmeklub
-Torsk; 25; nej; ja; nej; Bobby; BUTTERFLY; 26; 04/04/2020; KBH Svømmeklub
+Tore; 80; nej; ja; nej; Bobby; BUTTERFLY; 20; 04/04/2020; KBH 1 Svømmeklub
+Torben; 40; nej; ja; nej; Bobby; BUTTERFLY; 12; 04/04/2020; ÅB 2 Svømmeklub
+Trello; 25; nej; ja; nej; Bobby; BUTTERFLY; 24; 04/04/2020; Amager 3 Svømmeklub
+Torsk; 16; nej; ja; nej; Bobby; BUTTERFLY; 36; 04/04/2020; Fyn 4 Svømmeklub
+Henry; 80; nej; ja; nej; Bobby; CRAWL; 20; 04/04/2020; KBH 1 Svømmeklub
+Harry; 40; nej; ja; nej; Bobby; CRAWL; 12; 04/04/2020; ÅB 2 Svømmeklub
+Hector; 25; nej; ja; nej; Bobby; CRAWL; 24; 04/04/2020; Amager 3 Svømmeklub
+Hilda; 16; nej; ja; nej; Bobby; CRAWL; 36; 04/04/2020; Fyn 4 Svømmeklub
+Susan; 80; nej; ja; nej; Bobby; RYGCRAWL; 20; 04/04/2020; KBH 1 Svømmeklub
+Sarah; 40; nej; ja; nej; Bobby; RYGCRAWL; 12; 04/04/2020; ÅB 2 Svømmeklub
+Søren; 25; nej; ja; nej; Bobby; RYGCRAWL; 24; 04/04/2020; Amager 3 Svømmeklub
+Sally; 16; nej; ja; nej; Bobby; RYGCRAWL; 36; 04/04/2020; Fyn 4 Svømmeklub
+Kenny; 80; nej; ja; nej; Bobby; BRYSTSVØMNING; 20; 04/04/2020; KBH 1 Svømmeklub
+Karen; 40; nej; ja; nej; Bobby; BRYSTSVØMNING; 12; 04/04/2020; ÅB 2 Svømmeklub
+Keneth; 25; nej; ja; nej; Bobby; BRYSTSVØMNING; 24; 04/04/2020; Amager 3 Svømmeklub
+kent; 16; nej; ja; nej; Bobby; BRYSTSVØMNING; 36; 04/04/2020; Fyn 4 Svømmeklub
