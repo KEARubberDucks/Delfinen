@@ -143,13 +143,14 @@ public class UserInterface {
         }
     }
     public void printDisciplin(CompetitiveSwimmer swimmer, int index){
-        System.out.printf(
-                "Svømmer id: %d \n" +
-                        "Navn: %s\n" +
-                        "Alder: %d\n" +
-                        "Resultat: %s\n",
-                (index + 1), swimmer.getName(), swimmer.getAge(), swimmer.getResults());
 
+        System.out.println("Svømmer id: " + (index+1));
+        System.out.println("Navn: " + swimmer.getName());
+        System.out.println("Alder:" + swimmer.getAge());
+        System.out.println("Svømme disciplin: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getDiscipline());
+        System.out.println("Beste tid: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getTimeInSeconds() + " sekunder");
+        System.out.println("Beste tid's dato: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getDate());
+        System.out.println("Beste placering: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getPlace());
     }
 
     public void createResult(Scanner sc, CompetitiveSwimmer swimmer) throws ParseException {

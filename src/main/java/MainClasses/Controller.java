@@ -1,9 +1,6 @@
 package MainClasses;
 
-import Comparators.AgeComparator;
-import Comparators.CompetitiveComparator;
-import Comparators.IsActiveComparator;
-import Comparators.NameComparator;
+import Comparators.*;
 
 import Enums.Discipline;
 import Enums.Signals;
@@ -11,6 +8,7 @@ import Enums.SortOption;
 
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
+import Swimmers.CompetitiveResult;
 import Swimmers.CompetitiveSwimmer;
 import Payments.Payment;
 import Swimmers.Swimmer;
@@ -30,6 +28,7 @@ public class Controller {
     private CompetitiveComparator competitiveComparator;
     private IsActiveComparator isActiveComparator;
     private NameComparator nameComparator;
+    private BestSwimmer bestSwimmerComparator;
     private SortOption sortingBy;
     private Payment payment;
 
@@ -42,8 +41,11 @@ public class Controller {
         competitiveComparator = new CompetitiveComparator();
         isActiveComparator = new IsActiveComparator();
         nameComparator = new NameComparator();
+        bestSwimmerComparator = new BestSwimmer();
         sortingBy = SortOption.NAME;
         payment = new Payment();
+
+
 
     }
 
@@ -129,6 +131,7 @@ public class Controller {
             case IS_COMPETITIVE -> competitiveComparator;
             case IS_ACTIVE -> isActiveComparator;
             case NAME -> nameComparator;
+            case BEST_SWIMMER -> null;
         };
     }
 

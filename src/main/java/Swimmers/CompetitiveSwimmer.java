@@ -1,6 +1,7 @@
 package Swimmers;
 
 import Enums.Discipline;
+import Swimmers.CompetitiveResult;
 
 import java.util.ArrayList;
 import java.util.Date;
