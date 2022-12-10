@@ -70,12 +70,6 @@ public class FileHandler {
                         attributeList[5],
                         getDiscipline(attributeList[6])
                 );
-                try {
-                    //TODO: den fejler med den første Competitive Svømmer og laver dem uden Results
-                    getBestResults(Integer.parseInt(attributeList[7]), setDate(attributeList[8]), attributeList[9], setDiscipline(attributeList[6]), (CompetitiveSwimmer) returnList.get(returnList.size()-1));
-                } catch (ClassCastException e) {
-                    System.out.println("ERROR: kunne ikke loade beste resultater fra database");
-                }
             } else {
                 swimmerToAdd = new Swimmer(
                         attributeList[0],
@@ -86,6 +80,13 @@ public class FileHandler {
                 );
             }
             returnList.add(swimmerToAdd);
+            if (attributeList[3].equals("ja")){
+                try {
+                    getBestResults(Integer.parseInt(attributeList[7]), setDate(attributeList[8]), attributeList[9], setDiscipline(attributeList[6]), (CompetitiveSwimmer) returnList.get(returnList.size()-1));
+                } catch (ClassCastException e) {
+                    System.out.println("ERROR: kunne ikke loade beste resultater fra database");
+                }
+            }
         }
         return returnList;
     }
