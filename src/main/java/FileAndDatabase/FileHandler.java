@@ -43,10 +43,17 @@ public class FileHandler {
             for (Swimmer swimmer : Swimmers){
                 if (swimmer instanceof CompetitiveSwimmer && ((CompetitiveSwimmer) swimmer).getResults().isEmpty() == false){
                     output.print(swimmer);
-                    output.print("; " + ((CompetitiveSwimmer) swimmer).getResults().get(0).getTimeInSeconds());
-                    DateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    output.print("; " + outputDateFormat.format(((CompetitiveSwimmer) swimmer).getResults().get(0).getDate()));
-                    output.println("; " + ((CompetitiveSwimmer) swimmer).getResults().get(0).getPlace());
+                    int ResultIndex = 0;
+                    for(CompetitiveResult result : ((CompetitiveSwimmer) swimmer).getResults()){
+                        output.print("; " + ((CompetitiveSwimmer) swimmer).getResults().get(ResultIndex).getDiscipline());
+                        output.print("; " + ((CompetitiveSwimmer) swimmer).getResults().get(ResultIndex).getTimeInSeconds());
+                        DateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        output.print("; " + outputDateFormat.format(((CompetitiveSwimmer) swimmer).getResults().get(ResultIndex).getDate()));
+                        output.print("; " + ((CompetitiveSwimmer) swimmer).getResults().get(ResultIndex).getPlace());
+                        ResultIndex=+1;
+                    }
+                    output.println();
+
                 } else {
                     output.println(swimmer);
                 }
@@ -81,11 +88,23 @@ public class FileHandler {
             }
             returnList.add(swimmerToAdd);
             if (attributeList[3].equals("ja")){
-                try {
-                    getBestResults(Integer.parseInt(attributeList[7]), setDate(attributeList[8]), attributeList[9], setDiscipline(attributeList[6]), (CompetitiveSwimmer) returnList.get(returnList.size()-1));
-                } catch (ClassCastException e) {
-                    System.out.println("ERROR: kunne ikke loade beste resultater fra database");
+                boolean allResults = true;
+                int resultIndex = 0;
+                while (allResults){
+                    try {
+                        getBestResults(Integer.parseInt(attributeList[8+resultIndex]),
+                                setDate(attributeList[9+resultIndex]),
+                                attributeList[10+resultIndex],
+                                setDiscipline(attributeList[7+resultIndex]),
+                                (CompetitiveSwimmer) returnList.get(returnList.size()-1));
+                        resultIndex=resultIndex+4;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        allResults = false;
+                    } catch (NumberFormatException e){
+                        allResults = false;
+                    }
                 }
+                // timeInSeconds,  date,  place,  discipline, CompetitiveSwimmer swimmer
             }
         }
         return returnList;

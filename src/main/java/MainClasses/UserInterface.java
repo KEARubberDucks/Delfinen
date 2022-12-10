@@ -4,9 +4,11 @@ import Comparators.BestSwimmer;
 import Enums.Discipline;
 import Enums.Signals;
 import Enums.SortOption;
+import Swimmers.CompetitiveResult;
 import Swimmers.CompetitiveSwimmer;
 import Swimmers.Swimmer;
 
+import javax.xml.transform.Result;
 import java.sql.SQLOutput;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -171,12 +173,17 @@ try {
     System.out.println("Svømmer id: " + (index + 1));
     System.out.println("Navn: " + swimmer.getName());
     System.out.println("Alder:" + swimmer.getAge());
-    //her fra printer den elementer fra den næste svømmer
-    System.out.println("Svømme disciplin: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getDiscipline());
-    System.out.println("Beste tid: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getTimeInSeconds() + " sekunder");
-    DateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    System.out.println("Beste tid's dato: " + outputDateFormat.format(swimmer.getResults().get(swimmer.getResults().size() - 1).getDate()));
-    System.out.println("Beste placering: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getPlace());
+    int ResultIndex = 0;
+    for(CompetitiveResult result : swimmer.getResults()){
+
+        System.out.println("Svømme disciplin: " + swimmer.getResults().get(ResultIndex).getDiscipline());
+        System.out.println("Beste tid: " + swimmer.getResults().get(ResultIndex).getTimeInSeconds() + " sekunder");
+        DateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println("Beste tid's dato: " + outputDateFormat.format(swimmer.getResults().get(ResultIndex).getDate()));
+        System.out.println("Beste placering: " + swimmer.getResults().get(ResultIndex).getPlace());
+        ResultIndex=+1;
+    }
+
     System.out.println("-----------------");
 } catch (IndexOutOfBoundsException e){
     System.out.println("ERROR: kunne ikke loade korrekt");
