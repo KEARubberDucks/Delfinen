@@ -1,9 +1,6 @@
 package MainClasses;
 
-import Comparators.AgeComparator;
-import Comparators.CompetitiveComparator;
-import Comparators.IsActiveComparator;
-import Comparators.NameComparator;
+import Comparators.*;
 
 import Enums.Discipline;
 import Enums.Signals;
@@ -11,6 +8,7 @@ import Enums.SortOption;
 
 import FileAndDatabase.Database;
 import FileAndDatabase.FileHandler;
+import Swimmers.CompetitiveResult;
 import Swimmers.CompetitiveSwimmer;
 import Payments.Payment;
 import Swimmers.Swimmer;
@@ -30,6 +28,7 @@ public class Controller {
     private CompetitiveComparator competitiveComparator;
     private IsActiveComparator isActiveComparator;
     private NameComparator nameComparator;
+    private BestSwimmer bestSwimmerResults;
     private SortOption sortingBy;
     private Payment payment;
 
@@ -42,8 +41,11 @@ public class Controller {
         competitiveComparator = new CompetitiveComparator();
         isActiveComparator = new IsActiveComparator();
         nameComparator = new NameComparator();
+        bestSwimmerResults = new BestSwimmer();
         sortingBy = SortOption.NAME;
         payment = new Payment();
+
+
 
     }
 
@@ -96,7 +98,7 @@ public class Controller {
                     case 1 -> printSwimmers();
                     case 2 -> createCompetitiveResult();
                     case 3 -> changeCoach();
-                    case 4 -> ui.signalMessage(Signals.NOT_IMPLEMENTED);
+                    case 4 -> getBestSwimmersList();
                     case 5 -> inMenu = false;
                     default -> ui.signalMessage(Signals.INVALID_INPUT);
                 }
@@ -113,11 +115,40 @@ public class Controller {
         database.setUnsavedChanges();
     }
 
+    private void getBestSwimmersList(){
+        int userInput;
+        String chosenDiscipline = "";
+        boolean menu = false;
+        while (!menu){
+            ui.seeDisciplines();
+            userInput = sc.nextInt();
+            switch (userInput){
+                case 1: chosenDiscipline = "BUTTERFLY";
+                menu = true;
+                break;
+                case 2: chosenDiscipline = "CRAWL";
+                menu = true;
+                break;
+                case 3: chosenDiscipline = "RYGCRAWL";
+                menu = true;
+                break;
+                case 4: chosenDiscipline = "BRYSTSVØMNING";
+                menu = true;
+                break;
+                default:
+                    ui.signalMessage(Signals.INVALID_INPUT);
+                    break;
+            }
+        }
+        ui.ChooseGroupOfSwimmers(database.getSwimmers(), bestSwimmerResults, chosenDiscipline);
+    }
+
     private void createCompetitiveResult() throws ParseException {
         Swimmer swimmer =  chooseSwimmer();
         if (swimmer.getIsCompetitive().equals("ja")){
             ui.createResult(sc, (CompetitiveSwimmer) swimmer);
         } else ui.signalMessage(Signals.SWIMMER_NOT_COMPETITIVE);
+        database.setUnsavedChanges();
     }
 
     private void printSwimmers() {
@@ -259,16 +290,17 @@ public class Controller {
         int indexDelete = 0;
         Swimmer swimmerDelete = null;
         while (!loopEndValue) {
+            //udskriv alle svømmerne i ui
+            ui.printOnlySwimmers(database.getSwimmers());
             //signal enum vælg svømmer
             ui.signalMessage(Signals.CHOOSE_SWIMMER);
-            //udskriv alle svømmerne i ui
-            ui.printSwimmers(database.getSwimmers(), sortingBy, getComparator());
             try {
                 //scanner nextInt i try/catch signal enum for ugyldigt input
                 indexDelete = sc.nextInt();
             } catch (InputMismatchException mismatchException) {
                 ui.signalMessage(Signals.INVALID_INPUT);
             }
+
             try {
                 //fetch svømmeren i database -> bruger valgte index -1 da array starter på 0 ikke 1
                 swimmerDelete = database.getSwimmers().get(indexDelete - 1);
@@ -277,6 +309,11 @@ public class Controller {
             } catch (IndexOutOfBoundsException outOfBoundsException) {
 
                 loopEndValue = false;
+            }
+
+            if (indexDelete == 0){
+                loopEndValue = true;
+                ui.signalMessage(Signals.INVALID_INPUT);
             }
         }
         //database metode sletter den svømmer der blev hentet tidligere

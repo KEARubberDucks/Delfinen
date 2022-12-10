@@ -10,6 +10,22 @@ public class CompetitiveResult {
     private Date date;
     private String place;
 
+    public Discipline getDiscipline() {
+        return discipline;
+    }
+
+    public int getTimeInSeconds() {
+        return timeInSeconds;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
     public CompetitiveResult(int timeInSeconds, Date date, String place, Discipline discipline) {
         this.timeInSeconds = timeInSeconds;
         this.date = date;

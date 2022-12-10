@@ -1,18 +1,20 @@
 package MainClasses;
 
+import Comparators.BestSwimmer;
 import Enums.Discipline;
 import Enums.Signals;
 import Enums.SortOption;
 import Swimmers.CompetitiveSwimmer;
 import Swimmers.Swimmer;
 
+import java.sql.SQLOutput;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Date;
-import java.util.Scanner;
 
 public class UserInterface {
 
@@ -88,6 +90,12 @@ public class UserInterface {
         System.out.println("Skriv \"Sorter\" for at sortere efter en anden parameter, eller \"Tilbage\" for at gå tilbage.");
     }
 
+    public void printOnlySwimmers(ArrayList<Swimmer> swimmers){
+        for (Swimmer swimmer : swimmers){
+            printSwimmer(swimmer, swimmers.indexOf(swimmer));
+        }
+    }
+
     public void swimmerInformation(){
         System.out.print("1: Navn \n" +
                 "2: alder \n" +
@@ -132,8 +140,47 @@ public class UserInterface {
                 "1: Se en liste over alle svømmere\n" +
                 "2: Indtast et resultat\n" +
                 "3: Skift træner for en svømmer\n" +
-                "4: Se en liste over top 5 svømmere inden for en disciplin (ikke implementeret endnu)\n" +
+                "4: Se en liste over top svømmere inden for en disciplin (WIP)\n" +
                 "5: Tilbage");
+    }
+
+    public void ChooseGroupOfSwimmers(ArrayList<Swimmer> swimmers, Comparator results, String disciplineUsed){
+        ArrayList<CompetitiveSwimmer> bestSwimmer = new ArrayList<>();
+        for (Swimmer swimmer : swimmers){
+            if (swimmer instanceof CompetitiveSwimmer) {
+                bestSwimmer.add((CompetitiveSwimmer) swimmer);
+            }
+        }
+        try {
+            bestSwimmer.sort(results);
+        } catch (IndexOutOfBoundsException E){
+            System.out.println("ERROR: et sorterings elements kunne ikke sorteres");
+        }
+
+
+        for (CompetitiveSwimmer bestSwimmers: bestSwimmer){
+            if (bestSwimmers.getDisciplinesString() == disciplineUsed){
+                printDisciplin(bestSwimmers, swimmers.indexOf(bestSwimmer));
+            }
+        }
+        bestSwimmer.clear();
+    }
+
+    public void printDisciplin(CompetitiveSwimmer swimmer, int index){
+try {
+    System.out.println("Svømmer id: " + (index + 1));
+    System.out.println("Navn: " + swimmer.getName());
+    System.out.println("Alder:" + swimmer.getAge());
+    //her fra printer den elementer fra den næste svømmer
+    System.out.println("Svømme disciplin: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getDiscipline());
+    System.out.println("Beste tid: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getTimeInSeconds() + " sekunder");
+    DateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    System.out.println("Beste tid's dato: " + outputDateFormat.format(swimmer.getResults().get(swimmer.getResults().size() - 1).getDate()));
+    System.out.println("Beste placering: " + swimmer.getResults().get(swimmer.getResults().size() - 1).getPlace());
+    System.out.println("-----------------");
+} catch (IndexOutOfBoundsException e){
+    System.out.println("ERROR: kunne ikke loade korrekt");
+}
     }
 
     public void createResult(Scanner sc, CompetitiveSwimmer swimmer) throws ParseException {
@@ -167,7 +214,7 @@ public class UserInterface {
         swimmer.createCompetitiveResult(time, date, place, discipline);
     }
 
-    private Discipline getDiscipline(Scanner sc) {
+    public Discipline getDiscipline(Scanner sc) {
         boolean inMenu = true;
         int choice = 0;
         while(inMenu) {
@@ -201,6 +248,15 @@ public class UserInterface {
         String[] choices = sc.nextLine().split(",".trim());
         ArrayList<Discipline> disciplines = getDisciplinesFromChoices(choices);
         return disciplines;
+    }
+
+    public void seeDisciplines(){
+        System.out.println("Hvilken disciplin du vil se");
+        System.out.println("""
+                1: BUTTERFLY
+                2: CRAWL
+                3: RYGCRAWL
+                4: BRYSTSVØMNING""");
     }
 
     private ArrayList<Discipline> getDisciplinesFromChoices(String[] choices) {

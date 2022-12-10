@@ -1,6 +1,7 @@
 package Swimmers;
 
 import Enums.Discipline;
+import Swimmers.CompetitiveResult;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +18,10 @@ public class CompetitiveSwimmer extends Swimmer {
         this.results = new ArrayList<>();
     }
 
+    public ArrayList<CompetitiveResult> getResults() {
+        return results;
+    }
+
     public String getCoachName() {
         return coachName;
     }
@@ -26,6 +31,11 @@ public class CompetitiveSwimmer extends Swimmer {
             disciplines.add(discipline);
         }
         results.add(new CompetitiveResult(timeInSeconds, date, place, discipline));
+    }
+
+    public String getDisciplinesString(){
+        String disciplinesToReturn = String.valueOf(disciplines.get(0));
+        return disciplinesToReturn;
     }
 
     public String getDisciplines() {
