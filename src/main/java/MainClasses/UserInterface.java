@@ -142,7 +142,7 @@ public class UserInterface {
                 "1: Se en liste over alle svømmere\n" +
                 "2: Indtast et resultat\n" +
                 "3: Skift træner for en svømmer\n" +
-                "4: Se en liste over top svømmere inden for en disciplin (WIP)\n" +
+                "4: Se en liste over top svømmere inden for en disciplin\n" +
                 "5: Tilbage");
     }
 
@@ -162,15 +162,14 @@ public class UserInterface {
 
         for (CompetitiveSwimmer bestSwimmers: bestSwimmer){
             if (bestSwimmers.getDisciplinesString() == disciplineUsed){
-                printDisciplin(bestSwimmers, swimmers.indexOf(bestSwimmer));
+                printDisciplin(bestSwimmers);
             }
         }
         bestSwimmer.clear();
     }
 
-    public void printDisciplin(CompetitiveSwimmer swimmer, int index){
+    public void printDisciplin(CompetitiveSwimmer swimmer){
 try {
-    System.out.println("Svømmer id: " + (index + 1));
     System.out.println("Navn: " + swimmer.getName());
     System.out.println("Alder:" + swimmer.getAge());
     int ResultIndex = 0;
@@ -183,7 +182,6 @@ try {
         System.out.println("Beste placering: " + swimmer.getResults().get(ResultIndex).getPlace());
         ResultIndex=+1;
     }
-
     System.out.println("-----------------");
 } catch (IndexOutOfBoundsException e){
     System.out.println("ERROR: kunne ikke loade korrekt");
